@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ebebeb"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#3cafdf" >
+
+        <ImageButton
+            android:id="@+id/ibtnR"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:src="@drawable/return_button" />
+
+        <TextView
+            android:id="@+id/textview01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="巡检"
+            android:textColor="#ffffff"
+            android:textSize="17dp" />
+
+        <ImageButton
+            android:id="@+id/ibtnAdd"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:src="@drawable/ic_add_patrol" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/flSelect"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white" >
+
+        <TextView
+            android:id="@+id/tvSelectTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#3cafdf"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ivSelectArrows"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="15dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/image_firm_3" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#3cafdf" />
+
+    <!-- 自定义View实现SwipeRefreshLayout，添加上拉加载更多的功能 -->
+
+    <com.heking.qsy.activity.review.SwipeRefreshView
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <ListView
+            android:id="@+id/bszn_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#808080"
+            android:dividerHeight="1px"
+            android:scrollbars="none" />
+    </com.heking.qsy.activity.review.SwipeRefreshView>
+</LinearLayout>

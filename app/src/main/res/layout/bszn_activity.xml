@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#3cafdf" >
+
+        <TextView
+            android:id="@+id/textview01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="办事指南"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/return_button"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_Class"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="5dp"
+        android:numColumns="3"
+        android:verticalSpacing="5dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f2f2f2" />
+
+    <!-- 自定义View实现SwipeRefreshLayout，添加上拉加载更多的功能 -->
+
+    <com.heking.qsy.activity.review.SwipeRefreshView
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/bszn_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#f2f2f2"
+            android:dividerHeight="0dp"
+            android:scrollbars="none" />
+    </com.heking.qsy.activity.review.SwipeRefreshView>
+
+</LinearLayout>

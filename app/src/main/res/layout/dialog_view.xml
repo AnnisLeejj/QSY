@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3"
+    android:orientation="vertical"
+     >
+<LinearLayout 
+    android:id="@+id/layout_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3"
+    android:orientation="vertical"
+    android:visibility="visible"
+     >
+     <LinearLayout 
+         android:id="@+id/layout_edittextcc"
+         android:layout_width="match_parent"
+         android:layout_height="45dp"
+         android:gravity="center"
+            android:layout_marginTop="5dp"
+         android:orientation="horizontal"
+         >
+         <TextView 
+              android:id="@+id/BUTTON_OFF"
+             android:layout_width="0dp"
+             android:layout_height="35dp"
+             android:gravity="center"
+              android:layout_weight="1"
+              android:textColor="@color/wen_zi_yanse"
+             android:text="取消"
+             />
+         
+         <EditText 
+         android:id="@+id/id_edittext"
+       android:layout_width="200dp"
+       android:layout_height="35dp"
+       android:background="@drawable/back_img"
+       android:hint="　企业名称"
+       />
+           <TextView 
+               android:id="@+id/BUTTON_OK"
+             android:layout_width="0dp"
+             android:layout_height="35dp"
+			 android:layout_weight="1"
+             android:gravity="center"
+                 android:layout_gravity="center"
+                   android:textColor="@color/wen_zi_yanse"
+             android:text="确定"
+             />
+     </LinearLayout>
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical" >
+<LinearLayout 
+		android:layout_width="match_parent"
+		android:layout_height="200dp"
+		android:orientation="horizontal"
+      >
+    
+<LinearLayout 
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    >
+   <ListView 
+       android:id="@+id/piacker_view"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       /> 
+</LinearLayout>
+      </LinearLayout>
+  
+  </RelativeLayout>
+
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/layout_file"
+    android:layout_width="match_parent"
+    android:layout_height="173dp"
+    android:orientation="vertical" 
+    android:visibility="gone"
+    >
+
+    <TextView
+        android:id="@+id/xiangji"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:text="从相机"
+    android:textSize="18dp"
+    android:gravity="center"
+    android:textColor="#ffffff"
+    android:layout_margin="12dp"
+    android:background="@drawable/complaint_back_rectangular"
+    /><TextView
+    android:id="@+id/xiangce"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:text="从相册"
+    android:textSize="18dp"
+    android:gravity="center"
+    android:textColor="#ffffff"
+    android:layout_margin="12dp"
+    android:background="@drawable/complaint_back_rectangular"
+    /><TextView
+    android:id="@+id/wenjian"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:text="取消"
+    android:textSize="18dp"
+    android:gravity="center"
+    android:textColor="#ffffff"
+    android:layout_margin="12dp"
+    android:background="@drawable/complaint_back_rectangular"
+    />
+    
+    
+</LinearLayout>
+</LinearLayout>

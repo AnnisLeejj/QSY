@@ -1,0 +1,211 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <!-- 
+    	Radio
+     -->
+    <style name="CustomRadioBtn">  
+        <item name="android:button">@drawable/custom_radio_btn</item>
+	</style>
+    
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <!-- dialog -->
+    <style name="DialogAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/action_sheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/action_sheet_dialog_out</item>
+    </style>
+
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!--
+<item name="android:windowFrame">@null</item> ：Dialog的windowFrame框为无
+<item name="android:windowIsFloating">true</item>：是否浮现在activity之上
+<item name="android:windowIsTranslucent">false</item>:是否半透明
+<item name="android:windowNoTitle">true</item>:是否显示title
+<item name="android:windowBackground">@drawable/dia_bg</item>:设置dialog的背景
+<item name="android:backgroundDimEnabled">false</item>: 背景是否模糊显示
+"android:windowContentOverlay" window内容背景覆盖
+    -->
+    <style name="DialogBg">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">14dp</item>
+        <item name="android:paddingRight">14dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:background">#1a151b</item>
+    </style>
+
+    <style name="main_bar_text_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="top_bar_style">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="normal_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/room_rating_bar</item>
+        <item name="android:minHeight">25dp</item>
+        <item name="android:maxHeight">33dp</item>
+    </style>
+
+    <!-- 自定义dialog -->
+    <style name="text_18_ffffff">
+        <item name="android:textSize">18.0dip</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
+
+    <style name="text_16_666666">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
+
+    <style name="sdw_white">
+        <item name="android:shadowColor">#7fffffff</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">0.65</item>
+        <item name="android:shadowRadius">1.0</item>
+    </style>
+
+    <style name="sdw_79351b">
+        <item name="android:shadowColor">#ff79351b</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1.0</item>
+    </style>
+
+    <style name="text_15_ffffff_sdw" parent="@style/sdw_79351b">
+        <item name="android:textSize">15.0dip</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
+
+    <style name="text_15_666666_sdw" parent="@style/sdw_white">
+        <item name="android:textSize">15.0dip</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
+
+    <style name="Dialog_s" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <!-- 主题元素_01 -->
+    <style name="SwitchTheme_1" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="appheadbackground">@color/app_head_background_1</item>
+        <item name="listview_next">@color/app_listview_next_title</item>
+        <item name="listview_next_context">@color/app_listview_next_context</item>
+        <item name="tousujubaobutton">@drawable/tousujubao_button_1</item>
+        <item name="back_complaint_reporting_home">@drawable/back_complaint_reporting_home</item>
+        <item name="button_back_zw">@drawable/button_back_zw</item>
+        <item name="opengorvernent_wz">#4390d4</item>
+        <item name="backscxc">@drawable/button_back_scxc_1</item>
+        <item name="dizhi">@drawable/gps_1</item>
+        <item name="dianhua">@drawable/dianhua</item>
+        <item name="yonghu">@drawable/image_app_yonghu</item>
+        <item name="gps">@drawable/gps_1</item>
+        <item name="roomRatingBar">@drawable/room_rating_bar</item>
+        <item name="yaopingzhengwei_sousuo">@drawable/search_btn_background</item>
+        <item name="back_image_back">#0558a1</item>
+        <item name="custom_blue_button_selector">@drawable/custom_blue_button_selector</item>
+        <item name="app_base_color">@color/app_base_color</item>
+        <item name="xiangxiMessage">#d1dfeb</item>
+        <item name="share_pri">@drawable/yingy_fx</item>
+        <item name="qingchuhuancun">@drawable/qing_chu_hc</item>
+        <item name="mimafuwu">@drawable/mimafuwu</item>
+        <item name="banbengengxin">@drawable/ban_ben_gx</item>
+        <item name="yijianfankui">@drawable/yjfkui</item>
+        <item name="guanyuwomen">@drawable/gywomen</item>
+        <item name="personal_center_text_color">@color/personal_center_text_color</item>
+        <item name="my_image_back">@drawable/my_image_back1</item>
+        <item name="theme_back">@drawable/heme_blue_1</item>
+        <item name="icon_sms">@drawable/icon_sms</item>
+        <item name="zh_ZLZS">@drawable/zh2</item>
+        <item name="firm_iamge">@drawable/image_firm_1</item>
+        <item name="home_button_h">@drawable/h_home_button</item>
+        <item name="convenient_server_button_h">@drawable/h_convenient_server_button</item>
+        <item name="personal_center_h">@drawable/h_personal_center</item>
+    </style>
+
+    <!-- 主题元素_02 -->
+    <style name="SwitchTheme_2" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="home_button_h">@drawable/h_home_button_1</item>
+        <item name="convenient_server_button_h">@drawable/h_convenient_server_button_1</item>
+        <item name="personal_center_h">@drawable/h_personal_center_1</item>
+        <item name="appheadbackground">@color/app_head_background_2</item>
+        <item name="listview_next">@color/app_listview_next_title_1</item>
+        <item name="listview_next_context">@color/app_listview_next_context_1</item>
+        <item name="tousujubaobutton">@drawable/tousujubao_button_2</item>
+        <item name="back_complaint_reporting_home">@drawable/back_complaint_reporting_home_2</item>
+        <item name="button_back_zw">@drawable/button_back_zw_1</item>
+        <item name="opengorvernent_wz">#f9986e</item>
+        <item name="backscxc">@drawable/button_back_scxc_2</item>
+        <item name="dianhua">@drawable/dianhua_1</item>
+        <item name="dizhi">@drawable/gps_1</item>
+        <item name="yonghu">@drawable/image_app_yonghu_1</item>
+        <item name="gps">@drawable/gps_2</item>
+        <item name="roomRatingBar">@drawable/room_rating_bar_2</item>
+        <item name="yaopingzhengwei_sousuo">@drawable/search_btn_background_1</item>
+        <item name="back_image_back">#EB6024</item>
+        <item name="custom_blue_button_selector">@drawable/custom_blue_button_selector_1</item>
+        <item name="app_base_color">@color/app_base_color_1</item>
+        <item name="xiangxiMessage">#80f9986e</item>
+        <item name="share_pri">@drawable/yingy_fx_1</item>
+        <item name="qingchuhuancun">@drawable/qing_chu_hc_1</item>
+        <item name="mimafuwu">@drawable/mimafuwu_1</item>
+        <item name="banbengengxin">@drawable/ban_ben_gx_1</item>
+        <item name="yijianfankui">@drawable/yjfkui_1</item>
+        <item name="guanyuwomen">@drawable/gywomen_1</item>
+        <item name="personal_center_text_color">@color/personal_center_text_color_1</item>
+        <item name="my_image_back">@drawable/my_image_back_2</item>
+        <item name="theme_back">@drawable/heme_blue_2</item>
+        <item name="icon_sms">@drawable/icon_sms_1</item>
+        <item name="yaopizhengwei">@drawable/yaopizhengwei_1</item>
+        <item name="zh_ZLZS">@drawable/zh</item>
+         <item name="firm_iamge">@drawable/image_firm_2</item>
+    </style>
+
+    <style name="theme_heiping" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+</resources>

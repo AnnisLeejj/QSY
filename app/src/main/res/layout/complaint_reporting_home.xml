@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f7fb"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/home_top"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#3cafdf">
+
+        <TextView
+            android:id="@+id/textview01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="投诉举报"
+            android:textColor="#ffffff"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/return_button"
+            android:gravity="center"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/Boardlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/RewardBar"
+        android:layout_below="@+id/home_top"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:scrollbars="none"/>
+    <!--
+    <com.heking.qsy.util.AutoScrollView
+        android:id="@+id/autoscorllview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+         android:focusable="false"
+        >
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:focusable="false"
+            android:orientation="vertical" >
+            
+            
+        </LinearLayout>
+    </com.heking.qsy.util.AutoScrollView>
+    <TextView
+        android:id="@+id/jiang_li" 
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text=""
+        android:textColor="#ffffff"
+        android:background="#0b92fb"
+       android:singleLine="true"  
+		android:gravity="center"
+        android:ellipsize="marquee"   
+        android:marqueeRepeatLimit="marquee_forever"  
+               android:focusable="true" 
+        android:focusableInTouchMode="true"/>
+    -->
+
+    <ListView
+        android:id="@+id/RewardBar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_above="@+id/ok_button_ima"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:divider="#00000000"
+        android:dividerHeight="1px"
+        android:scrollbars="none"/>
+
+    <TextView
+        android:id="@+id/ok_button_ima"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/shushi"
+        android:gravity="center"
+        android:text="举报"
+        android:textColor="#ffffff" />
+
+</RelativeLayout>

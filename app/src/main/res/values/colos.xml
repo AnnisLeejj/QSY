@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+    <color name="h_color_on">#3cafdf</color>
+    <color name="h_color_on_1">#EB6125</color>
+    
+    <color name="h_color_off">#afafaf</color>
+        
+    <color name="on_backe_button">#33acdc</color>
+    <color name="off_backe_button">#36b38d</color>
+     <color name="white">#FFFFFF</color>
+    <color name="calendar_top_bg">#34b368</color>
+     <color name="gold">#FFD700</color><!--金色 -->
+    <color name="transparent">#00000000</color>
+    <color name="gray_pressed">#ffb5b5b6</color>
+    
+     <color name="yellow">#eead0e</color>
+	<color name="grey">#666666</color>
+	<color name="milk_white">#f2f2f2</color>
+	
+    <color name="icon_background_grey">#77666666</color>
+	
+	<color name="label_font">#888888</color>
+	<color name="edit_text_color">#111111</color>
+  
+	<color name="app_base_color">#4390d4</color>
+	<color name="app_base_color_1">#ffffff</color>
+	
+	
+	<color name="home_tab_selected">#0467be</color>
+	<color name="app_background_grey">#f2f2f2</color>
+	<color name="app_text_color">#666666</color>
+	<color name="app_listview_next_title">#2687B9</color>
+	<color name="app_listview_next_title_1">#D8612F</color>
+	<color name="app_listview_next_context">#4390d4</color>
+	<color name="app_listview_next_context_1">#D8612F</color>
+	<color name="app_head_background">#4390d4</color>
+	<color name="app_head_background_1">#4390d4</color>
+	<color name="app_head_background_2">#EB6024</color>
+	<color name="app_head_background_3">#D2470C</color>
+	
+	  <!-- 控件按下时显示的颜色 -->
+    <color name="list_backgroud_color">#2fb3cb</color>
+    <color name="listview_up">#f2f2f2</color>
+    <color name="listview_down">#ffffff</color>
+    <color name="table_up">#3599c4</color>
+    <color name="table_down">#3cafdf</color>
+    <color name="title_color">#0f8ec5</color>
+    <color name="content_color">#737373</color>
+ <!-- 画面背景色 -->
+    <drawable name="layout_backgroud">#000000</drawable>
+    
+    <!-- 分割线背景色 -->
+    <drawable name="line_background">#161823</drawable>
+    <color name="tab_item_selected">#AA000000</color>
+    <color name="list_item_search_bg_selected">#FFd0edf7</color>
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
+    <color name="share_text">#ff000000</color>
+    <color name="share_view">#ffffffff</color>
+    <color name="status_view">#50000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="translucent">#00000000</color>
+    <color name="font_black">#353535</color>
+    <color name="darkblue">#27408B</color>
+    <color name="contentwhite">#e1e1dc</color>
+    <color name="lightblue">#1AA3D0</color>
+    <color name="red">#dc0606</color>
+    <color name="gray">#757575</color>
+    <color name="lightgrey">#ECECEC</color>
+    <color name="darkgrey">#878787</color>
+    <color name="systemblue">#3482C5</color>
+    <color name="black">#000000</color>
+    <color name="green">#12a052</color>
+    <color name="translucent_background">#b0000000</color>
+    <color name="personal_center_text_color">#3ca7dc</color>
+    <color name="personal_center_text_color_1">#F6B9A0</color>
+    
+    <!-- 布局颜色 -->
+    <color name="wen_zi_yanse">#80C0E2</color>
+    <color name="bai_se">#ffffff</color>
+    <color name="hei_se">#000000</color>
+    <color name="f3_huise">#f3f3f3</color>
+    <color name="hong_se">#FC4444</color>
+    <color name="xian_tiao_bei_jing">#3CA7DC</color>
+    <color name="tou_su_button">#B0D6EA</color>
+    <color name="tou_su_button_2">#f9986e</color>
+    <color name="tou_biao_ti">#4390d4</color>
+</resources>

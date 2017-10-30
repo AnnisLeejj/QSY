@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:background="#ebebeb" />
+
+    <TextView
+        android:id="@+id/tvContext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_margin="8dp"
+        android:text="检查结果:"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/etResult"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/white"
+        android:hint="请输入检查结果"
+        android:maxLines="5"
+        android:paddingLeft="8dp" />
+    
+    
+     <TextView
+    
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_margin="8dp"
+        android:text="整改意见:"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/etOpinion"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/white"
+        android:hint="请输入整改意见"
+        android:maxLines="5"
+        android:paddingLeft="8dp" />
+    
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="被检查人签名："
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/ivQianzi1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="食药监监督协管员："
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/ivQianzi2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/white" />
+    
+    
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnPrintl"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#3cafdf"
+            android:gravity="center"
+            android:text="打印"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#3cafdf"
+            android:gravity="center"
+            android:text="提交"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</LinearLayout>

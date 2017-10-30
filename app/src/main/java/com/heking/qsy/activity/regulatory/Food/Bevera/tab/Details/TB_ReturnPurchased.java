@@ -1,0 +1,121 @@
+package com.heking.qsy.activity.regulatory.Food.Bevera.tab.Details;
+
+import java.util.ArrayList;
+
+public class TB_ReturnPurchased {
+	private ArrayList<Data> Data;
+
+	public ArrayList<Data> getData() {
+		return Data;
+	}
+
+	public void setData(ArrayList<Data> data) {
+		Data = data;
+	}
+	public class Data{
+
+		
+	    private String ID;//1,
+	    private String ReturnID;//1,
+	    private String Quantity;//16,
+	    private String FoodID;//"FD00000000000001",
+	    private String BatchNumber;//"0200400000000",
+	    private String ProductionDate;//"2015-04-02T14:45:48",
+	    private String ExpiredDate;//"2016-04-02T14:45:48",
+	    private String SupplierID;//null,
+	    private String SupplierName;//"旺旺集团",
+	    private String ReturnPrice;//20,
+	    private String Remark;//null,
+	    private String MeasurementUnit;//"盒",
+	    private String ShelfLife;//"12个月",
+	    private String GenericName;//"有机饼干"
+		public String getID() {
+			return ID;
+		}
+		public void setID(String iD) {
+			ID = iD;
+		}
+		public String getReturnID() {
+			return ReturnID;
+		}
+		public void setReturnID(String returnID) {
+			ReturnID = returnID;
+		}
+		public String getQuantity() {
+			return Quantity;
+		}
+		public void setQuantity(String quantity) {
+			Quantity = quantity;
+		}
+		public String getFoodID() {
+			return FoodID;
+		}
+		public void setFoodID(String foodID) {
+			FoodID = foodID;
+		}
+		public String getBatchNumber() {
+			return BatchNumber;
+		}
+		public void setBatchNumber(String batchNumber) {
+			BatchNumber = batchNumber;
+		}
+		public String getProductionDate() {
+			return ProductionDate;
+		}
+		public void setProductionDate(String productionDate) {
+			ProductionDate = productionDate;
+		}
+		public String getExpiredDate() {
+			return ExpiredDate;
+		}
+		public void setExpiredDate(String expiredDate) {
+			ExpiredDate = expiredDate;
+		}
+		public String getSupplierID() {
+			return SupplierID;
+		}
+		public void setSupplierID(String supplierID) {
+			SupplierID = supplierID;
+		}
+		public String getSupplierName() {
+			return SupplierName;
+		}
+		public void setSupplierName(String supplierName) {
+			SupplierName = supplierName;
+		}
+		public String getReturnPrice() {
+			return ReturnPrice;
+		}
+		public void setReturnPrice(String returnPrice) {
+			ReturnPrice = returnPrice;
+		}
+		public String getRemark() {
+			return Remark;
+		}
+		public void setRemark(String remark) {
+			Remark = remark;
+		}
+		public String getMeasurementUnit() {
+			return MeasurementUnit;
+		}
+		public void setMeasurementUnit(String measurementUnit) {
+			MeasurementUnit = measurementUnit;
+		}
+		public String getShelfLife() {
+			return ShelfLife;
+		}
+		public void setShelfLife(String shelfLife) {
+			ShelfLife = shelfLife;
+		}
+		public String getGenericName() {
+			return GenericName;
+		}
+		public void setGenericName(String genericName) {
+			GenericName = genericName;
+		}
+	    
+
+	}
+	
+	
+}

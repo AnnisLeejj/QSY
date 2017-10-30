@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="appheadbackground" format="color" />
+    <attr name="listview_next_context" format="color"></attr>
+    <attr name="listview_next" format="color"/>
+    <attr name="opengorvernent_wz" format="color" />
+    <attr name="tousujubaobutton" format="reference" />
+    <attr name="back_complaint_reporting_home" format="reference" />
+    <attr name="backscxc" format="reference" />
+    <attr name="button_back_zw" format="reference" />
+    <attr name="dizhi" format="reference"/>
+    <attr name="dianhua" format="reference" />
+    <attr name="yonghu" format="reference" />
+    <attr name="gps" format="reference" />
+    <attr name="roomRatingBar" format="reference" />
+    <attr name="yaopingzhengwei_sousuo" format="reference" />
+    <attr name="back_image_back" format="color" />
+    <attr name="custom_blue_button_selector" format="reference" />
+    <attr name="app_base_color" format="reference" />
+    <attr name="xiangxiMessage" format="color" />
+    <attr name="share_pri" format="reference" />
+    <attr name="qingchuhuancun" format="reference" />
+    <attr name="mimafuwu" format="reference" />
+    <attr name="banbengengxin" format="reference" />
+    <attr name="yijianfankui" format="reference" />
+    <attr name="guanyuwomen" format="reference" />
+    <attr name="personal_center_text_color" format="reference" />
+    <attr name="my_image_back" format="reference" />
+    <attr name="theme_back" format="reference" />
+    <attr name="icon_user" format="reference" />
+    <attr name="icon_sms" format="reference" />
+    <attr name="icon_pw" format="reference" />
+    <attr name="yaopizhengwei" format="reference" />
+    <attr name="zh_ZLZS" format="reference" />
+    <attr name="biaoti_wenzi_tousujubao" format="color"></attr>
+    <attr name="firm_iamge" format="reference"></attr>
+    
+    <!-- 首页 -->
+    <attr name="home_button_h" format="reference"></attr>
+    <attr name="convenient_server_button_h" format="reference"></attr>
+    <attr name="personal_center_h" format="reference"></attr>
+    <attr name="text_color_h" format="color"></attr>
+    
+    
+<!-- //自定义控件的属性设置 -->
+    <declare-styleable name="MySpinnerSelect">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="selectBackgroundColor" format="color"/>
+        <attr name="selectTextColor" format="color"/>
+        <attr name="viewWidth" format="dimension"/>
+        <attr name="viewHeight" format="dimension"/>
+        <attr name="iconSrc" format="reference"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#3cafdf" >
+
+        <TextView
+            android:id="@+id/textview01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="11"
+            android:singleLine="true"
+            android:text="政务公开"
+            android:textColor="#ffffff"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/return_button"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#f5f5f9"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/gong_gao_gongshi"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:background="?attr/button_back_zw"
+            android:button="@null"
+            android:checked="true"
+            android:text="公告公示"
+            android:textColor="#3cafdf"
+            android:textSize="15dp" />
+
+        <!-- <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />  -->
+        <RadioButton
+            android:id="@+id/jian_guan_dong_tai"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:background="?attr/button_back_zw"
+            android:button="@null"
+            android:text="监管动态"
+            android:textColor="#808080"
+            android:textSize="15dp" />
+
+       <!-- <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />  -->
+
+        <RadioButton
+            android:id="@+id/falv_fagui"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:background="?attr/button_back_zw"
+            android:button="@null"
+            android:text="法律法规"
+            android:textColor="#808080"
+            android:textSize="15dp" />
+<!-- <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />  -->
+       
+
+        <RadioButton
+            android:id="@+id/kepu_yuandi"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:background="?attr/button_back_zw"
+            android:button="@null"
+            android:text="科普园地"
+            android:textColor="#808080"
+            android:textSize="15dp" />
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/open_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="6dp"
+        android:divider="#f2f2f2"
+        android:dividerHeight="0.5dp"
+        android:scrollbars="none" >
+    </ListView>
+
+</LinearLayout>

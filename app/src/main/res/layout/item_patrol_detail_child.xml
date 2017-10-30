@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+            android:background="@color/white" >
+
+    <TextView
+        android:id="@+id/tvContext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="坎坎坷坷扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩"
+       android:textColor="#808080"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/Rg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rbYes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="是"
+                android:textColor="#808080"
+                android:drawablePadding="5dp"
+                android:button="@null"
+                android:drawableLeft="@drawable/custom_radio_btn_top" />
+
+            <RadioButton
+                android:id="@+id/rbNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="否" 
+                   android:drawablePadding="5dp"
+                 android:button="@null"
+                android:drawableLeft="@drawable/custom_radio_btn_top"
+                  android:textColor="#808080"/>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnRemark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/selector_xie_bg"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="备注"
+            android:textColor="#808080" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="44dp"
+        android:background="#3cafdf"
+        android:padding="8dip" >
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:background="@drawable/return_button"
+            android:padding="6.0dip"
+/>
+        <TextView
+            android:id="@+id/name_firm"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="信息查询"
+            android:singleLine="true"
+             android:maxEms="11"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="20dip" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/layout_RadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+         >
+
+        <RadioButton 
+            android:id="@+id/spjy"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="食品流通"
+            android:textColor="#000000"
+            android:gravity="center"
+        android:checked="true"
+        android:visibility="gone"
+            />
+        <RadioButton 
+            android:id="@+id/splt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="食品生产"
+            android:textColor="#000000"
+             android:visibility="gone"
+            android:gravity="center"
+            />
+        <RadioButton 
+              android:id="@+id/cyjy"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="餐饮企业"
+            android:textColor="#000000"
+            android:gravity="center"
+             android:visibility="gone"
+            />
+    </RadioGroup>
+    
+<ListView
+    android:id="@+id/regulatory_list_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:layout_marginTop="6dp"
+     android:divider="#f2f2f2"
+     android:dividerHeight="0.5dp"
+    android:scrollbars="none" >
+</ListView>
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="44dp"
+        android:background="#3cafdf"
+        >
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:background="@drawable/return_button"
+            android:padding="6.0dip" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="库存信息"
+            android:textColor="@color/white"
+            android:id="@+id/textview01"
+            android:textSize="20dip" />
+    </RelativeLayout>
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:orientation="vertical"
+        >
+
+         <TextView
+             android:id="@+id/bb"
+             android:layout_width="wrap_content"
+             android:layout_height="45dp"
+             android:gravity="center|bottom"
+             android:text="基本信息"
+             android:textColor="#000000"
+             android:textSize="17dp" />
+
+         <View 
+             android:layout_width="match_parent"
+             android:layout_height="1px"
+             android:background="#000000"
+             />
+
+        <LinearLayout
+            android:id="@+id/jibenlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+</LinearLayout>
+
+         <TextView
+             android:id="@+id/aa"
+             android:layout_width="wrap_content"
+             android:layout_height="40dp"
+             android:gravity="center|bottom"
+             android:text="药械列表"
+             android:textColor="#000000"
+             android:textSize="17dp" />
+
+         <View 
+             android:layout_width="match_parent"
+             android:layout_height="1px"
+             android:background="#000000"
+             />
+
+         <LinearLayout
+             android:id="@+id/yaoxielayout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:orientation="vertical" >
+
+         </LinearLayout>
+        
+    </LinearLayout>
+      </ScrollView>
+</LinearLayout>

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">犍食药</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="image_firm">▲</string>
+    <string name="preference_default_tts_role">xiaoyan</string>
+    <string name="preference_key_tts_speed">tts_speed</string>
+    <string name="preference_title_tts_speed">语速</string>
+    <string name="preference_default_tts_speed">50</string>
+    <string name="preference_dialog_title_tts_speed">选择语速</string>
+    <string name="preference_key_tts_volume">tts_volume</string>
+    <string name="preference_title_tts_volume">音量</string>
+    <string name="preference_default_tts_volume">50</string>
+    <string name="preference_dialog_title_tts_volume">选择音量</string>
+    <string name="preference_key_tts_pitch">tts_pitch</string>
+    <string name="preference_title_tts_pitch">语调</string>
+    <string name="preference_default_tts_pitch">50</string>
+    <string name="intell_bd_title">智能播报</string>
+    <!-- 请替换成在语音云官网申请的appid -->
+    <string name="app_id">57fda704</string>
+    <string name="example_explain">本示例为讯飞语音Android平台开发者提供语音听写、语法识别、语义理解和语音合成等代码样例，旨在让用户能够依据该示例快速开发出基于语音接口的应用程序。</string>
+    <string name="text_tts_source">科大讯飞作为中国最大的智能语音技术提供商，在智能语音技术领域有着长期的研究积累，并在中文语音合成、语音识别、口语评测等多项技术上拥有国际领先的成果。科大讯飞是我国唯一以语音技术为产业化方向的“国家863计划成果产业化基地”…</string>
+    <string name="text_tts_source_en">iFLYTEK is a national key software enterprise dedicated to the research of intelligent speech and language technologies, development of software and chip products, provision of speech information services, and integration of E-government systems. The intelligent speech technology of iFLYTEK, the core technology of the company, represents the top level in the world.</string>
+    <string name="text_isr_abnf_hint">\t上传内容为：\n\t#ABNF 1.0 gb2312;\n\tlanguage zh-CN;\n\tmode voice;\n\troot $main;\n\t$main = $place1 到$place2 ;\n\t$place1 = 北京 | 武汉 | 南京 | 天津 | 东京;\n\t$place2 = 上海 | 合肥;</string>
+    <string name="text_understand_hint">\t您可以说：\n\t今天的天气怎么样?\n\t北京到上海的火车?\n\t有什么好吃的?\n\t上海外滩有哪些酒店?\n\n\t更多语义请登录：\n\thttp://osp.voicecloud.cn/ \n\t配置您的专属语义吧!</string>
+    <!-- 听写 -->
+    <string name="text_begin">请开始说话…</string>
+    <string name="text_begin_recognizer">开始音频流识别</string>
+    <string name="text_upload_contacts">上传联系人</string>
+    <string name="text_upload_userwords">上传用户词表</string>
+    <string name="text_upload_success">上传成功</string>
+    <string name="text_userword_empty">词表下载失败或内容为空</string>
+    <string name="text_download_success">下载成功</string>
+    <string name="pref_key_iat_show">iat_show</string>
+    <string name="pref_title_iat_show">显示听写界面</string>
+    <string name="pref_title_iat_dwa">结果动态修正</string>
+
+    <!-- 合成 -->
+    <string-array name="engine_entries">
+        <item>本地合成</item>
+        <item>在线合成</item>
+    </string-array>
+    <string-array name="engine_values">
+        <item>local</item>
+        <item>cloud</item>
+    </string-array>
+    <string-array name="voicer_cloud_entries">
+        <item>小燕—女青、中英、普通话</item>
+        <item>小宇—男青、中英、普通话</item>
+        <item>凯瑟琳—女青、英</item>
+        <item>亨利—男青、英</item>
+        <item>玛丽—女青、英</item>
+        <item>小研—女青、中英、普通话</item>
+        <item>小琪—女青、中英、普通话</item>
+        <item>小峰—男青、中英、普通话</item>
+        <item>小梅—女青、中英、粤语</item>
+        <item>小莉—女青、中英、台湾普通话</item>
+        <item>小蓉—女青、中、四川话</item>
+        <item>小芸—女青、中、东北话</item>
+        <item>小坤—男青、中、河南话</item>
+        <item>小强—男青、中、湖南话</item>
+        <item>小莹—女青、中、陕西话</item>
+        <item>小新—男童、中、普通话</item>
+        <item>楠楠—女童、中、普通话</item>
+        <item>老孙—男老、中、普通话</item>
+    </string-array>
+    <string-array name="voicer_cloud_values">
+        <item>xiaoyan</item>
+        <item>xiaoyu</item>
+        <item>catherine</item>
+        <item>henry</item>
+        <item>vimary</item>
+        <item>vixy</item>
+        <item>xiaoqi</item>
+        <item>vixf</item>
+        <item>xiaomei</item>
+        <item>xiaolin</item>
+        <item>xiaorong</item>
+        <item>xiaoqian</item>
+        <item>xiaokun</item>
+        <item>xiaoqiang</item>
+        <item>vixying</item>
+        <item>xiaoxin</item>
+        <item>nannan</item>
+        <item>vils</item>
+    </string-array>
+    <string-array name="emot_entries">
+        <item>正常</item>
+        <item>高兴</item>
+        <item>悲伤</item>
+        <item>生气</item>
+    </string-array>
+    <string-array name="emot_values">
+        <item>neutral</item>
+        <item>happy</item>
+        <item>sad</item>
+        <item>angry</item>
+    </string-array>
+    <string-array name="stream_entries">
+        <item>通话</item>
+        <item>系统</item>
+        <item>铃声</item>
+        <item>音乐</item>
+        <item>闹铃</item>
+        <item>通知</item>
+    </string-array>
+    <string-array name="stream_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string name="tts_toast_format" formatted="false">缓冲进度为%d%%，播放进度为%d%%</string>
+    <!-- 语言 -->
+    <string-array name="language_entries">
+        <item>普通话</item>
+        <item>粤语</item>
+        <item>河南话</item>
+        <item>英语</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>mandarin</item>
+        <item>cantonese</item>
+        <item>henanese</item>
+        <item>en_us</item>
+    </string-array>
+    <!-- 语音评测 -->
+    <string name="text_en_word">"[word]\napple\nbanana\norange"</string>
+    <string name="text_en_sentence">"The quick brown fox jumps over the lazy dog."</string>
+    <string name="text_cn_syllable">"知，痴，是"</string>
+    <string name="text_cn_word">"磁铁，率领，脆弱，动手，古筝"</string>
+    <string name="text_cn_sentence">"一座座雪峰插入云霄，峰顶银光闪闪，大大小小的湖泊，像颗颗宝石镶嵌在彩带般的沟谷中。"</string>
+
+    <string-array name="ise_language_entries">
+        <item>英语</item>
+        <item>汉语</item>
+    </string-array>
+    <string-array name="ise_language_values">
+        <item>en_us</item>
+        <item>zh_cn</item>
+    </string-array>
+    <string-array name="category_entries">
+        <item>单字</item>
+        <item>词语</item>
+        <item>句子</item>
+    </string-array>
+    <string-array name="category_values">
+        <item>read_syllable</item>
+        <item>read_word</item>
+        <item>read_sentence</item>
+    </string-array>
+    <string-array name="result_level_entries">
+        <item>plain</item>
+        <item>complete</item>
+    </string-array>
+    <!-- 标点符号 -->
+    <string-array name="punc_entries">
+        <item>有标点</item>
+        <item>无标点</item>
+    </string-array>
+    <string-array name="punc_values">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+    <string-array name="dwa_entries">
+        <item>开启</item>
+        <item>关闭</item>
+    </string-array>
+    <!-- 视频 -->
+
+    <string name="username_hint">Input username</string>
+    <string name="passwd_hint">Input password</string>
+    <string name="login_btn_txt">Login</string>
+    <string name="auto_login_chk_txt">Auto Login</string>
+    <string name="fetch_linelist_failed">Fetching line list failed.</string>
+    <string name="login_failed">Login failed,%s</string>
+    <string name="fetch_reslist_failed">Fetching resource list failed,%s</string>
+    <string name="server_setting">Server Setting</string>
+    <string name="server_setting_hint">Input a server address</string>
+    <string name="save">Save</string>
+    <string name="serveraddr_empty_tip">Server is empty !</string>
+    <string name="username_empty_tip">UserName is empty !</string>
+    <string name="password_empty_tip">Password is empty !</string>
+    <string name="macaddr_empty_tip">MacAddress is empty !</string>
+    <string name="line_unavailable">No available line,please click button to fetch line list!</string>
+    <string name="getline_suc_tip">Getting line success!</string>
+    <string name="getline_fail_tip">Getting line failed,%s</string>
+    <string name="login_suc_tip">Login success!</string>
+    <string name="fetchline_process_tip">Fetching line list...</string>
+    <string name="login_process_tip">Logging in process...</string>
+    <string name="no_data_tip">没有获取到企业摄像头数据</string>
+    <string name="fetch_resource_suc">Fetching resource success!</string>
+    <string name="cloud_ctrl">Cloud Platform Control </string>
+    <string name="start_ctrl">启动云台控制 </string>
+    <string name="stop_ctrl">停止云台控制 </string>
+    <string name="stream_choose">Choose a stream</string>
+    <string name="fetch_line">Fetch line</string>
+    <string name="demo_version">Version:Build2016-04-29</string>
+
+    <!-- 消息界面 -->
+    <string name="bullentin_title">消息</string>
+    <string name="bullentin_loading">消息加载中,请稍后...</string>
+    <string name="platform_bullentin">公告消息</string>
+    <string name="system_bullentin">系统消息</string>
+    <string name="dispatch_bullentin">调度消息</string>
+    <string name="no_bullentin_text">无消息记录</string>
+    <string name="no_camera_suc">该企业名称配置不正确</string>
+    <string name="search_title_text">搜索</string>
+    <string name="get_bullentin_list_detail">获取消息列表失败，请点击我重新获取</string>
+    <string name="get_bullentin_list_detail_toast">获取消息列表失败</string>
+    <string name="get_platform_bullentin_detail_list">获取平台消息详情列表失败，请点击我重新获取</string>
+    <string name="get_platform_bullentin_detail_list_toast">获取平台消息详情列表失败</string>
+    <string name="get_system_bullentin_detail_list">获取系统消息详情列表失败，请点击我重新获取</string>
+    <string name="get_system_bullentin_detail_list_toast">获取系统消息详情列表失败</string>
+    <string name="delete_bullent_fail_text_toast">删除消息失败</string>
+    <string name="refesh_bullentin_fail_text">刷新失败</string>
+    <string name="more_bullentin_fail_text">获取更多消息失败</string>
+    <string name="more_bullentin_no_more">没有更多了</string>
+    <string name="network_exception">网络异常，请检查您的网络</string>
+    <string name="bullentin_list_load_fail">获取消息列表失败，请点击重新获取</string>
+    <string name="alarm_bulletin_list_load_fail">获取报警消息详情失败，请点击重新获取</string>
+    <string name="alarm_bulletin_list_load_fail_toast">获取报警消息详情失败</string>
+    <string name="yesterday">昨天</string>
+    <string name="today">今天</string>
+    <!-- "M月d日 HH:mm"; -->
+    <string name="mmdd">M月d日</string>
+    <string name="mmddhhmm">M月D日 HH:MM</string>
+    <string name="hhmm">HH:MM</string>
+    <string name="delete_bullent_txt">删除消息</string>
+    <string name="certain_delete_bullentin_txt">确定要删除消息？</string>
+    <string name="bullentin_title_text">请前往事发地点参加湖南睡啦</string>
+    <!-- 报警消息 -->
+    <string name="alarm_bullentin_title">查看报警</string>
+    <string name="notice_title_text"></string>
+    <string name="get_location_fail">获取地理位置信息失败</string>
+    <string name="bulletin_real_play_text">查看预览</string>
+    <string name="bulletin_play_back_text">查看录像</string>
+    <string name="bulletin_camera_detail_text">监控点详情</string>
+    <string name="alarm_bulletin_no_limit_real_play">当前账户没有预览权限</string>
+    <string name="alarm_bulletin_no_limit_play_back">当前账户没有回放权限</string>
+    <string name="time_header">发表时间：</string>
+    <string name="time_happans_header">事发时间：</string>
+    <string name="location_title_text">事发地点：</string>
+    <string name="describe_title_text">事件描述：</string>
+
+    <!-- 条形码、二维码扫描 -->
+    <string name="scan_waiting_txt">正在查询，请稍候...</string>
+    <string name="scan_cue_txt">请将二维码或序列号条码置于矩形框内，系统将自动识别</string>
+    <string name="describtion" />
+    <string name="scan_result_txt">扫描结果</string>
+    <string name="scan_result_error">没查找到您要的东西</string>
+
+    <!-- 演示视频 -->
+    <string name="demo_video_text">演示视频</string>
+    <string name="demo_camera_loading_text">列表加载中，请稍等...</string>
+    <string name="demo_live_text">查看视频</string>
+    <string name="live_refrsh">正在重连，请稍等...</string>
+    <string name="live_starting">正在连接，请稍等...</string>
+    <string name="live_start_fail">开启预览失败，请手动刷新连接</string>
+    <!-- 智能引导页面 -->
+    <string name="capture_text">抓图</string>
+    <string name="record_text">录像</string>
+    <string name="ptz_text">云台控制</string>
+    <string name="quality_text">画面质量</string>
+    <string name="stop_text">停止预览</string>
+    <!-- 网络请求错误 -->
+    <string name="request_err_timeout">,请求超时</string>
+    <string name="endstr_errorCode">,错误码</string>
+
+    <!-- 对讲 -->
+    <string name="start_talk_fail">开启对讲失败</string>
+    <string name="stop_talk_fail">关闭对讲失败</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_baidu_map">BaiduMapActivity</string>
+    <string name="title_activity_hik_gis">HikGISActivity</string>
+    <!-- sessionId超期提示 -->
+    <string name="session_id_error">登录已失效，请重新登录</string>
+    <string name="playback_not_allot_record">该监控点没有配置录像计划</string>
+    <string name="playback_title_name">远程回放</string>
+    <string name="playback_search">录像搜索</string>
+    <string name="playback_capture_failed">抓拍失败</string>
+    <string name="playback_record_failed">录像失败</string>
+    <string name="playback_SDCard_unusable">SDCard不可用</string>
+    <string name="playback_SDCard_no_enough_capacity">SDCard没有足够的空间</string>
+    <string name="playback_start_failed">开始播放失败</string>
+    <string name="playback_start_failed_errorcode">开始播放失败，错误码(</string>
+    <string name="playback_no_record_file">查询成功，没有录像文件</string>
+    <string name="playback_query_record_file_failed">查询录像文件失败。</string>
+    <string name="playback_query_record_file_failed_errorcode">查询录像文件失败, 错误码(</string>
+    <string name="playback_play_finished">录像播放结束</string>
+    <string name="playback_resume_failed">重启播放失败</string>
+    <string name="playback_resume_failed_errorcode">重启播放失败，错误码(</string>
+    <string name="playback_pause_failed">暂停播放结束</string>
+    <string name="playback_pause_failed_errorcode">暂停播放失败，错误码(</string>
+    <string name="playback_location_failed">播放失败</string>
+    <string name="playback_location_failed_errorcode">播放失败， 错误码(</string>
+    <string name="playback_capture_failed_errorcode">抓拍失败，错误码(</string>
+    <string name="playback_record_failed_errorcode">录像失败，错误码(</string>
+    <string name="playback_audio_failed">音频开始失败</string>
+    <string name="playback_audio_failed_errorcode">音频开始失败，错误码(</string>
+    <string name="playback_search_date">回放日期</string>
+    <string name="playback_storge_mode">存储介质</string>
+    <string name="playback_storge_mode_other">CVR</string>
+    <string name="playback_storge_mode_cloud">云存储</string>
+    <string name="playback_no_segment">录像回放失败，该时间段无录像</string>
+    <string name="playback_quit_alertTip">录像剪辑中，是否停止？</string>
+
+    <string-array name="enterprise_class_name">
+        <item>全部巡检</item>
+        <item>药品经营</item>
+        <item>食品经营</item>
+        <item>餐饮经营</item>
+        <item>食品生产</item>
+        <item>药品生产</item>
+        <item>医疗机构</item>
+    </string-array>
+    <string-array name="enterprise_class_name1">
+        <item>药品生产</item>
+        <item>药品流通</item>
+        <item>医疗机构</item>
+        <item>食品生产</item>
+        <item>食品流通</item>
+        <item>餐饮企业</item>
+    </string-array>
+    <string-array name="xiao_zuo">
+        <item>加工小作坊</item>
+        <item>小食品摊贩</item>
+        <item>小餐饮</item>
+        <item>小食品店</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+</resources>

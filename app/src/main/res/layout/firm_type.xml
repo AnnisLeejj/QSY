@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#3cafdf">
+
+        <TextView
+            android:id="@+id/textview01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="11"
+            android:singleLine="true"
+            android:text="企业详情"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/return_button"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:gravity="center|left"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/firm_name_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="12dp"
+                            android:background="#a372da" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="2"
+                            android:text="企业基本信息"
+                            android:textColor="#a372da"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="#a372da" />
+
+                <LinearLayout
+                    android:id="@+id/firm_annual_rating_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="企业名称:"
+                        android:textColor="#808080" />
+
+                    <TextView
+                        android:id="@+id/firm_name_message"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:text="0000000000000"
+                        android:textColor="#333333" />
+
+                    <TextView
+                        android:id="@+id/ping_ji_message"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_margin="5dp"
+                        android:gravity="center|left"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/firm_annual_rating_layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="7dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="企业类型:"
+                        android:textColor="#808080" />
+
+                    <TextView
+                        android:id="@+id/firm_annual_rating_message"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:text="0000000000000"
+                        android:textColor="#333333" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/firm_email_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="7dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="企业邮箱:"
+                        android:textColor="#808080" />
+
+                    <TextView
+                        android:id="@+id/firm_email_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:text="0000000000000"
+                        android:textColor="#333333" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/firm_address_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="7dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="企业地址:"
+                        android:textColor="#808080" />
+
+                    <TextView
+                        android:id="@+id/firm_address_message"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:text=""
+                        android:textColor="#333333" />
+
+                    <TextView
+                        android:id="@+id/Text_Navigation"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="5dp"
+                        android:background="?attr/gps"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/firm_data_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center|left"
+                    android:text="查看企业监管数据"
+                    android:textColor="#5A8AEA"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/firm_xunjian_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center|left"
+                    android:text="查看企业巡检数据"
+                    android:textColor="#5A8AEA"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/license_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="12dp"
+                            android:background="#93c348" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="2"
+                            android:text="证照信息"
+                            android:textColor="#93c348"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="12dp"
+                        android:background="#93c348" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!--
+                             <com.heking.qsy.activity.review.ListViewForScrollView
+                            android:id="@+id/zhengzhao_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="78dp"
+                            android:layout_marginLeft="19dp"
+                            android:layout_marginRight="90dp"
+                            android:cacheColorHint="#f2f2f2"
+                            android:divider="#00000000"
+                            android:dividerHeight="0dp"
+                            android:listSelector="@android:color/transparent" />
+                        -->
+
+                        <LinearLayout
+                            android:id="@+id/zhengzhao_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="19dp"
+                            android:layout_marginRight="90dp"
+                            android:orientation="vertical" />
+
+                        <ImageView
+                            android:id="@+id/iv_qcode"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="right"
+                            android:layout_margin="5dp" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="12dp"
+                        android:background="#64cbc7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="2"
+                        android:text="企业人员信息"
+                        android:textColor="#64cbc7"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="#64cbc7" />
+
+                <LinearLayout
+                    android:id="@+id/Legal_Representative_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="19dp"
+                    android:background="#ffffff"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="法　　　人："
+                        android:textColor="#808080" />
+
+                    <TextView
+                        android:id="@+id/Legal_Representative_message"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:text="0000000"
+                        android:textColor="#333333" />
+
+                    <LinearLayout
+                        android:id="@+id/Legal_Representative_Phones_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="电　话："
+                            android:textColor="#808080" />
+
+                        <TextView
+                            android:id="@+id/Legal_Representative_phones_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="0000000000000"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Manager_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="19dp"
+                    android:background="#ffffff"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="企业负责人："
+                        android:textColor="#808080" />
+
+                    <TextView
+                        android:id="@+id/Manager_message"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:text="0000000"
+                        android:textColor="#333333" />
+
+                    <LinearLayout
+                        android:id="@+id/Manager_Phones_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="电　话："
+                            android:textColor="#808080" />
+
+                        <TextView
+                            android:id="@+id/Manager_Phones_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="0000000000000"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Head_Of_Quality_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="19dp"
+                    android:background="#ffffff"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="质量负责人："
+                        android:textColor="#808080" />
+
+                    <TextView
+                        android:id="@+id/Head_Of_Quality_message"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:text="0000000"
+                        android:textColor="#333333" />
+
+                    <LinearLayout
+                        android:id="@+id/Head_Quality_Phones_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="电　话："
+                            android:textColor="#808080" />
+
+                        <TextView
+                            android:id="@+id/Head_Quality_Phones_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:text="0000000000000"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_firm"
+                android:gravity="center|left"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/monitoring"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="16dp"
+                            android:layout_marginLeft="12dp"
+                            android:background="#e96c9e" />
+
+                        <TextView
+                            android:id="@+id/monitoring_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="2"
+                            android:text="视频监控"
+                            android:textColor="#e96c9e"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="12dp"
+                        android:background="#e96c9e" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.heking.qsy.activity.review.ListViewForScrollView
+                            android:id="@+id/monitoring_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,175 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black">
+
+    <FrameLayout
+        android:id="@+id/SurfaceViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cloud_area"
+        android:layout_marginTop="6dp">
+
+        <!--
+          <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        -->
+
+        <com.heking.qsy.activity.FirmShow.NoScrollViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/bai_se" />
+
+        <ProgressBar
+            android:id="@+id/liveProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ControlLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/liveStartBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="#3cafdf"
+            android:singleLine="true"
+            android:text="预览"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/liveStopBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:background="#3cafdf"
+            android:singleLine="true"
+            android:text="停止"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/liveCaptureBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="抓拍"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/liveRecordBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="录像"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/liveAudioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="音频"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cloud_area"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectionArea"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/cloud_ctrl_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="He-king"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cloud_ctrl_txt"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/start_ctrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:text="@string/start_ctrl" />
+
+            <Button
+                android:id="@+id/stop_ctrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/start_ctrl"
+                android:text="@string/stop_ctrl" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/selectionArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ControlLayout">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/mainRadio"
+                style="@style/CustomRadioBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" 高清"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:id="@+id/subRadio"
+                style="@style/CustomRadioBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" 标清"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:id="@+id/magRadio"
+                style="@style/CustomRadioBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text=" 流畅"
+                android:textSize="17sp" />
+        </RadioGroup>
+    </RelativeLayout>
+
+</RelativeLayout>

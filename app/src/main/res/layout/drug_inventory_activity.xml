@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="44dp"
+        android:background="#3cafdf"
+        android:padding="8dip" >
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:background="@drawable/return_button"
+            android:padding="6.0dip" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="企业数据"
+            android:textColor="@color/white"
+            android:id="@+id/tabe_name"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/view_show_totototoo"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#BDBDBE"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <EditText 
+            android:layout_width="0dp" 
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:id="@+id/edit_data_maessage"
+            />
+        <TextView 
+            android:id="@+id/sousuo_chakan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/sousuo_to"
+            />
+    </LinearLayout>
+    <com.heking.qsy.activity.regulatory.RefreshListView
+        android:id="@+id/List_view_drug"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#f2f2f2"
+        android:dividerHeight="0.5dp"
+        >
+    </com.heking.qsy.activity.regulatory.RefreshListView>
+
+</LinearLayout>

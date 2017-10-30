@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e4e4e4"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/appheadbackground"
+        android:padding="8dip" >
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:background="@drawable/return_button"
+            android:padding="6.0dip" />
+
+        <TextView
+            android:id="@+id/textview01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="投诉详情"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_gravity="center"
+        >
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="被投诉企业"
+            android:textColor="#2b98c5"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/complaint_firm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="犍为县人民医院"
+            android:textColor="#aaaaaa"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#b0b0b0" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="投诉举报者"
+             android:layout_marginTop="5dp"
+            android:textColor="#2b98c5"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/complaint_The_plaintiff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="被投诉企业"
+             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#aaaaaa"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="核实状态"
+            android:textColor="#2b98c5"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/complaint_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="被投诉企业"
+             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#aaaaaa"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="投诉举报者奖励"
+            android:textColor="#2b98c5"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/complaint_reward"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="被投诉企业"
+             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#aaaaaa"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="处理情况"
+            android:textColor="#2b98c5"
+            android:textSize="17dp" />
+
+        <TextView
+                android:id="@+id/complaint_situation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="被投诉企业"
+            android:textColor="#aaaaaa"
+             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#b0b0b0" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="投诉举报主题"
+             android:layout_marginTop="5dp"
+            android:textColor="#2b98c5"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/complaint_thmen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="xxxxxx"
+             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#aaaaaa"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="投诉举报内容"
+            android:textColor="#2b98c5"
+            android:textSize="17dp" />
+
+        <TextView
+             android:id="@+id/complaint_context"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:text="被投诉企业"
+             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#aaaaaa"
+            android:textSize="16dp" />
+    </LinearLayout>
+        
+    </ScrollView>
+
+</LinearLayout>
