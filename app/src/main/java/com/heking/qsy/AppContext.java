@@ -3,6 +3,7 @@ package com.heking.qsy;
 import java.io.File;
 import java.util.ArrayList;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
@@ -20,9 +21,8 @@ import com.baidu.mapapi.search.core.PoiInfo;
 import com.hik.mcrsdk.rtsp.RtspClient;
 import com.hikvision.vmsnetsdk.CameraInfo;
 import com.hikvision.vmsnetsdk.VMSNetSDK;
-import com.mob.MobApplication;
 
-public class AppContext extends MobApplication {
+public class AppContext extends Application {
     private static AppContext ins;
     private static int code;
     public static ArrayList<PoiInfo> listmap = new ArrayList<PoiInfo>();
@@ -195,7 +195,6 @@ public class AppContext extends MobApplication {
      * 设备标识
      */
     public static String DEVICE = android.os.Build.MODEL;
-
     /**
      * 主题更换
      */

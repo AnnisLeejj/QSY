@@ -12,6 +12,7 @@ import com.heking.qsy.activity.Patrol.PatrolFragment;
 import com.heking.qsy.activity.Personalcenters.util.RegisteredBean;
 import com.heking.qsy.activity.Personalcenters.util.VerNameBean;
 import com.heking.qsy.providers.JSONdata;
+import com.heking.qsy.service.GetShipinListIntentService;
 import com.heking.qsy.util.HttpHelper.HttpHelper;
 import com.heking.qsy.util.ParsonJson;
 import com.heking.qsy.util.Tool;
@@ -116,103 +117,8 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
 
         iniView();
         iniData();
-        setCamerS();
-    }
 
-    String servAddr = "117.173.43.121:4443";
-    String userName = "admin";
-    String password = "heking03*12";
-    String url = "pzh/GetMonitoringVideo";
-    String macAddress;
-    private ServInfo servInfo = new ServInfo();
-
-    private void setCamerS() {
-        //如果有先拿出来
-        String myCamer = SPUtils.init(getApplication()).getString("all_camer");
-        if (!TextUtils.isEmpty(myCamer)) {
-            AppContext.all_camer = new Gson().fromJson(myCamer, AllCameraInfo.class);
-        }
-        //就算有也要在获取,以防数据更新
-        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + "Firm/GetMo?page=0&rows=999999").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onSuccess(String json) {
-                if (TextUtils.isEmpty(json) || json.equals("连接失败")) return;
-                LogUtils.w(json);
-                AllCameraInfo all_camer = new Gson().fromJson(json, AllCameraInfo.class);
-                if (all_camer != null) {
-                    AppContext.all_camer = all_camer;
-                    SPUtils.init(getApplication()).put("all_camer", json);
-                    LogUtils.w("shipin", json);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-        });
-        //获取权限
-        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + url).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onSuccess(String json) {
-                Log.w("shipin_flow", "LogInHk 构造方法 toHttpGEtandPost  网路数据:" + json);
-                if (!TextUtils.isEmpty(json) && !json.equals("连接失败")) {
-                    String message = "{\"User\":" + json + "}";
-                    MonitoringVideoHK monit = ParsonJson.jsonToBeanObj(message, MonitoringVideoHK.class);
-                    if (monit != null && monit.getUser().size() > 0) {
-                        MonitoringVideoHK.User user = monit.getUser().get(0);
-                        servAddr = user.getServAddr();
-                        userName = user.getUserName();
-                        password = user.getPassword();
-                    }
-                }
-                Config.getIns().setServerAddr(servAddr);
-                macAddress = getMacAddr();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // handler.sendEmptyMessage(Constants.Login.SHOW_LOGIN_PROGRESS);
-                        // 登录请求
-                        boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
-                        // LogUtils.w("shipin_flow", "视频保存的信息:" + new Gson().toJson(servInfo));
-                        LogUtils.w("shipin_flow", "视频保存的信息:" + ret);
-                        if (servInfo != null) {
-                            SPUtils.init(MainActivity.this).put("quanxian", servInfo);
-                        }
-                        if (ret) {
-                            TempData.getInstance().setLoginData(servInfo, servAddr);
-                            //  handler.sendEmptyMessage(Constants.Login.LOGIN_SUCCESS);
-                        } else {
-                            // handler.sendEmptyMessage(Constants.Login.LOGIN_FAILED);
-                        }
-                    }
-                }).start();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-        });
-    }
-
-    /**
-     * 获取登录设备mac地址
-     *
-     * @return
-     */
-    protected String getMacAddr() {
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        String mac = wm.getConnectionInfo().getMacAddress();
-        return mac == null ? "" : mac;
+        startService(new Intent(this, GetShipinListIntentService.class));
     }
 
     private void iniView() {
@@ -441,6 +347,7 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
         mProgress.setMax(total / 1024 / 1024);
         mProgress.setProgress(cur / 1024 / 1024);
     }
+
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);

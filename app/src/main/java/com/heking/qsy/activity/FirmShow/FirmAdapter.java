@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,7 +131,7 @@ public class FirmAdapter extends BaseAdapter {
 				FirmTypeBean.Data data = list.get(proenat);
 				Intent intent = new Intent();
 				// intent.setClass(context, FirmType.class);
-				intent.setClass(context, BaiDuFirmType.class);
+				intent.setClass(context, BaiDuFirmTypeActivity.class);
 
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("FIRMTYPE", data);

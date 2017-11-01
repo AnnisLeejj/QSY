@@ -22,9 +22,10 @@ public class IndicatorView extends View {
 	private int count;
 	/** 当前显示的是九格宫中的第几页 */
 	private int current;
-
+	Paint paint ;
 	public IndicatorView(Context context) {
 		super(context);
+		paint= new Paint();
 	}
 
 	public void setScreenCount(int count) {
@@ -51,7 +52,7 @@ public class IndicatorView extends View {
 		float cy = height / 2;
 
 		canvas.drawColor(0xffffffff);
-		Paint paint = new Paint();
+	
 		paint.setAntiAlias(true);
 		for (int i = 0; i < count; i++) {
 			if (i == current) {

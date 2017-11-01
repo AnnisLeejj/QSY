@@ -3,40 +3,23 @@ package com.heking.qsy.activity.Patrol;
 import java.io.File;
 import java.util.List;
 
-import com.heking.qsy.AppContext;
 import com.heking.qsy.R;
 import com.heking.qsy.activity.Patrol.PatrolDetailActivity.ContentType;
 import com.lidroid.xutils.BitmapUtils;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 
 import MyUtils.LogUtils.LogUtils;
 
@@ -130,7 +113,6 @@ public class PatrolDetailAdapter extends BaseExpandableListAdapter {
                     default:
                         break;
                 }
-
             }
         });
         LogUtils.w("adpter", "getChildView");

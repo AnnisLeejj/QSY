@@ -3,6 +3,7 @@ package com.heking.qsy.activity.ConvenienceService.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.heking.qsy.activity.FirmShow.BaiDuFirmTypeActivity;
 import com.heking.qsy.base.BaseActivity;
 import android.content.Intent;
 import android.os.Build;
@@ -21,7 +22,6 @@ import com.baidu.navisdk.adapter.BaiduNaviCommonModule;
 import com.baidu.navisdk.adapter.NaviModuleFactory;
 import com.baidu.navisdk.adapter.NaviModuleImpl;
 import com.heking.qsy.R;
-import com.heking.qsy.activity.FirmShow.BaiDuFirmType;
 
 /**
  * 诱导界面
@@ -74,7 +74,7 @@ public class BNGuideActivity extends BaseActivity {
         if (intent != null) {
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
-                mBNRoutePlanNode = (BNRoutePlanNode) bundle.getSerializable(BaiDuFirmType.ROUTE_PLAN_NODE);
+                mBNRoutePlanNode = (BNRoutePlanNode) bundle.getSerializable(BaiDuFirmTypeActivity.ROUTE_PLAN_NODE);
             }
         }
         //显示自定义图标

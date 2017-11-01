@@ -25,7 +25,6 @@ public class PlatformPagePort extends PlatformPage {
 		requestPortraitOrientation();
 		super.onCreate();
 	}
-
 	protected PlatformPageAdapter newAdapter(ArrayList<Object> cells) {
 		return new PlatformPageAdapterPort(this, cells);
 	}

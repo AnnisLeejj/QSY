@@ -57,7 +57,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewData {
+public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, OnViewData {
     private Bundle bundle;
 
     private LinearLayout Monitors;
@@ -191,7 +191,7 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
                                 // LogUtils.w("shipin_flow", "视频保存的信息:" + new Gson().toJson(servInfo));
                                 LogUtils.w("shipin_flow", "视频保存的信息:" + ret);
                                 if (servInfo != null) {
-                                    SPUtils.init(BaiDuFirmType.this).put("quanxian", servInfo);
+                                    SPUtils.init(BaiDuFirmTypeActivity.this).put("quanxian", servInfo);
                                 }
                                 if (ret) {
                                     TempData.getInstance().setLoginData(servInfo, servAddr);
@@ -232,9 +232,9 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
             for (Data.Monitors item : data.getMonitors()) {//获取的企业信息  只要这里有就要添加进列表
                 for (AllCameraInfo.RowsBean item2 : AppContext.all_camer.getRows()) {//之前获取的所有摄像头
                     if (item.getModel().equals(item2.getModel())) {
-                            if (item2.getModel().equals(item.getModel())) {
-                                toAdd = item2;
-                            }
+                        if (item2.getModel().equals(item.getModel())) {
+                            toAdd = item2;
+                        }
                     }
                 }
                 cameraInfo = new CameraInfo();
@@ -270,7 +270,7 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
                             showToast("摄像头配置不正确");
                             return;
                         }
-                        Intent intent = new Intent(BaiDuFirmType.this, LiveActivity.class);
+                        Intent intent = new Intent(BaiDuFirmTypeActivity.this, LiveActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString(Constants.IntentKey.CAMERA_ID, info.getId());
                         bundle.putInt("position", position);
@@ -324,7 +324,7 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
     Thread getShipin = new Thread(new Runnable() {
         @Override
         public void run() {
-            new LogInHk(BaiDuFirmType.this, savedInstanceState, data);
+            new LogInHk(BaiDuFirmTypeActivity.this, savedInstanceState, data);
         }
     });
 
@@ -340,10 +340,10 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
             public void onClick(View arg0) {
                 if (TextAddress.getText().toString().trim() == null
                         || TextAddress.getText().toString().trim().equals("")) {
-                    Toast.makeText(BaiDuFirmType.this, "该企业尚未提供地址，尚不能提供导航", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaiDuFirmTypeActivity.this, "该企业未提供地址，尚不能提供导航", Toast.LENGTH_SHORT).show();
                 } else {
                     //TID:100   高德地图 转百度地图
-                    Intent intent = new Intent(BaiDuFirmType.this, BNDemoMainActivity.class);
+                    Intent intent = new Intent(BaiDuFirmTypeActivity.this, BNDemoMainActivity.class);
                     Bundle bundle1 = new Bundle();
                     bundle1.putSerializable(ROUTE_PLAN_NODE, new BNDemoMainActivity.Address(data.getLongitude(), data.getLatitude(), data.getCity(), data.getAddress()));
                     intent.putExtras(bundle1);
@@ -401,15 +401,15 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
 
         switch (data.getmRating()) {
             case 1:
-                TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmType.this, R.drawable.a));
+                TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmTypeActivity.this, R.drawable.a));
 
                 break;
             case 2:
-                TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmType.this, R.drawable.b));
+                TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmTypeActivity.this, R.drawable.b));
 
                 break;
             case 3:
-                TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmType.this, R.drawable.c));
+                TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmTypeActivity.this, R.drawable.c));
                 break;
         }
     }
@@ -452,7 +452,7 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
             @Override
             public void onClick(View arg0) {
                 // if(AppContext.LoginUserMessage.messageUse){
-                Intent intent = new Intent(BaiDuFirmType.this, RegulatoryActivity.class);
+                Intent intent = new Intent(BaiDuFirmTypeActivity.this, RegulatoryActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", data);
                 bundle.putInt("State", intS);
@@ -466,7 +466,7 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
 
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(BaiDuFirmType.this, PatrolActivity.class);
+                Intent intent = new Intent(BaiDuFirmTypeActivity.this, PatrolActivity.class);
                 intent.putExtra("firmID", data.getFirmID());
                 intent.putExtra("type", PatrolActivity.Type.q);
                 startActivity(intent);
@@ -480,7 +480,7 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
                 continue;
             if (data.getFirmLicenseData().get(i).getLicenseType().contains("二维码")
                     || data.getFirmLicenseData().get(i).getLicenseType().contains("barcode")) {
-                new HttpImage(BaiDuFirmType.this,
+                new HttpImage(BaiDuFirmTypeActivity.this,
                         WPConfig.IMAGE_VIEW_01 + data.getFirmLicenseData().get(i).getFileID(), null);
                 data.getFirmLicenseData().remove(i);
             }
@@ -510,7 +510,7 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
                 if (!TextUtils.isEmpty(data.getFirmLicenseData().get(i).getFileID())) {
                     iv.setVisibility(View.VISIBLE);
 
-                    BitmapUtils bitmapUtils = new BitmapUtils(BaiDuFirmType.this);
+                    BitmapUtils bitmapUtils = new BitmapUtils(BaiDuFirmTypeActivity.this);
 //					x.image().bind(iv, AppContext.Url.IMAGE_VIEW_01 + data.getFirmLicenseData().get(i).getFileID());
                     // 加载网络图片
                     bitmapUtils.display(iv,
@@ -529,18 +529,6 @@ public class BaiDuFirmType extends BaseActivity implements ImageBitmap, OnViewDa
         //Monitorslayout.setVisibility(View.GONE);
         //   Monitors.addView(view);
     }
-
-    //TID:100 此处删除高德地图 方法已抽取,集成
-
-    private String getSdcardDir() {
-        if (Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString();
-        }
-        return null;
-    }
-
-    //TID:100 此处删除高德地图 方法已抽取,集成
-
     @Override
     public void toBitmap(Bitmap bitmap) {
         iv_qcode.setImageBitmap(bitmap);

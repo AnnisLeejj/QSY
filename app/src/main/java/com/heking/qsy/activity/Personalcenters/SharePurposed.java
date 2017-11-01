@@ -1,6 +1,5 @@
 package com.heking.qsy.activity.Personalcenters;
 
-import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
@@ -9,7 +8,6 @@ import cn.sharesdk.wechat.friends.Wechat;
 
 import com.heking.qsy.R;
 import com.heking.qsy.util.PopDialogView;
-import com.mob.MobSDK;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,7 +18,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SharePurposed implements OnClickListener {
     private TextView WeixinFriend, QQFriend, WeiBo;
@@ -30,8 +27,7 @@ public class SharePurposed implements OnClickListener {
     private int STATE;
     private String html;
     private View view;
-    //  private int height;
-    private static String url = "http://117.173.38.55:84/File/Home/DownFile/92ed0999-a47a-4d0a-9956-518739443e51";
+    private int height;
 
     /**
      * 分享
@@ -63,7 +59,7 @@ public class SharePurposed implements OnClickListener {
         this.context = context;
         this.STATE = state;
         this.view = view;
-        // this.height = height;
+        this.height = height;
         iniShareView(context);
         DialogSet(context);
         dialogView.show();
@@ -111,50 +107,54 @@ public class SharePurposed implements OnClickListener {
         switch (arg0.getId()) {
             case R.id.share_sdk_qq_view:
                 if (STATE == 0) {
-                    OnekeyShare oks = new OnekeyShare();
-                    // oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
-                    oks.setTitleUrl(url);
-                    oks.setText("药安食美  健康犍为" + url);
-                    oks.setTitle("标题");
-                    oks.setPlatform(QQ.NAME);
-                    oks.show(context);
-                }
-                if (STATE == 2) {
+                    ShareSDK.initSDK(context);
                     OnekeyShare oksqq = new OnekeyShare();
                     oksqq.setPlatform(QQ.NAME);
-                    oksqq.setViewToShare(view);
+                    oksqq.setTitleUrl("http://117.173.38.55:84/File/Home/DownFile/92ed0999-a47a-4d0a-9956-518739443e51");
+                    oksqq.setText("药安食美  健康犍为");
+                    oksqq.show(context);
+                    //TID:100 bug:1202 分享至QQ时页面下方显示一个黑色框，详见附件
+                    //Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                }
+                if (STATE == 2) {
+                    ShareSDK.initSDK(context);
+                    OnekeyShare oksqq = new OnekeyShare();
+                    oksqq.setPlatform(QQ.NAME);
+                    oksqq.setViewToShare(view, height);
                     oksqq.show(context);
                 }
                 break;
 
             case R.id.share_sdk_weixinhaoyou_view:
                 if (STATE == 0) {
+                    ShareSDK.initSDK(context);
                     OnekeyShare oksweixinhaoyou = new OnekeyShare();
                     oksweixinhaoyou.setPlatform(Wechat.NAME);
-                    oksweixinhaoyou.setText("药安食美 健康犍为 \n " + url);
+                    oksweixinhaoyou.setText("药安食美 健康犍为 \n http://117.173.38.55:84/File/Home/DownFile/92ed0999-a47a-4d0a-9956-518739443e51");
                     oksweixinhaoyou.show(context);
                 }
                 if (STATE == 2) {
+                    ShareSDK.initSDK(context);
                     OnekeyShare oksweixinhaoyou = new OnekeyShare();
                     oksweixinhaoyou.setPlatform(Wechat.NAME);
-                    oksweixinhaoyou.setViewToShare(view);
+                    oksweixinhaoyou.setViewToShare(view, height);
                     oksweixinhaoyou.show(context);
                 }
                 break;
             case R.id.share_sdk_xinlangweibo_view:
                 if (STATE == 0) {
+                    ShareSDK.initSDK(context);
                     OnekeyShare oksxinlangweibo = new OnekeyShare();
                     oksxinlangweibo.setPlatform(SinaWeibo.NAME);
-                    oksxinlangweibo.setText("药安食美 健康犍为 \n " + url);
+                    oksxinlangweibo.setText("药安食美 健康犍为 \n http://117.173.38.55:84/File/Home/DownFile/92ed0999-a47a-4d0a-9956-518739443e51");
                     oksxinlangweibo.show(context);
                 }
                 if (STATE == 2) {
-                    Platform.ShareParams sp = new Platform.ShareParams();
-                    sp.setText("药安食美 健康犍为 \n " + url);
-                    Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
-                    //    weibo.setPlatformActionListener(paListener); // 设置分享事件回调
-// 执行图文分享
-                    weibo.share(sp);
+                    ShareSDK.initSDK(context);
+                    OnekeyShare oksxinlangweibo = new OnekeyShare();
+                    oksxinlangweibo.setPlatform(SinaWeibo.NAME);
+                    oksxinlangweibo.setViewToShare(view, height);
+                    oksxinlangweibo.show(context);
                 }
                 break;
         }

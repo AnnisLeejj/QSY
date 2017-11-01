@@ -26,6 +26,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.heking.qsy.AppContext;
@@ -51,6 +52,7 @@ import com.hikvision.vmsnetsdk.VMSNetSDK;
 import com.hikvision.vmsnetsdk.netLayer.msp.deviceInfo.DeviceInfo;
 
 import MyUtils.LogUtils.LogUtils;
+import butterknife.BindView;
 
 /**
  * 预览
@@ -225,6 +227,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
     String serAddr;
     private ServInfo mServInfo;
     String sessionid;
+    TextView textview, title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,13 +239,14 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
         serAddr = extras.getString("serAddr");
         mServInfo = new Gson().fromJson(extras.getString("mServInfo"), com.hikvision.vmsnetsdk.ServInfo.class);
 
-        cameraInfo = (CameraInfo) mList.get(position);
         sessionid = mServInfo.getSessionID();
+
+        cameraInfo = (CameraInfo) mList.get(position);
         mCameraID = cameraInfo.getId();
-        LogUtils.w("shipin", "position:" + position + "  集合:" + new Gson().toJson(mList));
+
+        initUI();
 
         initData();
-        initUI();
         startBtnOnClick();
     }
 
@@ -252,6 +256,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
      * @since V1.0
      */
     private void initData() {
+
         mRealPlayURL = new RealPlayURL();
         mLiveControl = new LiveControl();
         mLiveControl.setLiveCallBack(this);
@@ -280,6 +285,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
      * @param sessionid 会话ID
      */
     private void getCameraDetailInfo(final String serAddr, final String sessionid) {
+        LogUtils.w("shipin", "获取监控点详情方法 ");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -298,8 +304,8 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                 }
                 mName = deviceInfo.getLoginName();
                 mPassword = deviceInfo.getLoginPsw();
-                DebugLog.info(Constants.LOG_TAG, "ret is :" + getDeviceInfoResult + "----------------"
-                        + deviceInfo.getDeviceName() + "--------" + "deviceLoginName is " + mName + "---"
+                LogUtils.w(Constants.LOG_TAG, "shipin:" + getDeviceInfoResult + "-------"
+                        + deviceInfo.getDeviceName() + "------" + "deviceLoginName is " + mName + "-----"
                         + "deviceLoginPassword is " + mPassword + "-----" + "deviceID is " + mDeviceID);
             }
         }).start();
@@ -312,6 +318,10 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
      */
     @SuppressLint("NewApi")
     private void initUI() {
+        title = (TextView) findViewById(R.id.live_activity_title);
+        title.setText(TextUtils.isEmpty(cameraInfo.getName()) ? "" : cameraInfo.getName());
+        textview = (TextView) findViewById(R.id.textview);
+        textview.setOnClickListener(this);
         mStartBtn = (Button) findViewById(R.id.liveStartBtn);
         mStartBtn.setOnClickListener(this);
         mStopBtn = (Button) findViewById(R.id.liveStopBtn);
@@ -334,19 +344,17 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
         surfaceViewList = new ArrayList<View>();
 
         if (mList != null && mList.size() > 0) {
-
             for (int i = 0; i < mList.size(); i++) {
                 SurfaceView surfaceView = new SurfaceView(context);
                 surfaceView.setZOrderOnTop(true);
                 surfaceViewList.add(surfaceView);
             }
-
+            LogUtils.w("shipin", "视频集合长度:" + mList.size());
             pagerAdapter = new MyPagerAdapter(surfaceViewList);
             vp.setAdapter(pagerAdapter);
             vp.setCurrentItem(position);
             mSurfaceView = (SurfaceView) surfaceViewList.get(position);
             mSurfaceView.getHolder().addCallback(this);
-
             vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
                 @Override
@@ -356,8 +364,9 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                     mSurfaceView = (SurfaceView) surfaceViewList.get(index);
                     mSurfaceView.getHolder().addCallback(LiveActivity.this);
                     cameraInfo = (CameraInfo) mList.get(index);
+                    title.setText(cameraInfo.getName());
                     TempData.getIns().setCameraInfo(cameraInfo);
-                    LogUtils.w("shipin_huadong", "定位:" + index,cameraInfo);
+                    LogUtils.w("shipin_huadong", "定位:" + index, cameraInfo);
                     initData();
                     startBtnOnClick();
                 }
@@ -431,17 +440,14 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                     setColor(R.id.mainRadio);
                     setColor(R.id.subRadio, false);
                     setColor(R.id.magRadio, false);
-
                     mStreamType = ConstantLive.MAIN_STREAM;
                     break;
-
                 case R.id.subRadio:
                     setColor(R.id.subRadio);
                     setColor(R.id.mainRadio, false);
                     setColor(R.id.magRadio, false);
                     mStreamType = ConstantLive.SUB_STREAM;
                     break;
-
                 case R.id.magRadio:
                     setColor(R.id.magRadio);
                     setColor(R.id.subRadio, false);
@@ -455,22 +461,21 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.textview:
+                finish();
+                break;
             case R.id.liveStartBtn:
                 startBtnOnClick();
                 break;
-
             case R.id.liveStopBtn:
                 stopBtnOnClick();
                 break;
-
             case R.id.liveCaptureBtn:
                 captureBtnOnClick();
                 break;
-
             case R.id.liveRecordBtn:
                 recordBtnOnClick();
                 break;
-
             case R.id.liveAudioBtn:
                 audioBtnOnClick();
                 break;
@@ -519,12 +524,9 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                 String sessionID = mServInfo.getSessionID();
                 // 云台控制速度 取值范围(1-10)
                 int speed = 5;
-                Log.i(Constants.LOG_TAG, "ip:" + cameraInfoEx.getAcsIP()
-                        + ",port:" + cameraInfoEx.getAcsPort()
-                        + ",isPTZControl:" + mUserCap.contains(PTZ_CONTROL));
+                Log.i(Constants.LOG_TAG, "ip:" + cameraInfoEx.getAcsIP() + ",port:" + cameraInfoEx.getAcsPort() + ",isPTZControl:" + mUserCap.contains(PTZ_CONTROL));
                 // 发送控制命令
-                boolean ret = LiveActivity.this.mVmsNetSDK.sendStartPTZCmd(
-                        cameraInfoEx.getAcsIP(), cameraInfoEx.getAcsPort(),
+                boolean ret = LiveActivity.this.mVmsNetSDK.sendStartPTZCmd(cameraInfoEx.getAcsIP(), cameraInfoEx.getAcsPort(),
                         sessionID, mCameraID, gestureID, speed, 600, 0 + "");
                 Log.i(Constants.LOG_TAG, "sendStartPTZCmd ret:" + ret);
             }
@@ -540,9 +542,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
             @Override
             public void run() {
                 String sessionID = mServInfo.getSessionID();
-                boolean ret = LiveActivity.this.mVmsNetSDK.sendStopPTZCmd(
-                        cameraInfoEx.getAcsIP(), cameraInfoEx.getAcsPort(),
-                        sessionID, mCameraID, "0");
+                boolean ret = LiveActivity.this.mVmsNetSDK.sendStopPTZCmd(cameraInfoEx.getAcsIP(), cameraInfoEx.getAcsPort(), sessionID, mCameraID, "0");
                 Log.i(Constants.LOG_TAG, "stopPtzCmd sent,ret:" + ret);
             }
         }).start();

@@ -206,7 +206,7 @@ public class LiveControl implements RtspClientCallback, PlayerDisplayCB {
         LogUtils.w("shipin", mRtspEngineIndex, mUrl, mDeviceUserName, mDevicePassword);
         if (!ret) {
             int errorCode = mRtspHandler.getLastError();
-            DebugLog.error("shipin", "startRtsp():: errorCode is R" + errorCode);//R105
+            LogUtils.w("shipin", "startRtsp():: errorCode is R" + errorCode);//R105
             mRtspHandler.releaseRtspClientEngineer(mRtspEngineIndex);
             if (null != mLiveActivityCallBack) {
                 mLiveActivityCallBack.onMessageCallback(ConstantLive.RTSP_FAIL);

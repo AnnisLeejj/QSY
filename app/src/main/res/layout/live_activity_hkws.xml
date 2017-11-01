@@ -4,19 +4,48 @@
     android:layout_height="fill_parent"
     android:background="@color/black">
 
+    <RelativeLayout
+        android:id="@+id/live_top"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#3cafdf">
+
+        <TextView
+            android:id="@+id/live_activity_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="11"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/return_button"
+            android:gravity="center" />
+    </RelativeLayout>
+
     <FrameLayout
+
         android:id="@+id/SurfaceViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/cloud_area"
-        android:layout_marginTop="6dp">
+        android:layout_above="@+id/selectionArea"
+        android:layout_below="@+id/live_top">
 
-        <!--
-          <SurfaceView
-            android:id="@+id/surfaceView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        -->
+        <ProgressBar
+            android:id="@+id/liveProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right" />
 
         <com.heking.qsy.activity.FirmShow.NoScrollViewPager
             android:id="@+id/vp"
@@ -24,13 +53,51 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@color/bai_se" />
-
-        <ProgressBar
-            android:id="@+id/liveProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right" />
     </FrameLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/selectionArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ControlLayout">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/mainRadio"
+                style="@style/CustomRadioBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" 高清"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:id="@+id/subRadio"
+                style="@style/CustomRadioBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" 标清"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:id="@+id/magRadio"
+                style="@style/CustomRadioBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text=" 流畅"
+                android:textSize="17sp" />
+        </RadioGroup>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ControlLayout"
@@ -92,6 +159,7 @@
             android:visibility="gone" />
     </LinearLayout>
 
+
     <RelativeLayout
         android:id="@+id/cloud_area"
         android:layout_width="fill_parent"
@@ -129,47 +197,5 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/selectionArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ControlLayout">
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="fill_parent"
-            android:layout_height="35dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/mainRadio"
-                style="@style/CustomRadioBtn"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" 高清"
-                android:textSize="17sp" />
-
-            <RadioButton
-                android:id="@+id/subRadio"
-                style="@style/CustomRadioBtn"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" 标清"
-                android:textSize="17sp" />
-
-            <RadioButton
-                android:id="@+id/magRadio"
-                style="@style/CustomRadioBtn"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text=" 流畅"
-                android:textSize="17sp" />
-        </RadioGroup>
-    </RelativeLayout>
 
 </RelativeLayout>

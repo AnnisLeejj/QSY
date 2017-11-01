@@ -3,7 +3,7 @@ package com.heking.qsy.activity.ConvenienceService.util;
 import java.util.ArrayList;
 
 import com.heking.qsy.R;
-import com.heking.qsy.activity.FirmShow.BaiDuFirmType;
+import com.heking.qsy.activity.FirmShow.BaiDuFirmTypeActivity;
 import com.heking.qsy.util.FirmTypeBean;
 
 import android.annotation.SuppressLint;
@@ -78,7 +78,7 @@ public class MonitoringAdapter extends BaseAdapter {
 			arg1.setOnClickListener(new OnClickListener() {
 				public void onClick(View arg0) {
 					FirmTypeBean.Data data=list.get(proenat);
-					Intent intent=new Intent(context, BaiDuFirmType.class);
+					Intent intent=new Intent(context, BaiDuFirmTypeActivity.class);
 					Bundle bundle=new Bundle();
 					bundle.putSerializable("FIRMTYPE", data);
 					bundle.putInt("State", State);

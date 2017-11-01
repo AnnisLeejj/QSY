@@ -2,13 +2,7 @@ package com.heking.qsy;
 
 import java.util.ArrayList;
 
-import com.heking.qsy.activity.ConvenienceService.util.BNDemoMainActivity;
-import com.heking.qsy.activity.Personalcenters.util.RegisteredBean;
-import com.heking.qsy.providers.JSONdata;
-import com.heking.qsy.util.ParsonJson;
 import com.heking.qsy.util.ViewPageAdapter;
-import com.mob.moblink.Scene;
-import com.mob.moblink.SceneRestorable;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class GuidanceImageActivity extends Activity implements OnPageChangeListener, SceneRestorable {
+public class GuidanceImageActivity extends Activity implements OnPageChangeListener {
     /**
      * 创建读取对象
      */
@@ -154,12 +148,6 @@ public class GuidanceImageActivity extends Activity implements OnPageChangeListe
     public void onPageScrollStateChanged(int arg0) {
     }
 
-    //分享的
-    @Override
-    public void onReturnSceneData(Scene scene) {
-    // 处理场景还原数据, 更新画面
-
-    }
 
     //分享的
     @Override
