@@ -6,20 +6,24 @@ import com.heking.qsy.activity.Personalcenters.SharePurposed;
 import com.heking.qsy.util.JsonFile;
 import com.heking.qsy.util.Tool;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
+
+import MyUtils.LogUtils.LogUtils;
 
 public class WebLayout  extends Activity{
 	private WebView webView;
 	private String Context;
 	private String Headline;
 	private TextView textView;
-
+int  webHeight;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,14 +50,13 @@ public class WebLayout  extends Activity{
 	}
 	
 	private void iniView() {
-		
 		webView=(WebView) findViewById(R.id.webview);
 		textView=(TextView) findViewById(R.id.textview01);
-		
 	}
 	private void iniData() {
 		textView.setText("详情");
-		webView.loadData(Context, "text/html;charset=UTF-8", null);  
+		webView.loadData(Context, "text/html;charset=UTF-8", null);
+
         webView.getSettings().setJavaScriptEnabled(true);  
         webView.setWebChromeClient(new WebChromeClient());  
         webView.getSettings().setSupportZoom(true); 
@@ -69,13 +72,25 @@ public class WebLayout  extends Activity{
 	
 			@Override
 			public void onClick(View arg0) {
-				 JsonFile file=new  JsonFile();
-				 try {
-					file.FileJson(Tool.getfile(Headline+".html"),Context);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				new SharePurposed(WebLayout.this,webView,webView.getContentHeight()*3,2);
+//				 JsonFile file=new  JsonFile();
+//				 try {
+//					file.FileJson(Tool.getfile(Headline+".html"),Context);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+
+				webView.post(new Runnable() {
+					@Override
+					public void run() {
+						webView.measure(0, 0);
+						webHeight = webView.getMeasuredHeight();
+						LogUtils.w("webView", "measuredHeight=" + webHeight);
+
+						Bitmap bitmap = webView.getDrawingCache();
+						new SharePurposed(WebLayout.this,webView,webHeight,2);
+					}
+				});
+
 			}
 		});
 	}

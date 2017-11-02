@@ -110,7 +110,7 @@ public class OpenGovernment extends BaseActivity implements OnClickListener {
                 ThePopularScienceGarden.setTextColor(Color.parseColor("#808080"));
 //			mListView.addHeaderView(mView);
 //			String jian_guan_dong_tai=Tool.getUrLString("get_The_Public_Announcement", 1, this, true);
-                HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.ZWGK + "11111" + AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
+                HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.ZWGK + "22222" + AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
                 break;
             case R.id.falv_fagui:
                 intstat = STATE_MESS_2;
@@ -121,7 +121,7 @@ public class OpenGovernment extends BaseActivity implements OnClickListener {
                 ThePopularScienceGarden.setTextColor(Color.parseColor("#808080"));
 //			mListView.addHeaderView(mView);
 //			String falv_fagui=Tool.getUrLString("get_Laws_and_regulations", 1, this, true);
-                HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.ZWGK + "11111" + AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
+                HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.ZWGK + "33333" + AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
                 break;
             case R.id.kepu_yuandi:
                 intstat = STATE_MESS_3;
@@ -132,7 +132,7 @@ public class OpenGovernment extends BaseActivity implements OnClickListener {
                 ThePopularScienceGarden.setTextColor(Color.parseColor("#3cafdf"));
 //			mListView.addHeaderView(mView);
 //			String kepu_yuandi=Tool.getUrLString("get_The_Popular_Science_Garden", 1, this, true);
-                HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.ZWGK + "11111" + AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
+                HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.ZWGK + "44444" + AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
                 break;
         }
     }

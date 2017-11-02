@@ -256,7 +256,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
      * @since V1.0
      */
     private void initData() {
-
+        LogUtils.w("shipin_one", "摄像头信息:", cameraInfo);
         mRealPlayURL = new RealPlayURL();
         mLiveControl = new LiveControl();
         mLiveControl.setLiveCallBack(this);
@@ -363,10 +363,13 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                     mLiveControl.stop();
                     mSurfaceView = (SurfaceView) surfaceViewList.get(index);
                     mSurfaceView.getHolder().addCallback(LiveActivity.this);
+
                     cameraInfo = (CameraInfo) mList.get(index);
+                    mCameraID = cameraInfo.getId();
                     title.setText(cameraInfo.getName());
                     TempData.getIns().setCameraInfo(cameraInfo);
                     LogUtils.w("shipin_huadong", "定位:" + index, cameraInfo);
+
                     initData();
                     startBtnOnClick();
                 }
@@ -591,16 +594,16 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
         mToken = LiveActivity.this.mVmsNetSDK.getPlayToken(mServInfo.getSessionID());
         DebugLog.info(Constants.LOG_TAG, "mToken is :" + mToken);
 
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl MagStreamSerAddr:" + mServInfo.getMagServer().getMagStreamSerAddr());
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl MagStreamSerPort:" + mServInfo.getMagServer().getMagStreamSerPort());
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl cameraId:" + cameraInfoEx.getId());
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl token:" + mToken);
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl streamType:" + streamType);
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl appNetId:" + mServInfo.getAppNetId());
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl deviceNetID:" + cameraInfoEx.getDeviceNetId());
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl userAuthority:" + mServInfo.getUserAuthority());
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl cascadeFlag:" + cameraInfoEx.getCascadeFlag());
-        LogUtils.w(Constants.LOG_TAG, "generateLiveUrl internet:" + mServInfo.isInternet());
+        LogUtils.w("shipin_one", "generateLiveUrl MagStreamSerAddr:" + mServInfo.getMagServer().getMagStreamSerAddr());
+        LogUtils.w("shipin_one", "generateLiveUrl MagStreamSerPort:" + mServInfo.getMagServer().getMagStreamSerPort());
+        LogUtils.w("shipin_one", "generateLiveUrl cameraId:" + cameraInfoEx.getId());
+        LogUtils.w("shipin_one", "generateLiveUrl token:" + mToken);
+        LogUtils.w("shipin_one", "generateLiveUrl streamType:" + streamType);
+        LogUtils.w("shipin_one", "generateLiveUrl appNetId:" + mServInfo.getAppNetId());
+        LogUtils.w("shipin_one", "generateLiveUrl deviceNetID:" + cameraInfoEx.getDeviceNetId());
+        LogUtils.w("shipin_one", "generateLiveUrl userAuthority:" + mServInfo.getUserAuthority());
+        LogUtils.w("shipin_one", "generateLiveUrl cascadeFlag:" + cameraInfoEx.getCascadeFlag());
+        LogUtils.w("shipin_one", "generateLiveUrl internet:" + mServInfo.isInternet());
 
         LiveInfo liveInfo = new LiveInfo();
         liveInfo.setMagIp(mServInfo.getMagServer().getMagStreamSerAddr());
@@ -613,8 +616,8 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
         liveInfo.setDeviceNetID(cameraInfoEx.getDeviceNetId());
         liveInfo.setiPriority(mServInfo.getUserAuthority());
         liveInfo.setCascadeFlag(cameraInfoEx.getCascadeFlag());
-        LogUtils.w("shipin", "播放的视频:" + new Gson().toJson(liveInfo));
-
+        LogUtils.w("shipin_one", "播放的视频:" + new Gson().toJson(liveInfo));
+        LogUtils.w("shipin_one", "----------------------------------------------------------------------------------------------------------------------------------------------------------------");
         if (deviceInfo != null) {
             if (cameraInfoEx.getCascadeFlag() == LiveInfo.CASCADE_TYPE_YES) {
                 deviceInfo.setLoginName("admin");
@@ -847,7 +850,6 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                 case ConstantLive.SD_CARD_UN_USEABLE:
                     UIUtil.showToast(LiveActivity.this, "SD卡不可用");
                     break;
-
                 case ConstantLive.SD_CARD_SIZE_NOT_ENOUGH:
                     UIUtil.showToast(LiveActivity.this, "SD卡空间不足");
                     break;

@@ -187,7 +187,23 @@ public class FoodCompanies extends Activity implements JSONdata,
 
             @Override
             public void onError(Throwable e) {
+                Config.getIns().setServerAddr(servAddr);
+                macAddress = getMacAddr();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 登录请求
+                        boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
+                        // LogUtils.w("shipin_flow", "视频保存的信息:" + new Gson().toJson(servInfo));
+                        LogUtils.w("shipin_flow", "视频保存的信息:" + ret);
+                        if (ret) {
+                            TempData.getInstance().setLoginData(servInfo, servAddr);
 
+                        } else {
+
+                        }
+                    }
+                }).start();
             }
         });
 

@@ -78,9 +78,7 @@ public class SharePurposed implements OnClickListener {
 
     private void iniShareView(Context context) {
         dialogView = new PopDialogView(context, true);
-
         mShareView = LayoutInflater.from(context).inflate(R.layout.share_purposed, null);
-
         WeixinFriend = (TextView) mShareView.findViewById(R.id.share_sdk_weixinhaoyou_view);
         QQFriend = (TextView) mShareView.findViewById(R.id.share_sdk_qq_view);
         WeiBo = (TextView) mShareView.findViewById(R.id.share_sdk_xinlangweibo_view);

@@ -162,6 +162,28 @@ public class GetShipinListIntentService extends IntentService {
             @Override
             public void onError(Throwable e) {
                 LogUtils.w("shipin_add", "LogInHk onError"  );
+                Config.getIns().setServerAddr(servAddr);
+                macAddress = getMacAddr();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 登录请求
+                        boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
+                        SPUtils.init(getApplication()).put("shipinInfo", servInfo);
+                        // LogUtils.w("shipin_add", "视频保存的信息:" + ret + "   " + SPUtils.init(getApplication()).getString("shipinInfo"));/// new Gson().toJson(servInfo)
+                        if (servInfo != null) {
+                            SPUtils.init(getApplication()).put("quanxian", servInfo);
+                        }
+                        if (ret) {
+                            TempData.getInstance().setLoginData(servInfo, servAddr);
+                            startToGetInfo();
+                            // 设置视图,并开始了后面的请求
+                            //登录成功
+                        } else {
+                            //登录失败
+                        }
+                    }
+                }).start();
             }
         });
     }

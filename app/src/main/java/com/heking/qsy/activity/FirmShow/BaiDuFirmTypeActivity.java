@@ -205,7 +205,27 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Config.getIns().setServerAddr(servAddr);
+                        macAddress = getMacAddr();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // handler.sendEmptyMessage(Constants.Login.SHOW_LOGIN_PROGRESS);
+                                // 登录请求
+                                boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
+                                // LogUtils.w("shipin_flow", "视频保存的信息:" + new Gson().toJson(servInfo));
+                                LogUtils.w("shipin_flow", "视频保存的信息:" + ret);
+                                if (servInfo != null) {
+                                    SPUtils.init(BaiDuFirmTypeActivity.this).put("quanxian", servInfo);
+                                }
+                                if (ret) {
+                                    TempData.getInstance().setLoginData(servInfo, servAddr);
+                                    //  handler.sendEmptyMessage(Constants.Login.LOGIN_SUCCESS);
+                                } else {
+                                    // handler.sendEmptyMessage(Constants.Login.LOGIN_FAILED);
+                                }
+                            }
+                        }).start();
                     }
                 });
             }

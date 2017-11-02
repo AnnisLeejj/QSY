@@ -65,7 +65,7 @@ public class WPConfig {
      * 内网访问
      */
     public final static String URL_API_INTRANET =  "http://117.173.38.55:84/YZTQW/SJSPZHAPI/api/";//正式的   "http://192.168.0.224:89/YZTQW/SJSPZHAPI/api/";//测试
-    public final static String URL_API_INTRANET_ZS_SP=  "http://117.173.38.55:84/YZTQW/SJSPZHAPI/api/";//正式的
+    public final static String URL_API_INTRANET_ZS_SP="http://117.173.38.55:84/YZTQW/SJSPZHAPI/api/";//正式的
     public final static String URL_API_HOST = "http://117.173.38.55:84/";//正式
     // public final static String URL_API_HOST_Debug = "http://192.168.0.224:89/";//
     /**
