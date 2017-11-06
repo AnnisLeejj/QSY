@@ -401,7 +401,6 @@ public class PatrolDetailActivity extends BaseActivity
             }
         });
         popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-
     }
 
     protected void createSelectImageDialog() {

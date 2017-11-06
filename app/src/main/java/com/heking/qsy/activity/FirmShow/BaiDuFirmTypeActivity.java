@@ -40,8 +40,10 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -96,36 +98,25 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
         } else {
             setTheme(R.style.SwitchTheme_2);
         }
-//TID:100 此处删除高德地图
-        bundle = getIntent().getExtras();
-        data = (Data) bundle.getSerializable("FIRMTYPE");
-
-        intS = bundle.getInt("State");
         setContentView(R.layout.firm_type);
         findViewById(R.id.textview).setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
                 finish();
             }
         });
-        //此处方法已抽取
+        bundle = getIntent().getExtras();
+        data = (Data) bundle.getSerializable("FIRMTYPE");
+        intS = bundle.getInt("State");
+        Monitors = (LinearLayout) findViewById(R.id.monitoring);
 
         iniView();
-        iniData();
-        LocationSearch();
-
-        //视频查看权限
-        getPremision();
-        //设置adpter ,检查摄像头信息
-        setAdpter();
-
-        LogUtils.w("shipin", "界面数据:" + new Gson().toJson(data));
-
-        //正常渠道 逐级获取
-        if (AppContext.LoginUserMessage.messageUse) {
-            if (AppContext.LoginUserMessage.bean != null) {
-                for (int i = 0; i < AppContext.LoginUserMessage.bean.getSystemMenus().size(); i++) {
-                    String code = AppContext.LoginUserMessage.bean.getSystemMenus().get(i).getCode();
-                    if (code.equals("6")) {
+        if (data.getMonitors() != null && data.getMonitors().size() > 0) {//有摄像头,去获取
+            //正常渠道 逐级获取
+            if (AppContext.LoginUserMessage.messageUse) {
+                if (AppContext.LoginUserMessage.bean != null) {
+                    for (int i = 0; i < AppContext.LoginUserMessage.bean.getSystemMenus().size(); i++) {
+                        String code = AppContext.LoginUserMessage.bean.getSystemMenus().get(i).getCode();
+                        if (code.equals("6")) {
 //                        if (data.getMonitors() != null) {
 //                            if (data.getMonitors().size() > 0) {
 //                                Monitors.setVisibility(View.VISIBLE);
@@ -135,11 +126,18 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
 //                                Monitors.setVisibility(View.GONE);
 //                            }
 //                        }
-                        new LogInHk(this, savedInstanceState, data);
-                        break;
+                            new LogInHk(this, savedInstanceState, data);
+                            break;
+                        }
                     }
                 }
             }
+        } else {
+            Monitors.setVisibility(View.VISIBLE);
+            TextView textView = new TextView(this);
+            textView.setText("该企业没有摄像头");
+            textView.setGravity(Gravity.CENTER);
+            Monitors.addView(textView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
     }
 
@@ -240,7 +238,7 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
             //ResourceListAdapter.mList;
             cameraInfos = new ArrayList<>();
             CameraInfo cameraInfo;
-            AllCameraInfo.RowsBean toAdd=null;
+            AllCameraInfo.RowsBean toAdd = null;
             List<Integer> capability = new ArrayList<>();
             capability.add(1);
             capability.add(2);
@@ -267,14 +265,13 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                 cameraInfo.setPTZControl(true);
                 cameraInfo.setOnline(true);
                 cameraInfo.setRecordPos(recordP);
-                LogUtils.w("shipin_add",cameraInfo);
+                LogUtils.w("shipin_add", cameraInfo);
                 cameraInfos.add(cameraInfo);
                 toAdd = null;
             }
             cameraInfo = null;
             AppContext.shipins_toshow = cameraInfos;
             LogUtils.w("shipin_adpter", AppContext.shipins_toshow);
-
             if (cameraInfos.size() > 0) {
                 Monitors.setVisibility(View.VISIBLE);
                 Monitorslayout.setVisibility(View.VISIBLE);
@@ -352,9 +349,7 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
         getShipin.start();
     }
 
-    //此处方法已抽取
     private void LocationSearch() {
-        //Tid:100  删除高德地图
         TextNavigation.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -362,7 +357,6 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                         || TextAddress.getText().toString().trim().equals("")) {
                     Toast.makeText(BaiDuFirmTypeActivity.this, "该企业未提供地址，尚不能提供导航", Toast.LENGTH_SHORT).show();
                 } else {
-                    //TID:100   高德地图 转百度地图
                     Intent intent = new Intent(BaiDuFirmTypeActivity.this, BNDemoMainActivity.class);
                     Bundle bundle1 = new Bundle();
                     bundle1.putSerializable(ROUTE_PLAN_NODE, new BNDemoMainActivity.Address(data.getLongitude(), data.getLatitude(), data.getCity(), data.getAddress()));
@@ -373,15 +367,13 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
         });
     }
 
-//TID:100 此处删除高德地图
-
     private void iniView() {
         sv = (ScrollView) findViewById(R.id.sv);
         sv.smoothScrollTo(0, 0);
         TextNavigation = (TextView) findViewById(R.id.Text_Navigation);
         iv_qcode = (ImageView) findViewById(R.id.iv_qcode);
 
-        Monitors = (LinearLayout) findViewById(R.id.monitoring);
+
         Monitorslayout = (ListView) findViewById(R.id.monitoring_layout);
 
         TextFirmName = (TextView) findViewById(R.id.firm_name_message);
@@ -432,6 +424,13 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                 TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmTypeActivity.this, R.drawable.c));
                 break;
         }
+        iniData();
+        LocationSearch();
+
+        //视频查看权限
+        getPremision();
+        //设置adpter ,检查摄像头信息
+        setAdpter();
     }
 
     private void iniData() {
@@ -442,16 +441,12 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                     Log.i("BaiDuFirmType", "=-------------------------------->" + code + ":" + AppContext.LoginUserMessage.bean.getSystemMenus().get(i).getName());
                     if (code.equals("1") && data.getFirmTypeName().equals("药品经营")) {
                         mFiryTypes.setVisibility(View.VISIBLE);
-
                     } else if (code.equals("2") && data.getFirmTypeName().equals("食品经营")) {
                         mFiryTypes.setVisibility(View.VISIBLE);
-
                     } else if (code.equals("3") && data.getFirmTypeName().equals("餐饮经营")) {
                         mFiryTypes.setVisibility(View.VISIBLE);
-
                     } else if (code.equals("4") && data.getFirmTypeName().equals("食品生产")) {
                         mFiryTypes.setVisibility(View.VISIBLE);
-
                     } else if (code.equals("5") && data.getFirmTypeName().equals("药品生产")) {
                         mFiryTypes.setVisibility(View.VISIBLE);
                         //任务100 bug1276 用户登录，选择一个企业，查看企业详情，在详情页，不能查看企业巡检数据了
@@ -478,8 +473,6 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                 bundle.putInt("State", intS);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-                // }
             }
         });
         mXunJianData.setOnClickListener(new OnClickListener() {
@@ -490,7 +483,6 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                 intent.putExtra("firmID", data.getFirmID());
                 intent.putExtra("type", PatrolActivity.Type.q);
                 startActivity(intent);
-
             }
         });
 
@@ -549,6 +541,7 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
         //Monitorslayout.setVisibility(View.GONE);
         //   Monitors.addView(view);
     }
+
     @Override
     public void toBitmap(Bitmap bitmap) {
         iv_qcode.setImageBitmap(bitmap);

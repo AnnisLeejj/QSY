@@ -109,7 +109,6 @@ public class PatrolActivity extends Activity implements OnClickListener {
                 } else {
                     getData(pageNum, typeArray.get(select), null);
                 }
-
                 srl.setRefreshing(false);
             }
         });
@@ -124,7 +123,6 @@ public class PatrolActivity extends Activity implements OnClickListener {
                 } else {
                     getData(pageNum, typeArray.get(select), null);
                 }
-
             }
 
         });
@@ -142,7 +140,6 @@ public class PatrolActivity extends Activity implements OnClickListener {
                 startActivity(intent);
             }
         });
-
         if (getIntent().getSerializableExtra("type") != null) {
             t = (Type) getIntent().getSerializableExtra("type");
         }
@@ -166,7 +163,6 @@ public class PatrolActivity extends Activity implements OnClickListener {
         } else {
             getData(pageNum, typeArray.get(select), null);
         }
-
     }
 
     @Override
@@ -189,9 +185,7 @@ public class PatrolActivity extends Activity implements OnClickListener {
                 }
                 View contentView = LayoutInflater.from(mContext).inflate(R.layout.layout_enterprise_type_select, null);
                 ListView lvSelect = (ListView) contentView.findViewById(R.id.lvSelect);
-
                 final SelectAdapter selectAdapter = new SelectAdapter(typeArray);
-
                 lvSelect.setAdapter(selectAdapter);
                 lvSelect.setOnItemClickListener(new OnItemClickListener() {
                     @Override
@@ -199,7 +193,6 @@ public class PatrolActivity extends Activity implements OnClickListener {
                         pageNum = 1;
                         select = arg2;
                         getData(pageNum, typeArray.get(select), null);
-
                         tvSelectTitle.setText(typeArray.get(select));
                         if (popupWindow.isShowing()) {
                             popupWindow.dismiss();
@@ -251,25 +244,19 @@ public class PatrolActivity extends Activity implements OnClickListener {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
             if (convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_patrol, null);
                 viewHolder = new ViewHolder();
                 viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-
                 viewHolder.tvTime = (TextView) convertView.findViewById(R.id.tvTime);
-
                 viewHolder.tvCoordinators = (TextView) convertView.findViewById(R.id.tvCoordinators);
-
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             PatrolBean patrolBean = mValues.get(position);
             viewHolder.tvTitle.setText(patrolBean.getFirmName());
-
             viewHolder.tvTime.setText(patrolBean.getInspectTime().substring(0, 10));
-
             viewHolder.tvCoordinators.setText(patrolBean.getInspectPeople());
             return convertView;
         }
@@ -320,13 +307,11 @@ public class PatrolActivity extends Activity implements OnClickListener {
     }
 
     private void getData(int page, final String FirmTypeName, String FirmID) {
-        LogUtils.w("xunjian", "页码:" + page, "全部巡检".equals(FirmTypeName) ? "" : FirmTypeName, FirmID);
-        Map<String, String> params1 = new HashMap<>();
-        params1.put("PageNumber", page + "");
-        params1.put("FirmTypeName", "全部巡检".equals(FirmTypeName) ? "" : FirmTypeName);
-        params1.put("FirmID", TextUtils.isEmpty(FirmID) ? "" : FirmID);
+        StringBuffer url = new StringBuffer("Inspection/GetInspectionRecords?PageNumber=" + page);
+        url.append("全部巡检".equals(FirmTypeName) ? "" : "&FirmTypeName=" + FirmTypeName);
+        url.append(TextUtils.isEmpty(FirmID) ? "" : "&FirmID=" + FirmID);
 
-        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + "Inspection/GetInspectionRecords")
+        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
@@ -379,7 +364,7 @@ public class PatrolActivity extends Activity implements OnClickListener {
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtils.w("http", "onError:"+e.getMessage());
+                        LogUtils.w("http", "onError:" + e.getMessage());
                     }
                 });
     }

@@ -840,7 +840,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                     }
                     if (null != mLiveControl) {
                         mLiveControl.stop();
-                        UIUtil.showToast(LiveActivity.this, "该摄像头暂时不可用！");
+                        UIUtil.showToast(LiveActivity.this, "当前设备未开启！");
                     }
                     break;
                 case ConstantLive.GET_OSD_TIME_FAIL:

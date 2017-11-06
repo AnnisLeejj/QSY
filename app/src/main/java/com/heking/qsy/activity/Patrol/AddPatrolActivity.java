@@ -334,7 +334,7 @@ public class AddPatrolActivity extends Activity implements OnClickListener {
     }
 
     private void getData() {
-        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + "http://117.173.38.55:84/YZTQW/SJSPZHAPI/api/Inspection/GetInspectTables").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
+        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + "Inspection/GetInspectTables").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
             @Override
             public void onSubscribe(Disposable d) {
 

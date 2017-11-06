@@ -102,6 +102,15 @@ public class BNDemoMainActivity extends BaseActivity {
     }
 
     public void init() {
+        endAddress = (Address) getIntent().getSerializableExtra(ROUTE_PLAN_NODE);
+        if (this.endAddress == null) {
+            throw new NullPointerException("请传入 BNDemoMainActivity.Address.class 对象");
+        } else if ((endAddress.latitude == 0 || endAddress.longitude == 0) && TextUtils.isEmpty(endAddress.address)) {
+            throw new RuntimeException("请传入 经纬度 或者 地址");
+        }
+
+        LogUtils.w("map", "准备导航:" + new Gson().toJson(endAddress));
+
         showDialog("正在计算...");
         BNOuterLogUtil.setLogSwitcher(true);
         /**
@@ -111,14 +120,10 @@ public class BNDemoMainActivity extends BaseActivity {
             /**
              * 使用SDK前，先进行百度服务授权和引擎初始化。
              */
+            LogUtils.w("map","111111111111111111111");
             initNavi();
-        }
-        endAddress = (Address) getIntent().getSerializableExtra(ROUTE_PLAN_NODE);
-        LogUtils.w("map", "准备导航:" + new Gson().toJson(endAddress));
-        if (this.endAddress == null) {
-            throw new NullPointerException("请传入 BNDemoMainActivity.Address.class 对象");
-        } else if ((endAddress.latitude == 0 || endAddress.longitude == 0) && TextUtils.isEmpty(endAddress.address)) {
-            throw new RuntimeException("请传入 经纬度 或者 地址");
+        }else{
+            LogUtils.w("map","11111111111222222222222");
         }
     }
 
@@ -152,7 +157,6 @@ public class BNDemoMainActivity extends BaseActivity {
             public void onReceiveLocation(BDLocation bdLocation) {
                 LogUtils.w("map local", "onReceiveLocation: 获取了位置:" + new Gson().toJson(bdLocation));
                 mLocationClient.stop();
-
                 sNode = new BNRoutePlanNode(bdLocation.getLongitude(), bdLocation.getLatitude(), bdLocation.getAddress().address, null, CoordinateType.BD09LL);
                 //开始导航
                 // routeplanToNavi(CoordinateType.BD09LL);

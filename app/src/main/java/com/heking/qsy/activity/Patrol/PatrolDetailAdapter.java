@@ -1,12 +1,8 @@
 package com.heking.qsy.activity.Patrol;
 
-import java.io.File;
 import java.util.List;
-
 import com.heking.qsy.R;
 import com.heking.qsy.activity.Patrol.PatrolDetailActivity.ContentType;
-import com.lidroid.xutils.BitmapUtils;
-
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-
 import MyUtils.LogUtils.LogUtils;
 
 public class PatrolDetailAdapter extends BaseExpandableListAdapter {
@@ -74,9 +69,7 @@ public class PatrolDetailAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_patrol_detail_group, null);
-
         TextView tvGropTitle = (TextView) convertView.findViewById(R.id.tvGropTitle);
         PatrolTableGroup patrolTableGroup = projects.get(groupPosition);
         tvGropTitle.setText(patrolTableGroup.getProjectName());
@@ -97,12 +90,10 @@ public class PatrolDetailAdapter extends BaseExpandableListAdapter {
         } else if (patrolTableChild.getRate() == 2) {
             Rg.check(R.id.rbNo);
         }
-
         Rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
                 switch (checkedId) {
                     case R.id.rbYes:
                         patrolTableChild.setRate(1);

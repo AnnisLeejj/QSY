@@ -179,7 +179,6 @@ public class SixiaoActivity extends BaseActivity implements OnClickListener {
                 FirmTypeBean.Data data = iter.next();
                 boolean bFirmType = firmType.contains("全部企业") || data.getFirmTypeName().contains(firmType)
                         || data.getFirmTypeName1().contains(firmType) ? true : false;
-
                 if (data.getAreaName() != null) {
                     boolean bAddress = address.contains("全部区域") || data.getAreaName().contains(address) ? true : false;
                     if (!bFirmType || !bAddress) {
@@ -278,7 +277,6 @@ public class SixiaoActivity extends BaseActivity implements OnClickListener {
                 popupWindow.showAsDropDown(flSelectAddr);
                 break;
             case R.id.flSelectType:
-
                 sType = 2;
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();

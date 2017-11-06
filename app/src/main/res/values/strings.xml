@@ -328,6 +328,7 @@
         <item>餐饮企业</item>
     </string-array>
     <string-array name="xiao_zuo">
+        <item>全部企业</item>
         <item>加工小作坊</item>
         <item>小食品摊贩</item>
         <item>小餐饮</item>

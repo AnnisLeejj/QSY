@@ -89,13 +89,9 @@ public class ConnectionUtility {
 
 
             public void run() {
-                // TODO Auto-generated method stub
-
                 String message = null;
                 StringBuffer data = null;
                 try {
-
-
                     URL mUrl = new URL(url);
                     HttpURLConnection mConnection = (HttpURLConnection) mUrl
                             .openConnection();
@@ -119,7 +115,6 @@ public class ConnectionUtility {
                         Log.i("ConnectionUtility", "连接失败1");
                         message = "连接失败";
                     }
-
                 } catch (Exception e) {
                     Log.i("ConnectionUtility", "连接失败2");
                     e.printStackTrace();
@@ -130,7 +125,6 @@ public class ConnectionUtility {
                     message = data.toString();
                 }
 
-
                 Bundle bundle = new Bundle();
                 Message mMessage = handler.obtainMessage();
                 bundle.putString("json", message);
@@ -139,13 +133,10 @@ public class ConnectionUtility {
             }
 
         }).start();
-
     }
 
     private class MyHandler extends Handler {
-
         // 必须重写这个方法，用于处理message
-
         public void handleMessage(Message msg) {
             // 这里用于更新UI
             Bundle bundle = msg.getData();

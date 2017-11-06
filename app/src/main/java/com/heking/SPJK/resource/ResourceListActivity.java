@@ -169,8 +169,8 @@ public class ResourceListActivity extends BaseActivity implements MsgCallback, O
             }
         }).start();
     }
-//废弃代码移动到尾部
 
+    //废弃代码移动到尾部
     @SuppressLint("HandlerLeak")
     private final class MsgHandler extends Handler {
         @Override

@@ -49,6 +49,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import MyUtils.LogUtils.LogUtils;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -242,15 +243,11 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
     }
 
     private void iniData() {
-        HttpHelper.getInstance().service.get(WPConfig.PERSONAL_CENTERS + AppContext.Parameter.GET_USER)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
+        Tool.toHttpGEtandPost(WPConfig.PERSONAL_CENTERS
+                + AppContext.Parameter.GET_USER, "GET", null, new JSONdata() {
 
             @Override
-            public void onSuccess(String json) {
+            public void httpResponse(String json) {
                 if (json.equals("连接失败")) {
                     Toast.makeText(ModifyTheActivity.this, "更新资料失败",
                             Toast.LENGTH_SHORT).show();
@@ -275,6 +272,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                         date = sdf.parse(bean.getBOD().split("T")[0]);
                     }
                 } catch (ParseException e) {
+                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 AppContext.ChangeMess.name = bean.getFullName();
@@ -286,6 +284,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                 boolean ioo3 = bean != null && bean.getEmail() != null;
 
                 if (ioo) {
+
                     if (bean.getGenderID().trim().equals("1")) {
                         mGender.setText("男");
                     } else if (bean.getGenderID().trim().equals("2")) {
@@ -295,9 +294,13 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                     } else {
                         mGender.setText("未知");
                     }
+
                 }
                 if (ioo1) {
+
                     mBirthday.setText(dfd.format(date));
+
+
                 }
                 if (ioo2) {
 
@@ -307,12 +310,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                     mEmail.setText(AppContext.ChangeMess.Email);
                 }
             }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        }, null, false);
         mName.setOnClickListener(this);
         mEmail.setOnClickListener(this);
         mImage.setOnClickListener(this);
@@ -321,6 +319,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
         mCancel.setOnClickListener(this);
         mBirthday.setOnClickListener(this);
         mGender.setOnClickListener(this);
+
 
     }
 
@@ -701,7 +700,6 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
 
     @Override
     protected void onRestart() {
-        // TODO Auto-generated method stub
         super.onRestart();
         mName.setText(AppContext.ChangeMess.name);
         mEmail.setText(AppContext.ChangeMess.Email);
