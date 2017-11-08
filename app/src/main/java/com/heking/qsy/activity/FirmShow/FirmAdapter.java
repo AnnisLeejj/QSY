@@ -80,13 +80,10 @@ public class FirmAdapter extends BaseAdapter {
 			layout.mPF.setVisibility(View.GONE);
 			break;
 		}if (list.get(proenat).getFirmReviewAverage() == 0) {
-
 			layout.tv_dianpin.setText("");
 			layout.tv_dianpin.setVisibility(View.GONE);
-
 		} else if (list.get(proenat).getFirmReviewAverage() < 5) {
 			layout.tv_dianpin.setVisibility(View.VISIBLE);
-
 			layout.tv_dianpin.setText("不满意");
 			layout.tv_dianpin.setTextColor(Color.parseColor("#e96c9e"));
 		} else if (list.get(proenat).getFirmReviewAverage() > 6) {
@@ -104,20 +101,15 @@ public class FirmAdapter extends BaseAdapter {
 					String code = AppContext.LoginUserMessage.bean.getSystemMenus().get(i).getCode();
 					if (code.equals("6")) {
 						if (list.get(proenat).isIoos()) {
-							
 							layout.mSP.setVisibility(View.VISIBLE);
 							if (AppContext.THEME) {
 								layout.mSP.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.easy));
-
 							} else {
-
 								layout.mSP.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.easy_1));
 							}
-
 						}else {
 							layout.mSP.setVisibility(View.GONE);
 						}
-						
 						break;
 					}
 				}
@@ -146,7 +138,6 @@ public class FirmAdapter extends BaseAdapter {
 	private class Layout {
 		private TextView textView, tv_dianpin;
 		private TextView mSP, mPF;
-		
 		private void cose() {
 			textView.setText("");
 		}

@@ -271,7 +271,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="mlink_sqy" android:host="com.heking.qsy" android:path="demo/a"/>
+                <data android:scheme="mlink_sqy" android:host="com.heking.qsy" android:path="/demo/a"/>
             </intent-filter>
         </activity>
         <activity
@@ -432,14 +432,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
-            android:name=".activity.ConvenienceService.util.BaiDuDaohang"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity
-            android:name=".activity.ConvenienceService.util.BNGuideActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity
             android:name=".activity.ConvenienceService.util.ZhouBianYaodian"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -529,10 +521,6 @@
         <activity
             android:name=".base.BaseActivity"
             android:label="@string/title_activity_base" />
-        <activity
-            android:name=".activity.ConvenienceService.util.BNDemoGuideActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".activity.ConvenienceService.util.BNDemoMainActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"

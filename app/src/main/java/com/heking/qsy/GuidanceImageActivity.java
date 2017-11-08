@@ -62,11 +62,7 @@ public class GuidanceImageActivity extends Activity implements OnPageChangeListe
         iniData();
     }
 
-    private View getView(int arg0) {
-        ImageView view = new ImageView(this);
-        view.setBackgroundDrawable(getResources().getDrawable(arg0));
-        return view;
-    }
+
 
     private void iniView() {
         if (bool) {
@@ -80,9 +76,9 @@ public class GuidanceImageActivity extends Activity implements OnPageChangeListe
     private void iniData() {
 
         if (bool) {
-            list.add(getView(R.drawable.imgae_01));
-            list.add(getView(R.drawable.imgae_02));
-            list.add(getView(R.drawable.imgae_03));
+            list.add(new ImageView(this));
+            list.add(new ImageView(this));
+            list.add(new ImageView(this));
 
             mViewPager.setAdapter(new ViewPageAdapter(list));
             mViewPager.setOnPageChangeListener(this);

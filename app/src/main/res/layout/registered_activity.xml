@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="126dp"
             android:layout_height="130dp"
-            android:background="@drawable/yzt_qw_logo" />
+            android:background="@drawable/logo_yaozhentong_qw" />
 
         <TextView
             android:id="@+id/version_name"

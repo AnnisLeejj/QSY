@@ -25,56 +25,77 @@
             android:layout_centerInParent="true"
             android:src="@drawable/xunjiany" />
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="25dp">
+            android:layout_above="@+id/view_center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-            <TableRow>
+            <ImageView
+                android:id="@+id/ivXunjian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_center"
+                android:layout_margin="5dp"
+                android:layout_toLeftOf="@+id/view_center"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:src="@drawable/xunjian2" />
 
-                <ImageView
-                    android:id="@+id/ivXunjian"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/xunjian2" />
+            <ImageView
+                android:id="@+id/ivSixiao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_center"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@+id/view_center"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:src="@drawable/sixiao"
+                android:text="四小管理" />
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivSixiao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/sixiao"
-                    android:text="四小管理" />
-            </TableRow>
 
-            <TableRow>
+        <View
+            android:id="@+id/view_center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true" />
 
-                <ImageView
-                    android:id="@+id/ivBaBayan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_bby"
-                    android:text="坝坝宴" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-                <ImageView
-                    android:id="@+id/ivTz"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/tongzhi"
-                    android:text="通知" />
-            </TableRow>
-        </TableLayout>
+            <ImageView
+                android:id="@+id/ivBaBayan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_center"
+                android:layout_margin="5dp"
+                android:layout_toLeftOf="@+id/view_center"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_bby"
+                android:text="坝坝宴" />
+
+            <ImageView
+                android:id="@+id/ivTz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_center"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@+id/view_center"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:src="@drawable/tongzhi"
+                android:text="通知" />
+        </LinearLayout>
+
     </RelativeLayout>
 </RelativeLayout>

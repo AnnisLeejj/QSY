@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -52,6 +53,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import MyUtils.LogUtils.LogUtils;
@@ -84,7 +86,7 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.w("shipin_server",getCacheDir().getAbsolutePath());
+        LogUtils.w("shipin_server", getCacheDir().getAbsolutePath());
         if (AppContext.THEME) {
             setTheme(R.style.SwitchTheme_1);
         } else {
@@ -120,6 +122,11 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
         iniData();
 
         startService(new Intent(this, GetShipinListIntentService.class));
+        justTest();
+    }
+
+    private void justTest() {
+
     }
 
     private void iniView() {

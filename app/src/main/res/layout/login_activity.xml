@@ -52,7 +52,7 @@
             android:layout_width="118.5dp"
             android:layout_height="118.50dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/yzt_qw_logo" />
+            android:background="@drawable/logo_yaozhentong_qw" />
 
         <TextView
             android:id="@+id/version_name"

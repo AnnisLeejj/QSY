@@ -11,26 +11,18 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.CityInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
-import com.baidu.mapapi.search.poi.PoiSortType;
 import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
-import com.baidu.navisdk.adapter.BNOuterLogUtil;
-import com.baidu.navisdk.adapter.BNOuterTTSPlayerCallback;
-import com.baidu.navisdk.adapter.BNRoutePlanNode;
-import com.baidu.navisdk.adapter.BNRoutePlanNode.CoordinateType;
-import com.baidu.navisdk.adapter.BNaviSettingManager;
-import com.baidu.navisdk.adapter.BaiduNaviManager;
-import com.baidu.navisdk.adapter.BaiduNaviManager.NaviInitListener;
-import com.baidu.navisdk.adapter.BaiduNaviManager.RoutePlanListener;
+import com.baidu.platform.comapi.location.CoordinateType;
 import com.google.gson.Gson;
 import com.heking.qsy.R;
 import com.heking.qsy.base.BaseActivity;
@@ -39,16 +31,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -58,7 +48,6 @@ import android.widget.Toast;
 
 import MyUtils.LogUtils.LogUtils;
 
-//TID:100 地图更换成百度地图
 public class BNDemoMainActivity extends BaseActivity {
     public static List<Activity> activityList = new LinkedList();
     /**
@@ -76,6 +65,7 @@ public class BNDemoMainActivity extends BaseActivity {
     Address endAddress;//导航的目的地  {"Address":"学府街83号","Delete":"false","ID":"2","Name":"犍为县食品药品监督管理局"}
     private ImageView icon;
     private TextView content;
+    LatLng start, end;
 
     @SuppressLint("NewApi")
     @Override
@@ -112,7 +102,8 @@ public class BNDemoMainActivity extends BaseActivity {
         LogUtils.w("map", "准备导航:" + new Gson().toJson(endAddress));
 
         showDialog("正在计算...");
-        BNOuterLogUtil.setLogSwitcher(true);
+//        BNOuterLogUtil.setLogSwitcher(true);
+        getLocal();//开始获取定位
         /**
          * 初始化按钮监听函数
          */
@@ -121,7 +112,7 @@ public class BNDemoMainActivity extends BaseActivity {
              * 使用SDK前，先进行百度服务授权和引擎初始化。
              */
             LogUtils.w("map", "111111111111111111111");
-            initNavi();
+//            initNavi();
         } else {
             LogUtils.w("map", "11111111111222222222222");
         }
@@ -146,7 +137,6 @@ public class BNDemoMainActivity extends BaseActivity {
     private static final int BAIDU_READ_PHONE_STATE = 100;
     LocationClient mLocationClient = null;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void getLocal() {
         // BDAbstractLocationListener myListener = new MyLocationListener();
         //BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口，原有BDLocationListener接口暂时同步保留。具体介绍请参考后文中的说明
@@ -156,8 +146,9 @@ public class BNDemoMainActivity extends BaseActivity {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
                 LogUtils.w("map local", "onReceiveLocation: 获取了位置:" + new Gson().toJson(bdLocation));
+                start = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
                 mLocationClient.stop();
-                sNode = new BNRoutePlanNode(bdLocation.getLongitude(), bdLocation.getLatitude(), bdLocation.getAddress().address, null, CoordinateType.BD09LL);
+//                sNode = new BNRoutePlanNode(bdLocation.getLongitude(), bdLocation.getLatitude(), bdLocation.getAddress().address, null, CoordinateType.BD09LL);
                 //开始导航
                 // routeplanToNavi(CoordinateType.BD09LL);
                 // 结束位置
@@ -206,8 +197,8 @@ public class BNDemoMainActivity extends BaseActivity {
     protected void getEnd() {
         if (endAddress.longitude != 0 && endAddress.latitude != 0) {//传过来的数据够详细,就不去搜索
             LogUtils.w("map", "有经纬度,不搜索");
-            eNode = new BNRoutePlanNode(endAddress.longitude, endAddress.latitude, "", endAddress.address, CoordinateType.BD09LL);
-            routeplanToNavi();
+//            eNode = new BNRoutePlanNode(endAddress.longitude, endAddress.latitude, "", endAddress.address, CoordinateType.BD09LL);
+//            routeplanToNavi();
             return;
         }
         LogUtils.w("map", "开始 搜索地址");
@@ -250,11 +241,12 @@ public class BNDemoMainActivity extends BaseActivity {
                 if (result.error == SearchResult.ERRORNO.NO_ERROR) { //没有错误可以操作
                     LogUtils.w("map", "搜索地址成功");
                     if (result.getAllPoi() != null && result.getAllPoi().size() > 0) {
-                        eNode = new BNRoutePlanNode(result.getAllPoi().get(0).location.longitude, result.getAllPoi().get(0).location.latitude,
-                                result.getAllPoi().get(0).address, null, CoordinateType.BD09LL);
+                        LogUtils.w("map", "进来了");
+                        end = result.getAllPoi().get(0).location;
+//                        new BNRoutePlanNode(result.getAllPoi().get(0).location.longitude, result.getAllPoi().get(0).location.latitude,
+//                                result.getAllPoi().get(0).address, null, CoordinateType.BD09LL);
                         routeplanToNavi();
                     }
-                    return;
                 } else {
                     showToast("获取目的地失败");
 //                    finish();
@@ -332,26 +324,26 @@ public class BNDemoMainActivity extends BaseActivity {
 
     String authinfo = null;
 
-    /**
-     * 内部TTS播报状态回传handler
-     */
-    private Handler ttsHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            int type = msg.what;
-            switch (type) {
-                case BaiduNaviManager.TTSPlayMsgType.PLAY_START_MSG: {
-                    showToastMsg("Handler : TTS play start");
-                    break;
-                }
-                case BaiduNaviManager.TTSPlayMsgType.PLAY_END_MSG: {
-                    showToastMsg("Handler : TTS play end");
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-    };
+//    /**
+//     * 内部TTS播报状态回传handler
+//     */
+//    private Handler ttsHandler = new Handler() {
+//        public void handleMessage(Message msg) {
+//            int type = msg.what;
+//            switch (type) {
+//                case BaiduNaviManager.TTSPlayMsgType.PLAY_START_MSG: {
+//                    showToastMsg("Handler : TTS play start");
+//                    break;
+//                }
+//                case BaiduNaviManager.TTSPlayMsgType.PLAY_END_MSG: {
+//                    showToastMsg("Handler : TTS play end");
+//                    break;
+//                }
+//                default:
+//                    break;
+//            }
+//        }
+//    };
 
     @Override
     protected void onRestart() {
@@ -359,77 +351,76 @@ public class BNDemoMainActivity extends BaseActivity {
         finish();
     }
 
-    /**
-     * 内部TTS播报状态回调接口
-     */
-    private BaiduNaviManager.TTSPlayStateListener ttsPlayStateListener = new BaiduNaviManager.TTSPlayStateListener() {
-
-        @Override
-        public void playEnd() {
-//            showToastMsg("TTSPlayStateListener : TTS play end");
-        }
-
-        @Override
-        public void playStart() {
-//            showToastMsg("TTSPlayStateListener : TTS play start");
-        }
-    };
-
-    public void showToastMsg(final String msg) {
-        BNDemoMainActivity.this.runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-                Toast.makeText(BNDemoMainActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    /**
+//     * 内部TTS播报状态回调接口
+//     */
+//    private BaiduNaviManager.TTSPlayStateListener ttsPlayStateListener = new BaiduNaviManager.TTSPlayStateListener() {
+//
+//        @Override
+//        public void playEnd() {
+////            showToastMsg("TTSPlayStateListener : TTS play end");
+//        }
+//
+//        @Override
+//        public void playStart() {
+////            showToastMsg("TTSPlayStateListener : TTS play start");
+//        }
+//    };
+//
+//    public void showToastMsg(final String msg) {
+//        BNDemoMainActivity.this.runOnUiThread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                Toast.makeText(BNDemoMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     /**
      * 使用SDK前，先进行百度服务授权和引擎初始化
      */
-    private void initNavi() {
-        LogUtils.w("map", "百度导航引擎初始化");
-        BNOuterTTSPlayerCallback ttsCallback = null;
-
-        BaiduNaviManager.getInstance().init(this, mSDCardPath, APP_FOLDER_NAME, new NaviInitListener() {
-            @Override
-            public void onAuthResult(int status, String msg) {
-                if (0 == status) {
-                    authinfo = "key校验成功!";
-                } else {
-                    authinfo = "key校验失败, " + msg;
-                }
-                BNDemoMainActivity.this.runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        // Toast.makeText(BNDemoMainActivity.this, authinfo, Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            @SuppressLint("NewApi")
-            public void initSuccess() {
-                //  Toast.makeText(BNDemoMainActivity.this, "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
-                //获取当前位置,搜索目的地
-                LogUtils.w("map", "百度导航引擎初始化成功");
-                getLocal();
-            }
-
-            public void initStart() {
-                //  Toast.makeText(BNDemoMainActivity.this, "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
-                LogUtils.w("map", "百度导航引擎初始化开始");
-            }
-
-            public void initFailed() {
-                //Toast.makeText(BNDemoMainActivity.this, "百度导航引擎初始化失败", Toast.LENGTH_SHORT).show();
-                LogUtils.w("map", "百度导航引擎初始化失败");
-            }
-        }, null, ttsHandler, null);
-
-    }
-
+//    private void initNavi() {
+//        LogUtils.w("map", "百度导航引擎初始化");
+//        BNOuterTTSPlayerCallback ttsCallback = null;
+//
+//        BaiduNaviManager.getInstance().init(this, mSDCardPath, APP_FOLDER_NAME, new NaviInitListener() {
+//            @Override
+//            public void onAuthResult(int status, String msg) {
+//                if (0 == status) {
+//                    authinfo = "key校验成功!";
+//                } else {
+//                    authinfo = "key校验失败, " + msg;
+//                }
+//                BNDemoMainActivity.this.runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        // Toast.makeText(BNDemoMainActivity.this, authinfo, Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//            }
+//
+//            @SuppressLint("NewApi")
+//            public void initSuccess() {
+//                //  Toast.makeText(BNDemoMainActivity.this, "百度导航引擎初始化成功", Toast.LENGTH_SHORT).show();
+//                //获取当前位置,搜索目的地
+//                LogUtils.w("map", "百度导航引擎初始化成功");
+//                getLocal();
+//            }
+//
+//            public void initStart() {
+//                //  Toast.makeText(BNDemoMainActivity.this, "百度导航引擎初始化开始", Toast.LENGTH_SHORT).show();
+//                LogUtils.w("map", "百度导航引擎初始化开始");
+//            }
+//
+//            public void initFailed() {
+//                //Toast.makeText(BNDemoMainActivity.this, "百度导航引擎初始化失败", Toast.LENGTH_SHORT).show();
+//                LogUtils.w("map", "百度导航引擎初始化失败");
+//            }
+//        }, null, ttsHandler, null);
+//
+//    }
     private String getSdcardDir() {
         if (Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString();
@@ -439,179 +430,182 @@ public class BNDemoMainActivity extends BaseActivity {
 
     /**
      * 算路设置起、终点，算路偏好，是否模拟导航等参数，然后在回调函数中设置跳转至诱导。
-     *
-     * @param coType
      */
-    BNRoutePlanNode eNode;
-    BNRoutePlanNode sNode;
-
+//    BNRoutePlanNode eNode;
+//    BNRoutePlanNode sNode;
     private void routeplanToNavi() {
-//        CoordinateType.WGS84;//国际经纬度坐标
-//        CoordinateType.GCJ02; //国测局坐标
-//        CoordinateType.BD09_MC;//百度墨卡托坐标
-//        CoordinateType.BD09LL;//百度经纬度坐标
-        if (eNode == null || sNode == null) {//本地定位成功,搜索目的地成功   才去导航
-            LogUtils.w("map", "起止点为空,不导航");
-            showToastMsg("失去您的位置!");
-            return;
+        finishActivity();
+        LogUtils.w("map", start, end);
+        List<PackageInfo> packages = getPackageManager().getInstalledPackages(0);
+        LogUtils.w("PackageInfo", "一共有:" + packages.size());
+        List<String> packageNames = new ArrayList<>();
+        for (PackageInfo item : packages) {
+            if (item.packageName.contains("map")) {
+                packageNames.add(item.packageName);
+            }
         }
-        if (sNode != null && eNode != null) {
-            List<BNRoutePlanNode> list = new ArrayList<BNRoutePlanNode>();
-            list.add(sNode);
-            list.add(eNode);
-            /**
-             * 发起算路操作并在算路成功后通过回调监听器进入导航过程,返回是否执行成功
-             */
-            LogUtils.w("map", "发起导航");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            if (true) return;
-            BaiduNaviManager
-                    .getInstance()
-                    .launchNavigator(
-                            this,                           //建议是应用的主Activity
-                            list,                           //传入的算路节点，顺序是起点、途经点、终点，其中途经点最多三个
-                            1,                              //算路偏好 1:推荐 8:少收费 2:高速优先 4:少走高速 16:躲避拥堵
-                            true,                           //true表示真实GPS导航，false表示模拟导航
-                            new DemoRoutePlanListener(sNode)//开始导航回调监听器，在该监听器里一般是进入导航过程页面
-                    );
-        }
+        NavigationHandler.Navi(this,packageNames,start,end);
+        LogUtils.w("PackageInfo", packageNames);
+        //["baidumapsdk.demo","com.tencent.map","com.google.android.apps.maps","com.baidu.map.location","com.autonavi.cmccmap","com.autonavi.minimap"]
+        //
+        //
+////        CoordinateType.WGS84;//国际经纬度坐标
+////        CoordinateType.GCJ02; //国测局坐标
+////        CoordinateType.BD09_MC;//百度墨卡托坐标
+////        CoordinateType.BD09LL;//百度经纬度坐标
+//        if (eNode == null || sNode == null) {//本地定位成功,搜索目的地成功   才去导航
+//            LogUtils.w("map", "起止点为空,不导航");
+//            showToastMsg("失去您的位置!");
+//            return;
+//        }
+//        if (sNode != null && eNode != null) {
+//            List<BNRoutePlanNode> list = new ArrayList<BNRoutePlanNode>();
+//            list.add(sNode);
+//            list.add(eNode);
+//            /**
+//             * 发起算路操作并在算路成功后通过回调监听器进入导航过程,返回是否执行成功
+//             */
+//            LogUtils.w("map", "发起导航");
+//
+//
+//
+//
+//
+//
+//
+//            if (true) return;
+//            BaiduNaviManager
+//                    .getInstance()
+//                    .launchNavigator(
+//                            this,                           //建议是应用的主Activity
+//                            list,                           //传入的算路节点，顺序是起点、途经点、终点，其中途经点最多三个
+//                            1,                              //算路偏好 1:推荐 8:少收费 2:高速优先 4:少走高速 16:躲避拥堵
+//                            true,                           //true表示真实GPS导航，false表示模拟导航
+//                            new DemoRoutePlanListener(sNode)//开始导航回调监听器，在该监听器里一般是进入导航过程页面
+//                    );
+//        }
     }
 
     /**
      * 导航回调监听器
      */
-    public class DemoRoutePlanListener implements RoutePlanListener {
-
-        private BNRoutePlanNode mBNRoutePlanNode = null;
-
-        public DemoRoutePlanListener(BNRoutePlanNode node) {
-            mBNRoutePlanNode = node;
-        }
-
-        @Override
-        public void onJumpToNavigator() {
-            /*
-             * 设置途径点以及resetEndNode会回调该接口
-             */
-
-            for (Activity ac : activityList) {
-                if (ac.getClass().getName().endsWith("BNDemoGuideActivity")) {
-                    return;
-                }
-            }
-            /**
-             * 导航activity
-             */
-            finishActivity();
-            //            finish();
-            LogUtils.w("map", "跳入导航");
-            Intent intent = new Intent(BNDemoMainActivity.this, BNDemoGuideActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(ROUTE_PLAN_NODE, (BNRoutePlanNode) mBNRoutePlanNode);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-
-        @Override
-        public void onRoutePlanFailed() {
-            LogUtils.w("map", "算路失败");
-            Toast.makeText(BNDemoMainActivity.this, "算路失败", Toast.LENGTH_SHORT).show();
-            //finish();
-            finishActivity();
-        }
-    }
+//    public class DemoRoutePlanListener implements RoutePlanListener {
+//
+//        private BNRoutePlanNode mBNRoutePlanNode = null;
+//
+//        public DemoRoutePlanListener(BNRoutePlanNode node) {
+//            mBNRoutePlanNode = node;
+//        }
+//
+//        @Override
+//        public void onJumpToNavigator() {
+//            /*
+//             * 设置途径点以及resetEndNode会回调该接口
+//             */
+//
+//            for (Activity ac : activityList) {
+//                if (ac.getClass().getName().endsWith("BNDemoGuideActivity")) {
+//                    return;
+//                }
+//            }
+//            /**
+//             * 导航activity
+//             */
+//            finishActivity();
+//            //            finish();
+//            LogUtils.w("map", "跳入导航");
+//            Intent intent = new Intent(BNDemoMainActivity.this, BNDemoGuideActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable(ROUTE_PLAN_NODE, (BNRoutePlanNode) mBNRoutePlanNode);
+//            intent.putExtras(bundle);
+//            startActivity(intent);
+//        }
+//
+//        @Override
+//        public void onRoutePlanFailed() {
+//            LogUtils.w("map", "算路失败");
+//            Toast.makeText(BNDemoMainActivity.this, "算路失败", Toast.LENGTH_SHORT).show();
+//            //finish();
+//            finishActivity();
+//        }
+//    }
 
     /**
      * 导航设置管理器
      */
-    private void initSetting() {
-        /**
-         * 日夜模式 1：自动模式 2：白天模式 3：夜间模式
-         */
-        BNaviSettingManager.setDayNightMode(BNaviSettingManager.DayNightMode.DAY_NIGHT_MODE_DAY);
-        /**
-         * 设置全程路况显示
-         */
-        BNaviSettingManager.setShowTotalRoadConditionBar(BNaviSettingManager.PreViewRoadCondition.ROAD_CONDITION_BAR_SHOW_ON);
-        /**
-         * 设置语音播报模式
-         */
-        BNaviSettingManager.setVoiceMode(BNaviSettingManager.VoiceMode.Veteran);
-        /**
-         * 设置省电模式
-         */
-        BNaviSettingManager.setPowerSaveMode(BNaviSettingManager.PowerSaveMode.DISABLE_MODE);
-        /**
-         * 设置实时路况条
-         */
-        BNaviSettingManager.setRealRoadCondition(BNaviSettingManager.RealRoadCondition.NAVI_ITS_ON);
-    }
+//    private void initSetting() {
+//        /**
+//         * 日夜模式 1：自动模式 2：白天模式 3：夜间模式
+//         */
+//        BNaviSettingManager.setDayNightMode(BNaviSettingManager.DayNightMode.DAY_NIGHT_MODE_DAY);
+//        /**
+//         * 设置全程路况显示
+//         */
+//        BNaviSettingManager.setShowTotalRoadConditionBar(BNaviSettingManager.PreViewRoadCondition.ROAD_CONDITION_BAR_SHOW_ON);
+//        /**
+//         * 设置语音播报模式
+//         */
+//        BNaviSettingManager.setVoiceMode(BNaviSettingManager.VoiceMode.Veteran);
+//        /**
+//         * 设置省电模式
+//         */
+//        BNaviSettingManager.setPowerSaveMode(BNaviSettingManager.PowerSaveMode.DISABLE_MODE);
+//        /**
+//         * 设置实时路况条
+//         */
+//        BNaviSettingManager.setRealRoadCondition(BNaviSettingManager.RealRoadCondition.NAVI_ITS_ON);
+//    }
 
-    private BNOuterTTSPlayerCallback mTTSCallback = new BNOuterTTSPlayerCallback() {
-
-        @Override
-        public void stopTTS() {
-            Log.e("test_TTS", "stopTTS");
-        }
-
-        @Override
-        public void resumeTTS() {
-            Log.e("test_TTS", "resumeTTS");
-        }
-
-        @Override
-        public void releaseTTSPlayer() {
-            Log.e("test_TTS", "releaseTTSPlayer");
-        }
-
-        @Override
-        public int playTTSText(String speech, int bPreempt) {
-            Log.e("test_TTS", "playTTSText" + "_" + speech + "_" + bPreempt);
-
-            return 1;
-        }
-
-        @Override
-        public void phoneHangUp() {
-            Log.e("test_TTS", "phoneHangUp");
-        }
-
-        @Override
-        public void phoneCalling() {
-            Log.e("test_TTS", "phoneCalling");
-        }
-
-        @Override
-        public void pauseTTS() {
-            Log.e("test_TTS", "pauseTTS");
-        }
-
-        @Override
-        public void initTTSPlayer() {
-            Log.e("test_TTS", "initTTSPlayer");
-        }
-
-        @Override
-        public int getTTSState() {
-            Log.e("test_TTS", "getTTSState");
-            return 1;
-        }
-    };
-
+//    private BNOuterTTSPlayerCallback mTTSCallback = new BNOuterTTSPlayerCallback() {
+//
+//        @Override
+//        public void stopTTS() {
+//            Log.e("test_TTS", "stopTTS");
+//        }
+//
+//        @Override
+//        public void resumeTTS() {
+//            Log.e("test_TTS", "resumeTTS");
+//        }
+//
+//        @Override
+//        public void releaseTTSPlayer() {
+//            Log.e("test_TTS", "releaseTTSPlayer");
+//        }
+//
+//        @Override
+//        public int playTTSText(String speech, int bPreempt) {
+//            Log.e("test_TTS", "playTTSText" + "_" + speech + "_" + bPreempt);
+//
+//            return 1;
+//        }
+//
+//        @Override
+//        public void phoneHangUp() {
+//            Log.e("test_TTS", "phoneHangUp");
+//        }
+//
+//        @Override
+//        public void phoneCalling() {
+//            Log.e("test_TTS", "phoneCalling");
+//        }
+//
+//        @Override
+//        public void pauseTTS() {
+//            Log.e("test_TTS", "pauseTTS");
+//        }
+//
+//        @Override
+//        public void initTTSPlayer() {
+//            Log.e("test_TTS", "initTTSPlayer");
+//        }
+//
+//        @Override
+//        public int getTTSState() {
+//            Log.e("test_TTS", "getTTSState");
+//            return 1;
+//        }
+//    };
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
