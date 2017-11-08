@@ -16,6 +16,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import MyUtils.LogUtils.LogUtils;
+
 public class DrugAdapter extends BaseAdapter {
 private ArrayList<DrugBean.Data> List;
 private LayoutInflater mInflater;
@@ -46,25 +48,18 @@ private Bundle bundledata;
 	public View getView(final int poiress, View arg1, ViewGroup arg2) {
 		toView view=null;
 		if(view==null){
-			
 			arg1=mInflater.inflate(R.layout.ites_list_drug, null);
 		}
-		view=	(toView) arg1.getTag();	
-		
+		view=	(toView) arg1.getTag();
 		if(view==null){
-			
 			view =new toView();
 			view.mName=(TextView) arg1.findViewById(R.id.drug_name);
 			view.mCoall=(TextView) arg1.findViewById(R.id.drug_firm);
 			view.layout=(LinearLayout) arg1.findViewById(R.id.lin_drug_layout);
-			
 			arg1.setTag(view);
 		}
 		view.cate();
-		
-		bundledata.putString("Name", List .get(poiress).getGenericName());
-		bundledata.putString("QY", List .get(poiress).getManufacturer());
-		bundledata.putString("pzwh", List .get(poiress).getApprovalNumber());
+
 		view.mName.setText(List .get(poiress).getGenericName());
 		view.mCoall.setText(List .get(poiress).getManufacturer());
 		view.layout.setOnClickListener(new OnClickListener() {
@@ -72,6 +67,10 @@ private Bundle bundledata;
 			@Override
 			public void onClick(View arg0) {
 				Intent intent =new Intent(context, DrugInformationActivity.class);
+				bundledata.putString("Name", List .get(poiress).getGenericName());
+				bundledata.putString("QY", List .get(poiress).getManufacturer());
+				bundledata.putString("pzwh", List .get(poiress).getApprovalNumber());
+				LogUtils.w("yaopinxinxi", "getApprovalNumber:" +  List .get(poiress).getApprovalNumber());
 				intent.putExtras(bundledata);
 				context.startActivity(intent);
 			}

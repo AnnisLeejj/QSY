@@ -6,7 +6,6 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.heking.SPJK.callback.MsgIds;
@@ -15,17 +14,11 @@ import com.heking.SPJK.data.Config;
 import com.heking.SPJK.data.TempData;
 import com.heking.SPJK.live.LiveActivity;
 import com.heking.qsy.AppContext;
-import com.heking.qsy.MainActivity;
 import com.heking.qsy.Model.AllCameraInfo;
 import com.heking.qsy.activity.FirmShow.MonitoringVideoHK;
-import com.heking.qsy.activity.regulatory.JsongDataBean;
-import com.heking.qsy.activity.regulatory.details.ProcurementWarehousingActivity;
-import com.heking.qsy.activity.regulatory.tab.TB_CaiGouRuKu;
-import com.heking.qsy.providers.JSONdata;
 import com.heking.qsy.util.FirmTypeBean;
 import com.heking.qsy.util.HttpHelper.HttpHelper;
 import com.heking.qsy.util.ParsonJson;
-import com.heking.qsy.util.Tool;
 import com.heking.snoa.WPConfig;
 import com.hikvision.vmsnetsdk.CameraInfo;
 import com.hikvision.vmsnetsdk.ControlUnitInfo;
@@ -74,22 +67,24 @@ public class GetShipinListIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
+        LogUtils.w("shipin_server", "onHandleIntent");
         //如果有先拿出来
-        String myCamer = SPUtils.init(getApplication()).getString("all_camer");
+        String myCamer = SPUtils.init(getApplication()).getString("all_camer_daxian");
         if (!TextUtils.isEmpty(myCamer)) {
-            AppContext.all_camer = new Gson().fromJson(myCamer, AllCameraInfo.class);
+            AppContext.all_camer_daxian = new Gson().fromJson(myCamer, AllCameraInfo.class);
         }
         //有没有都继续获取
 
-        //海康数据
-        //SPUtils.init(this).put("level_shipin", 0);
-        logHK();//登录HK
+
         //大仙的后台数据
         getAllCamerInfo();
+        //海康数据
+        //SPUtils.init(this).put("level_shipin", 0);
+        getHKAccount();//获取海康登录信息
     }
 
-    private void getAllCamerInfo() {
+    private void getAllCamerInfo() {//大仙的数据
+        LogUtils.w("shipin_server", "getAllCamerInfo");
         //就算有也要在获取,以防数据更新
         HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + url_all_camer).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
             @Override
@@ -102,8 +97,8 @@ public class GetShipinListIntentService extends IntentService {
                 if (TextUtils.isEmpty(json) || json.equals("连接失败")) return;
                 AllCameraInfo all_camer = new Gson().fromJson(json, AllCameraInfo.class);
                 if (all_camer != null) {
-                    AppContext.all_camer = all_camer;
-                    SPUtils.init(getApplication()).put("all_camer", json);
+                    AppContext.all_camer_daxian = all_camer;
+                    SPUtils.init(getApplication()).put("all_camer_daxian", json);
                     // LogUtils.w("shipin_add", "getAllCamerInfo:"+json);
                 }
             }
@@ -114,8 +109,8 @@ public class GetShipinListIntentService extends IntentService {
         });
     }
 
-    private void logHK() {
-
+    private void getHKAccount() {//获取海康登录信息(账户密码)
+        LogUtils.w("shipin_server", "logHK");
         //获取权限
         HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + url).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
             @Override
@@ -124,7 +119,7 @@ public class GetShipinListIntentService extends IntentService {
 
             @Override
             public void onSuccess(String json) {
-                LogUtils.w("shipin_add", "LogInHk 构造方法 toHttpGEtandPost  网路数据:" + json);
+                LogUtils.w("shipin_server", "LogInHk 构造方法 toHttpGEtandPost  网路数据:" + json);
                 if (!TextUtils.isEmpty(json) && !json.equals("连接失败")) {
                     String message = "{\"User\":" + json + "}";
                     MonitoringVideoHK monit = ParsonJson.jsonToBeanObj(message, MonitoringVideoHK.class);
@@ -135,57 +130,41 @@ public class GetShipinListIntentService extends IntentService {
                         password = user.getPassword();
                     }
                 }
-                Config.getIns().setServerAddr(servAddr);
-                macAddress = getMacAddr();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 登录请求
-                        boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
-                        SPUtils.init(getApplication()).put("shipinInfo", servInfo);
-                        // LogUtils.w("shipin_add", "视频保存的信息:" + ret + "   " + SPUtils.init(getApplication()).getString("shipinInfo"));/// new Gson().toJson(servInfo)
-                        if (servInfo != null) {
-                            SPUtils.init(getApplication()).put("quanxian", servInfo);
-                        }
-                        if (ret) {
-                            TempData.getInstance().setLoginData(servInfo, servAddr);
-                            startToGetInfo();
-                            // 设置视图,并开始了后面的请求
-                            //登录成功
-                        } else {
-                            //登录失败
-                        }
-                    }
-                }).start();
+                loginToHK();
             }
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.w("shipin_add", "LogInHk onError"  );
-                Config.getIns().setServerAddr(servAddr);
-                macAddress = getMacAddr();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 登录请求
-                        boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
-                        SPUtils.init(getApplication()).put("shipinInfo", servInfo);
-                        // LogUtils.w("shipin_add", "视频保存的信息:" + ret + "   " + SPUtils.init(getApplication()).getString("shipinInfo"));/// new Gson().toJson(servInfo)
-                        if (servInfo != null) {
-                            SPUtils.init(getApplication()).put("quanxian", servInfo);
-                        }
-                        if (ret) {
-                            TempData.getInstance().setLoginData(servInfo, servAddr);
-                            startToGetInfo();
-                            // 设置视图,并开始了后面的请求
-                            //登录成功
-                        } else {
-                            //登录失败
-                        }
-                    }
-                }).start();
+                LogUtils.w("shipin_server", "getHk onError");
+                loginToHK();
             }
         });
+    }
+
+    private void loginToHK() {//登录海康系统
+        LogUtils.w("shipin_server", "loginToHK");
+        Config.getIns().setServerAddr(servAddr);
+        macAddress = getMacAddr();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // 登录请求
+                boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
+                SPUtils.init(getApplication()).put("shipinInfo", servInfo);
+                // LogUtils.w("shipin_add", "视频保存的信息:" + ret + "   " + SPUtils.init(getApplication()).getString("shipinInfo"));/// new Gson().toJson(servInfo)
+                if (servInfo != null) {
+                    SPUtils.init(getApplication()).put("quanxian", servInfo);
+                }
+                if (ret) {
+                    TempData.getInstance().setLoginData(servInfo, servAddr);
+                    startToGetInfo();
+                    // 设置视图,并开始了后面的请求
+                    //登录成功
+                } else {
+                    //登录失败
+                }
+            }
+        }).start();
     }
 
     private void startToGetInfo() {
@@ -195,8 +174,7 @@ public class GetShipinListIntentService extends IntentService {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                LogUtils.w("shipin_add", "HK 开始获取数据");
-
+                LogUtils.w("shipin_server", "HK 开始获取视频数据");
                 int pId = 0;
                 if (Constants.Resource.TYPE_CTRL_UNIT == pResType) {
                     //  pId = pCtrlUnitId;
@@ -217,7 +195,7 @@ public class GetShipinListIntentService extends IntentService {
         ServInfo loginData = TempData.getIns().getLoginData();
 
         if (loginData == null) {
-            Log.i(Constants.LOG_TAG, "requestFirstList loginData:" + loginData);
+            LogUtils.w("shipin_server", "requestFirstList loginData:" + loginData);
             return;
         }
         String sessionID = loginData.getSessionID();
@@ -326,13 +304,12 @@ public class GetShipinListIntentService extends IntentService {
      *
      * @param data
      */
-    // TODO
     @SuppressWarnings("unchecked")
     private void refreshResList(ArrayList data, int level) {
         String json = new Gson().toJson(data);
         // LogUtils.w("shipin", "level:" + level + "    刷新的数据:" + json);
         if (data == null || data.isEmpty()) {
-            Log.w("shipin", "没有获取到企业摄像头数据:");
+            Log.w("shipin_server", "没有获取到企业摄像头数据:");
             //没有获取到企业摄像头数据
             return;
         }
@@ -341,11 +318,10 @@ public class GetShipinListIntentService extends IntentService {
         if (!isName) {
             for (int i = 0; i < data.size(); i++) {
                 final Object itemData = data.get(i);
-
                 if (itemData instanceof CameraInfo) {//CameraInfo extends Camera     获取到了摄像头的信息,结束dialog
-                    AppContext.shipins.add((CameraInfo) itemData);
-                    LogUtils.w("shipin", "itemData instanceof CameraInfo");
+                    AppContext.cameraInfos_hk.add((CameraInfo) itemData);
                     CameraInfo info = (CameraInfo) itemData;
+                    LogUtils.w("shipin_server", "itemData instanceof CameraInfo:" + new Gson().toJson(info));
                 }
                 if (itemData instanceof ControlUnitInfo) {// ControlUnitInfo extends ControlUnit
                     //  LogUtils.w("shipin", "itemData instanceof ControlUnitInfo");
@@ -399,7 +375,7 @@ public class GetShipinListIntentService extends IntentService {
                 }
             }
         }
-        LogUtils.w("shipin", "我保存的信息:" + AppContext.shipins.size());
+        LogUtils.w("shipin_server", "我保存的信息:" + AppContext.cameraInfos_hk.size());
     }
 
     private void getInfo(final Object itemData, final int level) {
@@ -507,7 +483,7 @@ public class GetShipinListIntentService extends IntentService {
         allData.addAll(ctrlUnitList);
         allData.addAll(regionList);
         allData.addAll(cameraList);
-
+        LogUtils.w("shipin_server", "我保存的信息 cameraList:" + cameraList.size());
         Log.i(Constants.LOG_TAG, "allData size is " + allData.size());
         onInfoResponse(responseFlag ? MsgIds.GET_SUB_F_C_SUC : MsgIds.GET_SUB_F_C_FAIL, allData, level);
 
@@ -540,7 +516,6 @@ public class GetShipinListIntentService extends IntentService {
         if (!ret) {
             // Log.e(Constants.LOG_TAG, "Invoke VMSNetSDK.getRegionListFromRegion failed:" + errDesc());
         }
-
         List<CameraInfo> cameraList = new ArrayList<CameraInfo>();
         // 2.从区域获取监控点（摄像头）列表
         ret = VMSNetSDK.getInstance().getCameraListFromRegion(servAddr, loginData.getSessionID(), String.valueOf(pId), numPerPage, curPage,

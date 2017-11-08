@@ -27,8 +27,8 @@ public class AppContext extends Application {
     private static int code;
     public static ArrayList<PoiInfo> listmap = new ArrayList<PoiInfo>();
     public static ArrayList<CameraInfo> shipins_toshow;
-    public static ArrayList<CameraInfo> shipins = new ArrayList<>();
-    public static AllCameraInfo all_camer;
+    public static ArrayList<CameraInfo> cameraInfos_hk = new ArrayList<>();
+    public static AllCameraInfo all_camer_daxian;//大仙接口的数据
     public static   Context context;
     @Override
     public void onCreate() {

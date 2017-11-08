@@ -120,10 +120,10 @@ public class BNDemoMainActivity extends BaseActivity {
             /**
              * 使用SDK前，先进行百度服务授权和引擎初始化。
              */
-            LogUtils.w("map","111111111111111111111");
+            LogUtils.w("map", "111111111111111111111");
             initNavi();
-        }else{
-            LogUtils.w("map","11111111111222222222222");
+        } else {
+            LogUtils.w("map", "11111111111222222222222");
         }
     }
 
@@ -230,7 +230,8 @@ public class BNDemoMainActivity extends BaseActivity {
                 //第五步，释放POI检索实例；
                 mPoiSearch.destroy();
                 if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
-                    //showToast("检索不出目的地");
+                    showToast("检索不出目的地");
+                    finishActivity();
                     return;
                 }
 
@@ -242,7 +243,9 @@ public class BNDemoMainActivity extends BaseActivity {
                         strInfo += ",";
                     }
                     strInfo += "找到结果";
-                   // showToast(strInfo);
+                    showToast(strInfo);
+                    finishActivity();
+                    return;
                 }
                 if (result.error == SearchResult.ERRORNO.NO_ERROR) { //没有错误可以操作
                     LogUtils.w("map", "搜索地址成功");
@@ -297,7 +300,7 @@ public class BNDemoMainActivity extends BaseActivity {
 //                .radius(10000000).pageNum(10);
 //        mPoiSearch.searchNearby(nearbySearchOption);
         //城市内搜索
-        mPoiSearch.searchInCity((new PoiCitySearchOption()).city(TextUtils.isEmpty(endAddress.city) ? "成都" : endAddress.city).keyword(endAddress.address).pageNum(0));
+        mPoiSearch.searchInCity((new PoiCitySearchOption()).city(TextUtils.isEmpty(endAddress.city) ? "犍为" : endAddress.city).keyword(endAddress.address).pageNum(0));
     }
 
     @Override
@@ -423,8 +426,6 @@ public class BNDemoMainActivity extends BaseActivity {
                 //Toast.makeText(BNDemoMainActivity.this, "百度导航引擎初始化失败", Toast.LENGTH_SHORT).show();
                 LogUtils.w("map", "百度导航引擎初始化失败");
             }
-
-
         }, null, ttsHandler, null);
 
     }
@@ -451,6 +452,7 @@ public class BNDemoMainActivity extends BaseActivity {
 //        CoordinateType.BD09LL;//百度经纬度坐标
         if (eNode == null || sNode == null) {//本地定位成功,搜索目的地成功   才去导航
             LogUtils.w("map", "起止点为空,不导航");
+            showToastMsg("失去您的位置!");
             return;
         }
         if (sNode != null && eNode != null) {
@@ -461,6 +463,22 @@ public class BNDemoMainActivity extends BaseActivity {
              * 发起算路操作并在算路成功后通过回调监听器进入导航过程,返回是否执行成功
              */
             LogUtils.w("map", "发起导航");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if (true) return;
             BaiduNaviManager
                     .getInstance()
                     .launchNavigator(
@@ -472,7 +490,6 @@ public class BNDemoMainActivity extends BaseActivity {
                     );
         }
     }
-
 
     /**
      * 导航回调监听器

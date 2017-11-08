@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvGropTitle"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:textSize="17sp"
+    android:background="#ECECEC"
     android:gravity="center_vertical"
+    android:padding="8dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    android:id="@+id/tvGropTitle"
-    android:textColor="@color/black"
     android:text="你好你哈吗木木木木木木木 木"
-    android:padding="8dp"
-            android:background="@color/white">
-</TextView>
+    android:textColor="@color/black"
+    android:textSize="17sp"></TextView>

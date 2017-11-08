@@ -327,13 +327,24 @@ public class SweepTheYardActivity extends BaseActivity implements OnClickListene
                 bundledata.putString("scpc", MessageSearch.getValue().toString());
                 mProductionPiCi.setText(MessageSearch.getValue().toString());
             }
-            if (MessageSearch.getKey().equals("有效期至")) {
-                mYouXiaoDate.setText(MessageSearch.getValue().toString());
+            if (MessageSearch.getKey().equals("有效期至")) {//预设格式"　20121212",括号内
+                String str = MessageSearch.getValue().toString().trim().replace("　", "");
+                LogUtils.w("youxiaoqi", str + "-length:" + str.length());
+                if (str.length() == 8) {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("　");
+                    sb.append(str.substring(0, 4));
+                    sb.append("年");
+                    sb.append(str.substring(4, 6));
+                    sb.append("月");
+                    sb.append(str.substring(6, 8));
+                    sb.append("日");
+                    mYouXiaoDate.setText(sb);
+                } else {
+                    mYouXiaoDate.setText(str);
+                }
             }
             if (MessageSearch.getKey().equals("包装规格")) {
-                mBaoZhuanGuiGe.setText(MessageSearch.getValue().toString());
-            }
-            if (MessageSearch.getKey().equals("生产日期")) {
                 mBaoZhuanGuiGe.setText(MessageSearch.getValue().toString());
             }
             if (MessageSearch.getKey().equals("剂型代码")) {
@@ -393,17 +404,23 @@ public class SweepTheYardActivity extends BaseActivity implements OnClickListene
                     listView.setVisibility(ListView.VISIBLE);
                     if (mEditText.getText().toString().trim().equals("")) {
                         Toast.makeText(SweepTheYardActivity.this, "请输入需要查询的数据", Toast.LENGTH_SHORT).show();
-
                     }
-                    HttpHelper.getInstance().service.get("http://117.173.38.55:84/YZTQW/SJSPZHAPI/api/Medicine/GetMedicintBarCode/" + mEditText.getText().toString().trim()).
-                            subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
 
-                        }
+
+                    Tool.toHttpGEtandPost("http://117.173.38.55:84/YZTQW/SJSPZHAPI/api/Medicine/GetMedicintBarCode/" + mCode, "GET", null, new JSONdata() {
 
                         @Override
-                        public void onSuccess(String json) {
+                        public void httpResponse(String json) {
+//                            String JsonData = "{\"Data\":" + json + "}";
+//                            DrugBean bean = ParsonJson.jsonToBean(JsonData, DrugBean.class);
+//                            if (bean != null && bean.getData().size() > 0) {
+//                                DrugAdapter adapter = new DrugAdapter(SweepTheYardActivity.this, bean.getData());
+//                                listView.setAdapter(adapter);
+//                            } else {
+//                                searchNothingToHint();
+//                            }
+
+
                             dialog.dismiss();
                             String JsonData = "{\"Data\":" + json + "}";
                             DrugBean bean = ParsonJson.jsonToBean(JsonData, DrugBean.class);
@@ -425,13 +442,48 @@ public class SweepTheYardActivity extends BaseActivity implements OnClickListene
                                     adapter.notifyDataSetChanged();
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            dialog.dismiss();
                         }
-                    });
+                    }, null);
+
+
+//                    HttpHelper.getInstance().service.get("http://117.173.38.55:84/YZTQW/SJSPZHAPI/api/Medicine/GetMedicintBarCode/" + mEditText.getText().toString().trim()).
+//                            subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(String json) {
+//                            dialog.dismiss();
+//                            String JsonData = "{\"Data\":" + json + "}";
+//                            DrugBean bean = ParsonJson.jsonToBean(JsonData, DrugBean.class);
+//                            if (bean != null && bean.getData().size() > 0) {
+//                                datas.clear();
+//                                for (DrugBean.Data ee : bean.getData()) {
+//                                    datas.add(ee);
+//                                }
+//                                if (adapter == null) {
+//                                    adapter = new DrugAdapter(SweepTheYardActivity.this, datas);
+//                                    listView.setAdapter(adapter);
+//                                } else {
+//                                    adapter.notifyDataSetChanged();
+//                                }
+//                            } else {
+//                                datas.clear();
+//                                Toast.makeText(SweepTheYardActivity.this, "暂无该条数据记录", Toast.LENGTH_SHORT).show();
+//                                if (adapter != null) {
+//                                    adapter.notifyDataSetChanged();
+//                                }
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            dialog.dismiss();
+//                        }
+//                    });
 
                 }
 
@@ -482,8 +534,6 @@ public class SweepTheYardActivity extends BaseActivity implements OnClickListene
 
             }
         });
-
         builder.create().show();
     }
-
 }

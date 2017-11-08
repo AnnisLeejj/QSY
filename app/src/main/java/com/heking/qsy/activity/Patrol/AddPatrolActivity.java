@@ -83,10 +83,7 @@ public class AddPatrolActivity extends Activity implements OnClickListener {
         etHehe = (EditText) findViewById(R.id.etHehe);
         etXt = (EditText) findViewById(R.id.et_xt);
         btnNext = (Button) findViewById(R.id.btnNext);
-        //任务100 bug1191 初始化企业类型的下拉菜单
-        if (typeArray.contains("全部巡检")) {
-            typeArray.remove("全部巡检");
-        }
+
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, typeArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spEnterpriseType.setAdapter(adapter);
@@ -156,13 +153,14 @@ public class AddPatrolActivity extends Activity implements OnClickListener {
         }
     }
 
-    //TID:100 bug 1194 添加巡检记录时，巡检表单内“检查表”未根据“企业类型”筛选检查表
     private List<InspectTableBean> getTable(List<InspectTableBean> firmTapeDataList) {
         if (firmTapeDataList == null) return null;
+        String type = spEnterpriseType.getSelectedItem().toString();
         List<InspectTableBean> temp = new ArrayList<>();
         for (InspectTableBean item : firmTapeDataList) {
-            String type = spEnterpriseType.getSelectedItem().toString();
-            if (MyTextUtils.isContent(item.getFirmTypeName(), spEnterpriseType.getSelectedItem().toString())) {
+            if (MyTextUtils.isContent(item.getFirmTypeName(), type)) {
+                temp.add(item);
+            } else if ("全部巡检".equals(type)) {
                 temp.add(item);
             }
         }

@@ -49,7 +49,7 @@ public class ListActivity extends BaseActivity {
             } ResourceListAdapter.mList = cameraInfos;
         }
 
-        adapter = new MonitorsAdapter(cameraInfos, this);
+        adapter = new MonitorsAdapter(cameraInfos, this,true);
 
         mListView.setAdapter(adapter);
     }

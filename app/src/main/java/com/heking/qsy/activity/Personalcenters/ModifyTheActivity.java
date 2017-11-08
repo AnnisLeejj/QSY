@@ -16,7 +16,6 @@ import com.heking.qsy.providers.HttpImage;
 import com.heking.qsy.providers.ImageBitmap;
 import com.heking.qsy.providers.JSONdata;
 import com.heking.qsy.util.DateUntl;
-import com.heking.qsy.util.HttpHelper.HttpHelper;
 import com.heking.qsy.util.Operation;
 import com.heking.qsy.util.ParsonJson;
 import com.heking.qsy.util.PickerView;
@@ -49,14 +48,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import MyUtils.LogUtils.LogUtils;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class ModifyTheActivity extends Activity implements ImageBitmap,
-        OnClickListener, JSONdata {
+        OnClickListener {
     private Intent intent;
     private Bundle bundle;
     private TextView mImage, mGender, mBirthday, mSubmit;
@@ -161,9 +155,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
     }
 
     private void TimeDate() {
-
         Date mDate = new Date();
-
         SimpleDateFormat dfy = new SimpleDateFormat("yyyy");
         SimpleDateFormat dfm = new SimpleDateFormat("MM");
         SimpleDateFormat dfd = new SimpleDateFormat("dd");
@@ -185,7 +177,6 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
         yyyyView.setData(yyyy, year);
         MMView.setData(MM, month);
         ddView.setData(dd, daytime);
-
 
         // 滚动监听
         ddView.setOnSelectListener(new onSelectListener() {
@@ -209,7 +200,6 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
 
             @Override
             public void onSelect(String text) {
-
                 yyyStrng = text;
             }
         });
@@ -231,7 +221,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
         backTv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Tijiao();
+                Tijiao(10);
                 bundle.putSerializable("MessageData", null);
                 bundle.putString("name", mName.getText().toString().trim());
                 bundle.putString("fileUrl", fileUrl);
@@ -297,10 +287,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
 
                 }
                 if (ioo1) {
-
                     mBirthday.setText(dfd.format(date));
-
-
                 }
                 if (ioo2) {
 
@@ -319,8 +306,6 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
         mCancel.setOnClickListener(this);
         mBirthday.setOnClickListener(this);
         mGender.setOnClickListener(this);
-
-
     }
 
     /**
@@ -386,13 +371,11 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                 DialogSet(false);
                 mDialogViewimage.show();
                 break;
-
             case R.id.xiangji:
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, INT_CAMERA);
                 mDialogViewimage.dismiss();
                 break;
-
             case R.id.xiangce:
                 photo();
                 mDialogViewimage.dismiss();
@@ -445,16 +428,12 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                     year = dattTime[0];
                     month = dattTime[1];
                     daytime = dattTime[2];
-
                     yyyyView.setSelected(year);
                     MMView.setSelected(month);
                     ddView.setSelected(daytime);
                 }
-
-
                 mDialogView.show();
                 break;
-
         }
     }
 
@@ -506,7 +485,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                     fileUrl = fileString + fileName;
                     Log.i("Modify1", "onActivityResult: " + fileString + fileName);
                     Log.i("Modify", "onActivityResult: " + filesss.getName());
-                    Tijiao();
+                    Tijiao(0);
                 }
 
                 break;
@@ -551,8 +530,7 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
                     fileUrl = img_path;
                     Log.i("Modify2", "onActivityResult: " + img_path);
                     Log.i("Modify", "onActivityResult: " + filesss.getName());
-                    Tijiao();
-
+                    Tijiao(0);
                 }
                 break;
         }
@@ -679,33 +657,13 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
     }
 
     @Override
-    public void httpResponse(String json) {
-        Looper.prepare();
-        Log.d("测试数据", json);
-        if (json.equals("连接失败")) {
-            Toast.makeText(this, "连接失败请检查网络！", Toast.LENGTH_SHORT).show();
-        } else {
-            RegisteredBean bean = ParsonJson.jsonToBeanObj(json,
-                    RegisteredBean.class);
-            if (bean != null && bean.getMessage() != null
-                    && bean.getMessage().equals("True")) {
-                Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
-                //ModifyTheActivity.this.finish();
-            } else {
-                Toast.makeText(this, "修改失败", Toast.LENGTH_SHORT).show();
-            }
-        }
-        Looper.loop();
-    }
-
-    @Override
     protected void onRestart() {
         super.onRestart();
         mName.setText(AppContext.ChangeMess.name);
         mEmail.setText(AppContext.ChangeMess.Email);
     }
 
-    public void Tijiao() {
+    public void Tijiao(final int i) {
         Map<String, String> mapdata = new HashMap<String, String>();
         Map<String, File> mapfile = new HashMap<String, File>();
         String nkey = "[a-zA-Z0-9_\\-\\.]+@[a-zA-Z0-9]+(\\.(com|cn|org|edu|hk))";
@@ -739,7 +697,29 @@ public class ModifyTheActivity extends Activity implements ImageBitmap,
         }
 
         Tool.toHttpGEtandPost(WPConfig.PERSONAL_CENTERS + AppContext.Submit.UPDATE_USER_FOR_PZH,
-                "POST", mapdata, ModifyTheActivity.this,
+                "POST", mapdata, new JSONdata() {
+                    @Override
+                    public void httpResponse(String json) {
+                        Looper.prepare();
+                        Log.d("测试数据", json);
+                        if (json.equals("连接失败")) {
+                            Toast.makeText(ModifyTheActivity.this, "连接失败请检查网络！", Toast.LENGTH_SHORT).show();
+                        } else {
+                            RegisteredBean bean = ParsonJson.jsonToBeanObj(json,
+                                    RegisteredBean.class);
+
+                            if (i != 10)
+                                if (bean != null && bean.getMessage() != null
+                                        && bean.getMessage().equals("True")) {
+                                    Toast.makeText(ModifyTheActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                    //ModifyTheActivity.this.finish();
+                                } else {
+                                    Toast.makeText(ModifyTheActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                                }
+                        }
+                        Looper.loop();
+                    }
+                },
                 mapfile, false);
     }
 

@@ -269,7 +269,6 @@ public class HomeFragment extends BaseFragment
     }
 
     public void onClick(View arg0) {
-
         switch (arg0.getId()) {
             case R.id.mComplaintReporting:
                 toActivity(ComplaintReportingHome.class);

@@ -28,12 +28,13 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import MyUtils.LogUtils.LogUtils;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DrugInformationActivity extends Activity     {
+public class DrugInformationActivity extends Activity {
     private Bundle bundle;
     private String ApprovedBy;
     private LinearLayout linearLayout2;
@@ -62,7 +63,10 @@ public class DrugInformationActivity extends Activity     {
         linearLayout2 = (LinearLayout) findViewById(R.id.add_monitor);
         msScrollView = (ScrollView) findViewById(R.id.scroll_view);
         mTextMyAdd = (TextView) findViewById(R.id.search_button);
-        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + getUrl(bundle.getString("Name").trim(), bundle.getString("pzwh").trim()))
+        String url_b = getUrl(bundle.getString("Name").trim(), bundle.getString("pzwh").trim());
+        LogUtils.w("yaopinxinxi", "pzwh:" + bundle.getString("pzwh"));
+        LogUtils.w("yaopinxinxi", "url_b:" + url_b);
+        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + url_b)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -71,6 +75,7 @@ public class DrugInformationActivity extends Activity     {
 
             @Override
             public void onSuccess(String json) {
+                LogUtils.w("yaopinxinxi", json);
                 String JsonData = json;
                 JsonData = "{\"Data\":" + json + "}";
                 JsonFile jsonFile = new JsonFile();
@@ -140,14 +145,14 @@ public class DrugInformationActivity extends Activity     {
         String Generic = null;
         String Approval = null;
         try {
-            Generic = URLEncoder.encode(GenericName.replace("　", ""), "UTF-8");
-            Approval = URLEncoder.encode(ApprovalNumber.replace("　", ""), "UTF-8");
+            Generic = URLEncoder.encode(GenericName.replace("　", "").replace(" ", ""), "UTF-8");
+            Approval = URLEncoder.encode(ApprovalNumber.replace("　", "").replace(" ", ""), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        LogUtils.w("yaopinxinxi", "Approval:" + Approval);
         return "Medicine/GetMedicine?GenericName=" + Generic + "&ApprovalNumber=" + Approval;
     }
-
 
 
     private void iniData() {

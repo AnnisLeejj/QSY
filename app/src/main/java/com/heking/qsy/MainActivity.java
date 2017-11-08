@@ -84,6 +84,7 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtils.w("shipin_server",getCacheDir().getAbsolutePath());
         if (AppContext.THEME) {
             setTheme(R.style.SwitchTheme_1);
         } else {

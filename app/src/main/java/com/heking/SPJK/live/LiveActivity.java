@@ -126,10 +126,6 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
      */
     private SurfaceView mSurfaceView;
 
-    /**
-     * 创建取流等待bar
-     */
-    private ProgressBar mProgressBar;
 
     /**
      * 创建消息对象
@@ -238,14 +234,12 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
         position = extras.getInt("position", 0);
         serAddr = extras.getString("serAddr");
         mServInfo = new Gson().fromJson(extras.getString("mServInfo"), com.hikvision.vmsnetsdk.ServInfo.class);
-
         sessionid = mServInfo.getSessionID();
-
         cameraInfo = (CameraInfo) mList.get(position);
         mCameraID = cameraInfo.getId();
+        showWaitDialog();
 
         initUI();
-
         initData();
         startBtnOnClick();
     }
@@ -359,7 +353,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
 
                 @Override
                 public void onPageSelected(int index) {
-
+showWaitDialog();
                     mLiveControl.stop();
                     mSurfaceView = (SurfaceView) surfaceViewList.get(index);
                     mSurfaceView.getHolder().addCallback(LiveActivity.this);
@@ -401,16 +395,11 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                 }
             });
         }
-
         // int width=AppContext.ScrnParameter.screenWidth;
         // int height=AppContext.ScrnParameter.screenHenight;
         // LayoutParams params=new LayoutParams(((width-130)/3)*4, width-130);
         // mSurfaceView.setLayoutParams(params);
-
-        mProgressBar = (ProgressBar) findViewById(R.id.liveProgressBar);
-        mProgressBar.setVisibility(View.INVISIBLE);
-
-        cloudCtrlArea = (RelativeLayout) findViewById(R.id.cloud_area);
+         cloudCtrlArea = (RelativeLayout) findViewById(R.id.cloud_area);
         // 云台控制需要根据权限来显示
         mUserCap = new ArrayList<Integer>();
         mUserCap = cameraInfo.getUserCapability();
@@ -557,7 +546,6 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
      * @since V1.0
      */
     private void startBtnOnClick() {
-        mProgressBar.setVisibility(View.VISIBLE);
         vp.setNoScroll(true);
         new Thread() {
             @Override
@@ -818,26 +806,17 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
                 case ConstantLive.START_OPEN_FAILED:
                     Log.i(Constants.LOG_TAG, "开启播放库失败");
                     // UIUtil.showToast(LiveActivity.this, "开启播放库失败");
-
-                    if (null != mProgressBar) {
-                        mProgressBar.setVisibility(View.GONE);
-                        vp.setNoScroll(false);
-                    }
+                    dismissWaitDialog();
+                    vp.setNoScroll(false);
                     break;
                 case ConstantLive.PLAY_DISPLAY_SUCCESS:
                     UIUtil.showToast(LiveActivity.this, "播放成功");
-                    if (null != mProgressBar) {
-                        mProgressBar.setVisibility(View.GONE);
-                        vp.setNoScroll(false);
-                    }
+                    dismissWaitDialog();
+                    vp.setNoScroll(false);
                     break;
                 case ConstantLive.RTSP_FAIL:
-                    if (null != mProgressBar) {
-                        mProgressBar.setVisibility(View.GONE);
-                        vp.setNoScroll(false);
-                        Log.i(TAG, "====================2");
-                        // UIUtil.showToast(LiveActivity.this, "该摄像头暂时不可用，请查看其他的");
-                    }
+                    dismissWaitDialog();
+                    vp.setNoScroll(false);
                     if (null != mLiveControl) {
                         mLiveControl.stop();
                         UIUtil.showToast(LiveActivity.this, "当前设备未开启！");

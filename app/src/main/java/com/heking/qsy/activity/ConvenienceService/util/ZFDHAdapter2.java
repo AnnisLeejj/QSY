@@ -2,12 +2,10 @@ package com.heking.qsy.activity.ConvenienceService.util;
 
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
 import com.heking.qsy.R;
 import com.heking.qsy.activity.ConvenienceService.ZFDHActivity2;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,8 +62,8 @@ public class ZFDHAdapter2 extends BaseAdapter {
 
         }
         view.mName.setText(List.get(poiress).getName());
-        view.mCoall.setText(addss);
-        view.mAddss.setText(List.get(poiress).getAddress());
+        view.mCoall.setText("电话：" + addss);
+        view.mAddss.setText("地址：" + List.get(poiress).getAddress());
 
         view.mDaoHan.setOnClickListener(new OnClickListener() {
 

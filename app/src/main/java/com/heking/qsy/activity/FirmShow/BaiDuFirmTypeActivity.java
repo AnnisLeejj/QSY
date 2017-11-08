@@ -13,22 +13,19 @@ import com.heking.qsy.Model.AllCameraInfo;
 import com.heking.qsy.R;
 import com.heking.qsy.activity.ConvenienceService.util.BNDemoMainActivity;
 import com.heking.qsy.activity.Patrol.PatrolActivity;
-import com.heking.qsy.activity.regulatory.JsongDataBean;
 import com.heking.qsy.activity.regulatory.RegulatoryActivity;
-import com.heking.qsy.activity.regulatory.tab.TB_Degulatory;
 import com.heking.qsy.base.BaseActivity;
 import com.heking.qsy.providers.HttpImage;
 import com.heking.qsy.providers.ImageBitmap;
-import com.heking.qsy.providers.JSONdata;
 import com.heking.qsy.util.FirmTypeBean;
 import com.heking.qsy.util.FirmTypeBean.Data;
 import com.heking.qsy.util.HttpHelper.HttpHelper;
 import com.heking.qsy.util.ParsonJson;
-import com.heking.qsy.util.Tool;
 import com.heking.snoa.WPConfig;
 import com.hikvision.vmsnetsdk.CameraInfo;
 import com.hikvision.vmsnetsdk.ServInfo;
 import com.hikvision.vmsnetsdk.VMSNetSDK;
+import com.hikvision.vmsnetsdk.netLayer.msp.cameraList.Camera;
 import com.lidroid.xutils.BitmapUtils;
 
 import android.content.Context;
@@ -36,14 +33,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -112,33 +107,41 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
         iniView();
         if (data.getMonitors() != null && data.getMonitors().size() > 0) {//有摄像头,去获取
             //正常渠道 逐级获取
-            if (AppContext.LoginUserMessage.messageUse) {
-                if (AppContext.LoginUserMessage.bean != null) {
-                    for (int i = 0; i < AppContext.LoginUserMessage.bean.getSystemMenus().size(); i++) {
-                        String code = AppContext.LoginUserMessage.bean.getSystemMenus().get(i).getCode();
-                        if (code.equals("6")) {
-//                        if (data.getMonitors() != null) {
-//                            if (data.getMonitors().size() > 0) {
-//                                Monitors.setVisibility(View.VISIBLE);
-//                                Monitorslayout.setVisibility(View.VISIBLE);
-//                                TextMonitors.setText("视频监控");
-//                            } else {
-//                                Monitors.setVisibility(View.GONE);
-//                            }
+//            if (AppContext.LoginUserMessage.messageUse) {
+//                if (AppContext.LoginUserMessage.bean != null) {
+//                    for (int i = 0; i < AppContext.LoginUserMessage.bean.getSystemMenus().size(); i++) {
+//                        String code = AppContext.LoginUserMessage.bean.getSystemMenus().get(i).getCode();
+//                        if (code.equals("6")) {
+////                        if (data.getMonitors() != null) {
+////                            if (data.getMonitors().size() > 0) {
+////                                Monitors.setVisibility(View.VISIBLE);
+////                                Monitorslayout.setVisibility(View.VISIBLE);
+////                                TextMonitors.setText("视频监控");
+////                            } else {
+////                                Monitors.setVisibility(View.GONE);
+////                            }
+////                        }
+//                            new LogInHk(this, savedInstanceState, data);
+//                            break;
 //                        }
-                            new LogInHk(this, savedInstanceState, data);
-                            break;
-                        }
-                    }
-                }
-            }
+//                    }
+//                }
+//            }
         } else {
-            Monitors.setVisibility(View.VISIBLE);
-            TextView textView = new TextView(this);
-            textView.setText("该企业没有摄像头");
-            textView.setGravity(Gravity.CENTER);
-            Monitors.addView(textView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            setNoCarmers();
         }
+    }
+
+    int getChildCount = 0;
+
+    private void setNoCarmers() {
+        Monitors.setVisibility(View.VISIBLE);
+        if (getChildCount != 0) return;
+        getChildCount = 1;
+        TextView textView = new TextView(this);
+        textView.setText("该企业没有摄像头");
+        textView.setGravity(Gravity.CENTER);
+        Monitors.addView(textView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     String servAddr = "117.173.43.121:4443";
@@ -231,14 +234,14 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
     }
 
     private void setAdpter() {//查看提前获取的所有摄像头是否存在,不存在就再加载
-        String myCamer = SPUtils.init(getApplication()).getString("all_camer");
-        if (AppContext.all_camer != null) {//设置 adpter
+        String myCamer = SPUtils.init(getApplication()).getString("all_camer_daxian");
+        if (AppContext.cameraInfos_hk != null) {//海康的数据获取到了就不去 对比大仙的数据
             //显示前数据处理()
-            //AppContext.all_camer
+            //AppContext.all_camer_daxian
             //ResourceListAdapter.mList;
             cameraInfos = new ArrayList<>();
             CameraInfo cameraInfo;
-            AllCameraInfo.RowsBean toAdd = null;
+            CameraInfo toAdd = null;
             List<Integer> capability = new ArrayList<>();
             capability.add(1);
             capability.add(2);
@@ -246,27 +249,28 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
             capability.add(4);
             List<Integer> recordP = new ArrayList<>();
             capability.add(2);
-            LogUtils.w("shipin_adpter", AppContext.all_camer);
+            LogUtils.w("shipin_adpter", AppContext.cameraInfos_hk);
             for (Data.Monitors item : data.getMonitors()) {//获取的企业信息  只要这里有就要添加进列表
-                for (AllCameraInfo.RowsBean item2 : AppContext.all_camer.getRows()) {//之前获取的所有摄像头
-                    if (item.getModel().equals(item2.getModel())) {
-                        if (item2.getModel().equals(item.getModel())) {
+                for (CameraInfo item2 : AppContext.cameraInfos_hk) {//之前获取的所有摄像头
+                    if (item.getModel().equals(item2.getId())) {
+                        if (item2.getId().equals(item.getModel())) {
                             toAdd = item2;
+                            toAdd.setName(item.getName());
                         }
                     }
                 }
-                cameraInfo = new CameraInfo();
-                //实际获取到的值
-                cameraInfo.setId(toAdd == null ? null : toAdd.getModel());
-                cameraInfo.setName(item.getName());
-                //自己拼接的
-                cameraInfo.setUserCapability(capability);
-                cameraInfo.setGroupID(1);
-                cameraInfo.setPTZControl(true);
-                cameraInfo.setOnline(true);
-                cameraInfo.setRecordPos(recordP);
-                LogUtils.w("shipin_add", cameraInfo);
-                cameraInfos.add(cameraInfo);
+
+//                cameraInfo = new CameraInfo();
+//                //实际获取到的值
+//                cameraInfo.setId(toAdd == null ? null : toAdd.getId());
+//                cameraInfo.setName(item.getName());
+//                //自己拼接的
+//                cameraInfo.setUserCapability(capability);
+//                cameraInfo.setGroupID(1);
+//                cameraInfo.setPTZControl(true);
+//                cameraInfo.setRecordPos(recordP);
+////                LogUtils.w("shipin_add", cameraInfo);
+                cameraInfos.add(toAdd);
                 toAdd = null;
             }
             cameraInfo = null;
@@ -276,7 +280,7 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                 Monitors.setVisibility(View.VISIBLE);
                 Monitorslayout.setVisibility(View.VISIBLE);
                 TextMonitors.setText("视频监控");
-                adapter = new MonitorsAdapter(cameraInfos, this);//CameraInfo
+                adapter = new MonitorsAdapter(cameraInfos, this, true);//CameraInfo
                 Monitorslayout.setAdapter(adapter);
                 Monitorslayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -299,42 +303,115 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
                     }
                 });
             } else {
-                Monitors.setVisibility(View.GONE);
+                setNoCarmers();
             }
-        } else {
-            if (!TextUtils.isEmpty(myCamer)) {
-                AllCameraInfo info = new Gson().fromJson(myCamer, AllCameraInfo.class);
-                if (info != null) {
-                    AppContext.all_camer = info;
-                    //重来
-                    setAdpter();
-                } else {
-                    HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + "Firm/GetMo?page=0&rows=999999").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
+        } else {//对比大仙的数据
+            if (AppContext.all_camer_daxian != null) {//设置 adpter
+                //显示前数据处理()
+                //AppContext.all_camer_daxian
+                //ResourceListAdapter.mList;
+                cameraInfos = new ArrayList<>();
+                CameraInfo cameraInfo;
+                AllCameraInfo.RowsBean toAdd = null;
+                List<Integer> capability = new ArrayList<>();
+                capability.add(1);
+                capability.add(2);
+                capability.add(3);
+                capability.add(4);
+                List<Integer> recordP = new ArrayList<>();
+                capability.add(2);
+                LogUtils.w("shipin_adpter", AppContext.all_camer_daxian);
 
-                        }
-
-                        @Override
-                        public void onSuccess(String json) {
-                            AllCameraInfo all_camer = new Gson().fromJson(json, AllCameraInfo.class);
-                            if (all_camer != null) {
-                                AppContext.all_camer = all_camer;
-                                SPUtils.init(getApplication()).put("all_camer", json);
-                                //重来
-                                setAdpter();
+                for (Data.Monitors item : data.getMonitors()) {//获取的企业信息  只要这里有就要添加进列表
+                    for (AllCameraInfo.RowsBean item2 : AppContext.all_camer_daxian.getRows()) {//之前获取的所有摄像头
+                        if (item.getModel().equals(item2.getModel())) {
+                            if (item2.getModel().equals(item.getModel())) {
+                                toAdd = item2;
                             }
                         }
+                    }
+                    cameraInfo = new CameraInfo();
+                    //实际获取到的值
+                    cameraInfo.setId(toAdd == null ? null : toAdd.getModel());
+                    cameraInfo.setName(item.getName());
+                    //自己拼接的
+                    cameraInfo.setUserCapability(capability);
+                    cameraInfo.setGroupID(1);
+                    cameraInfo.setPTZControl(true);
+                    cameraInfo.setOnline(true);
+                    cameraInfo.setRecordPos(recordP);
+                    LogUtils.w("shipin_add", cameraInfo);
+                    cameraInfos.add(cameraInfo);
+                    toAdd = null;
+                }
+                cameraInfo = null;
+                AppContext.shipins_toshow = cameraInfos;
 
+                if (cameraInfos.size() > 0) {
+                    LogUtils.w("shipin_adpter", AppContext.shipins_toshow);
+                    Monitors.setVisibility(View.VISIBLE);
+                    Monitorslayout.setVisibility(View.VISIBLE);
+                    TextMonitors.setText("视频监控");
+                    adapter = new MonitorsAdapter(cameraInfos, this, false);//CameraInfo
+                    Monitorslayout.setAdapter(adapter);
+                    Monitorslayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void onError(Throwable e) {
-
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                            CameraInfo info = (CameraInfo) cameraInfos.get(position);
+                            if (info == null || info.getId() == null) {
+                                Log.e(Constants.LOG_TAG, "gotoLive():: fail");
+                                showToast("摄像头配置不正确");
+                                return;
+                            }
+                            Intent intent = new Intent(BaiDuFirmTypeActivity.this, LiveActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.IntentKey.CAMERA_ID, info.getId());
+                            bundle.putInt("position", position);
+                            bundle.putString("serAddr", Config.getIns().getServerAddr());
+                            bundle.putString("mServInfo", new Gson().toJson(TempData.getIns().getLoginData()));
+                            intent.putExtras(bundle);
+                            TempData.getIns().setCameraInfo(info);
+                            startActivity(intent);
                         }
                     });
+                } else {
+                    setNoCarmers();
+                }
+            } else {
+                if (!TextUtils.isEmpty(myCamer)) {
+                    AllCameraInfo info = new Gson().fromJson(myCamer, AllCameraInfo.class);
+                    if (info != null) {
+                        AppContext.all_camer_daxian = info;
+                        //重来
+                        setAdpter();
+                    } else {
+                        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET_ZS_SP + "Firm/GetMo?page=0&rows=999999").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
+                            }
+
+                            @Override
+                            public void onSuccess(String json) {
+                                AllCameraInfo all_camer = new Gson().fromJson(json, AllCameraInfo.class);
+                                if (all_camer != null) {
+                                    AppContext.all_camer_daxian = all_camer;
+                                    SPUtils.init(getApplication()).put("all_camer_daxian", json);
+                                    //重来
+                                    setAdpter();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                setNoCarmers();
+                            }
+                        });
+                    }
                 }
             }
         }
+
     }
 
     Bundle savedInstanceState;
@@ -372,45 +449,32 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
         sv.smoothScrollTo(0, 0);
         TextNavigation = (TextView) findViewById(R.id.Text_Navigation);
         iv_qcode = (ImageView) findViewById(R.id.iv_qcode);
-
-
         Monitorslayout = (ListView) findViewById(R.id.monitoring_layout);
-
         TextFirmName = (TextView) findViewById(R.id.firm_name_message);
         TextAddress = (TextView) findViewById(R.id.firm_address_message);
         TextEmail = (TextView) findViewById(R.id.firm_email_message);
-
         TextLegalRepresentative = (TextView) findViewById(R.id.Legal_Representative_message);
         TextLegalRepresentativePhones = (TextView) findViewById(R.id.Legal_Representative_phones_message);
-
         TextManager = (TextView) findViewById(R.id.Manager_message);
         TextManagerPhones = (TextView) findViewById(R.id.Manager_Phones_message);
         TextHeadOfQuality = (TextView) findViewById(R.id.Head_Of_Quality_message);
-
         TextQualityHeadPhones = (TextView) findViewById(R.id.Head_Quality_Phones_message);
         TextFirmTypeName = (TextView) findViewById(R.id.firm_annual_rating_message);
-
         TextAnnualRating = (TextView) findViewById(R.id.ping_ji_message);
         TextMonitors = (TextView) findViewById(R.id.monitoring_name);
-
         mFiryTypes = (TextView) findViewById(R.id.firm_data_message);
         mXunJianData = (TextView) findViewById(R.id.firm_xunjian_message);
         TextFirmName.setText(data.getFirmName());
         TextAddress.setText(data.getAddress());
         TextEmail.setText(data.getEmail());
-
         TextLegalRepresentative.setText(data.getLegalRepresentative());
         TextLegalRepresentativePhones.setText(data.getLegalRepresentativePhones());
-
         TextManager.setText(data.getManager());
         TextManagerPhones.setText(data.getManagerPhones());
-
         TextHeadOfQuality.setText(data.getHeadOfQuality());
         TextQualityHeadPhones.setText(data.getQualityHeadPhones());
         TextFirmTypeName.setText(data.getFirmTypeName1());
-
         mListLicense = (LinearLayout) findViewById(R.id.zhengzhao_layout);
-
         switch (data.getmRating()) {
             case 1:
                 TextAnnualRating.setBackground(ContextCompat.getDrawable(BaiDuFirmTypeActivity.this, R.drawable.a));
@@ -426,7 +490,6 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
         }
         iniData();
         LocationSearch();
-
         //视频查看权限
         getPremision();
         //设置adpter ,检查摄像头信息

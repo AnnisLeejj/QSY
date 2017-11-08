@@ -381,7 +381,7 @@ public class PatrolDetailActivity extends BaseActivity
             }
         });
 
-        popupWindow.setBackgroundDrawable(new ColorDrawable(R.color.white));
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         WindowManager.LayoutParams lp = getWindow().getAttributes();
 
         lp.alpha = 0.7f;
@@ -569,7 +569,7 @@ public class PatrolDetailActivity extends BaseActivity
                 popupWindow.dismiss();
             }
         });
-        popupWindow.setBackgroundDrawable(new ColorDrawable(R.color.white));
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         lp.alpha = 0.7f;
@@ -616,7 +616,11 @@ public class PatrolDetailActivity extends BaseActivity
 
                                         projects.clear();
                                         projects.addAll(inspectTableBean.getProjects());
-                                        textview01.setText(inspectTableBean.getTableName());
+                                        String tableName = inspectTableBean.getTableName();
+                                        if(tableName.length()>15){
+                                            tableName =  tableName.substring(0,12)+"...";
+                                        }
+                                        textview01.setText(tableName);
                                         patrolDetailAdapter.notifyDataSetChanged();
 
                                         if (contentType == ContentType.update) {

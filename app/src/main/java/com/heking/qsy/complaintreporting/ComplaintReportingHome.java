@@ -48,10 +48,8 @@ public class ComplaintReportingHome extends Activity     {
             setTheme(R.style.SwitchTheme_2);
         }
         setContentView(R.layout.complaint_reporting_home);
-
         iniView();
         iniData();
-
     }
 
     private void iniView() {
@@ -59,7 +57,6 @@ public class ComplaintReportingHome extends Activity     {
         mTextButtonOk = (TextView) findViewById(R.id.ok_button_ima);
         mBoardlist = (ListView) findViewById(R.id.Boardlist);
         mRewardBar = (ListView) findViewById(R.id.RewardBar);
-
     }
 
     private void iniData() {
