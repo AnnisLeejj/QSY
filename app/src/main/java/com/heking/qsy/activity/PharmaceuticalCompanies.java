@@ -82,7 +82,6 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
 
     String firmType = "全部企业";// 企业类型
     String address = "全部区域";
-    String TAG = "PharmaceuticalCompanies";
 
     protected void onCreate(Bundle savedInstanceState) {
         if (AppContext.THEME) {
@@ -261,7 +260,7 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
             @Override
             public void onRefresh() {
                 HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.GET_FIRM_TYPE +
-                        AppContext.Parameter.ALL).subscribeOn(Schedulers.io()) .observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
+                        AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
             }
         });
     }
@@ -275,7 +274,7 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
             adapter.notifyDataSetChanged();
         } else {
             HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.GET_FIRM_TYPE +
-                    AppContext.Parameter.ALL).subscribeOn(Schedulers.io()) .observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
+                    AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(singleObserver);
         }
         mArea.setOnClickListener(this);
         mFirm.setOnClickListener(this);
@@ -290,7 +289,6 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
      * @param view     更随视图
      */
     public void showPopwindow(final int arg0, View mPopView, View view) {
-
         switch (arg0) {
             case 99901:
                 mAreaView.setVisibility(LinearLayout.VISIBLE);
@@ -308,9 +306,7 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
                 mLevelView.setVisibility(LinearLayout.VISIBLE);
                 break;
         }
-
         if (mPopupWindow == null) {
-
             mPopupWindow = new PopupWindow(mPopView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
             // 设置一个空白的背景
             mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -329,7 +325,6 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
                             mFirm.setEnabled(true);
                             pop = false;
                             if (AppContext.THEME) {
-
                                 switch (onClickDate) {
                                     case 1:
                                         mtArea.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_firm_3));
@@ -339,14 +334,12 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
                                         mtArea.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_firm_1));
                                         mtFirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_firm_3));
                                         break;
-
                                     default:
                                         break;
                                 }
                             } else {
                                 mtArea.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_firm_2));
                                 mtFirm.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_firm_2));
-
                             }
                             boArea = false;
                             boFirm = false;
@@ -355,10 +348,8 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
                 }
             });
         }
-
         mPopupWindow.showAsDropDown(view);
         // //设置按钮不可以点击
-
         switch (arg0) {
             case 99901:
                 mArea.setEnabled(false);
@@ -367,7 +358,6 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
                 mFirm.setEnabled(false);
                 break;
         }
-
     }
 
     protected void onPause() {
@@ -375,7 +365,6 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
         if (mPopupWindow != null) {
             mPopupWindow.dismiss();
         }
-
     }
 
     // 将评分最高的展示在最前
@@ -388,11 +377,8 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
                     datalist.set(i, data2);
                     datalist.set(j, data1);
                 }
-
             }
-
         }
-
         return datalist;
     }
 
@@ -550,8 +536,7 @@ public class PharmaceuticalCompanies extends BaseActivity implements OnClickList
                 FirmTypeBean.Data data = iter.next();
                 Log.i("FoodCompanies", "updateList: 地点为+" + data.getAreaName());
                 boolean bFirmType = firmType.contains("全部企业") || data.getFirmTypeName().contains(firmType)
-                        || data.getFirmTypeName1().contains(firmType) ? true : false;
-                // TID:100 change grammar
+                        || data.getFirmTypeName1().contains(firmType);
                 boolean bAddress = false;
                 if (data.getAreaName() != null) {
                     bAddress = address.contains("全部区域") || data.getAreaName().contains(address) ? true : false;

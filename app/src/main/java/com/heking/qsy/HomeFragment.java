@@ -2,20 +2,13 @@ package com.heking.qsy;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
-import java.util.TimerTask;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +25,8 @@ import com.heking.qsy.activity.OpenGovernment;
 import com.heking.qsy.activity.PharmaceuticalCompanies;
 import com.heking.qsy.base.BaseFragment;
 import com.heking.qsy.complaintreporting.ComplaintReportingHome;
-import com.heking.qsy.providers.JSONdata;
-import com.heking.qsy.util.CycleViewPager;
 import com.heking.qsy.util.FirmTypeBean;
+import com.heking.qsy.util.GlideImageLoader;
 import com.heking.qsy.util.HttpHelper.HttpHelper;
 import com.heking.qsy.util.JsonFile;
 import com.heking.qsy.util.ParsonJson;
@@ -42,28 +34,22 @@ import com.heking.qsy.util.Tool;
 import com.heking.qsy.util.ViewPageAdapters;
 import com.heking.qsy.util.WriteToSD;
 import com.heking.snoa.WPConfig;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 import com.zbar.lib.CaptureActivity;
 
-import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class HomeFragment extends BaseFragment
-        implements OnPageChangeListener, OnClickListener {
+public class HomeFragment extends BaseFragment implements OnClickListener {
 
     private static String TAG = "LEFTTORIGHT";
     private static String LEFT = "LEFTTORIGHT";
-    // private Handler handler;
     private int which = 0;
     private final static int BAIDU_READ_PHONE_STATE = 101;
-    private Tool tool;
 
-    // 公告显示栏-----》轮播图
-    private CycleViewPager mViewPager;
-    // 公告显示栏-----》控制点
-    private LinearLayout mlayout;
     private ViewPageAdapters adapter;
     private ArrayList<Integer> list = new ArrayList<Integer>();
     private LinearLayout mSaoMa;
@@ -74,10 +60,6 @@ public class HomeFragment extends BaseFragment
             "88804OpenGoverBean.dll", "BSZNAdata.dll",
             "ComplaintReportingBean.dll", "FirmTypeBean.dll",
             "OpenGoverBean.dll", "Z10930004.dll"};
-    Timer timer;
-    MyTask task;
-//    private AMapLocationClient mlocationClient;
-//    private AMapLocationClientOption mLocationOption = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,27 +74,60 @@ public class HomeFragment extends BaseFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
         fileData();
         iniView();
         iniData();
+        lunbo();
     }
 
-    class MyTask extends TimerTask {
-        @Override
-        public void run() {
-            getActivity().runOnUiThread(new Runnable() {
-                // UI thread
-                @Override
-                public void run() {
-                    mViewPager.setCurrentItem(which % 5);
-                    which++;
-                }
+    private void lunbo() {
+//        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+//        int width = wm.getDefaultDisplay().getWidth();
+//        int height = wm.getDefaultDisplay().getHeight();
+//        LogUtils.w("load", "height:" + height);
+//
+//        banner.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int) (width * BannerHightRatio)));
+//        LogUtils.w("lunbo", (int) (width * BannerHightRatio));
+        // banner = (Banner) findViewById(R.id.banner);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        //设置banner样式
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        //设置轮播时间
+        banner.setDelayTime(4000);
 
-            });
-        }
+//        banner.setOnBannerListener(position -> {
+//            Intent intent = new Intent(getActivity(), WebActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putString("title", lunboList.get(position).getTitle());
+//            bundle.putString("url", lunboList.get(position).getLink());
+//            intent.putExtras(bundle);
+//            getActivity().startActivity(intent);
+//        });
+
+        //设置图片集合
+        List<Integer> list1 = new ArrayList<Integer>();
+        list1.add(R.drawable.image_1);
+        list1.add(R.drawable.image_2);
+        list1.add(R.drawable.image_3);
+        list1.add(R.drawable.image_4);
+        list1.add(R.drawable.image_5);
+
+        List<String> titles = new ArrayList<String>();
+        titles.add("");
+        titles.add("");
+        titles.add("");
+        titles.add("");
+        titles.add("");
+        //设置标题集合（当banner样式有显示title时）
+        banner.setBannerTitles(titles);
+        banner.setImages(list1);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
     }
+
 
     private void fileData() {
         for (String name : fileName) {
@@ -122,39 +137,16 @@ public class HomeFragment extends BaseFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return LayoutInflater.from(getActivity()).inflate(R.layout.activity_home, null);
+        return LayoutInflater.from(getActivity()).inflate(R.layout.main_fragment_home, null);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
 
-        // setContentView(R.layout.activity_home);
-        // fileData();
-        // iniView();
-        // iniData();
-        // login();
-        timer = new Timer();
-        task = new MyTask();
-        timer.schedule(task, 3000, 3000);
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        timer.cancel();
-        task.cancel();
-        timer.purge();
-        timer = null;
-        task = null;
-    }
+    Banner banner;
 
     private void iniView() {
-//
-        mViewPager = (CycleViewPager) getView().findViewById(R.id.show_view_pager);
-        mlayout = (LinearLayout) getView().findViewById(R.id.show_linear_layout);
+//        mViewPager = (CycleViewPager) getView().findViewById(R.id.show_view_pager);
+        banner = (Banner) getView().findViewById(R.id.banner);
+        // mlayout = (LinearLayout) getView().findViewById(R.id.show_linear_layout);
         mSaoMa = (LinearLayout) getView().findViewById(R.id.sousuo_text_button);
 
         mComplaintReporting = (LinearLayout) getView().findViewById(R.id.mComplaintReporting);
@@ -237,15 +229,32 @@ public class HomeFragment extends BaseFragment
                 startActivity(intent);
             }
         });
-        adapter = new ViewPageAdapters(list, getActivity());
-        mViewPager.setAdapter(adapter);
+        //   adapter = new ViewPageAdapters(list, getActivity());
+        //  mViewPager.setAdapter(adapter);
 
-        tool = new Tool(getActivity(), mlayout, list.size());
-        tool.drawsImg();
+//        tool = new Tool(getActivity(), mlayout, list.size());
+//        tool.drawsImg();
 
         which = 0;
 
-        mViewPager.setOnPageChangeListener(this);
+//        mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                Log.d("测试数据:", "------------->" + position);
+//                tool.setItem(position);
+//                which = position + 1;
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
 
         mComplaintReporting.setOnClickListener(this);
         mOpenGovernment.setOnClickListener(this);
@@ -255,18 +264,6 @@ public class HomeFragment extends BaseFragment
         mIWantToReview.setOnClickListener(this);
     }
 
-    public void onPageScrollStateChanged(int arg0) {
-    }
-
-    public void onPageScrolled(int arg0, float arg1, int arg2) {
-    }
-
-    public void onPageSelected(int arg0) {
-        Log.d("测试数据:", "------------->" + arg0);
-        tool.setItem(arg0);
-        which = arg0 + 1;
-
-    }
 
     public void onClick(View arg0) {
         switch (arg0.getId()) {

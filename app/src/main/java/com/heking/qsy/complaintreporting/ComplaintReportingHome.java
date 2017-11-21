@@ -36,7 +36,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint("NewApi")
-public class ComplaintReportingHome extends Activity     {
+public class ComplaintReportingHome extends Activity {
     private TextView mTextButtonOk;
     private ListView mBoardlist, mRewardBar;
 
@@ -107,9 +107,8 @@ public class ComplaintReportingHome extends Activity     {
 //		mRewardBar.setAdapter(new ComplaintAdapter(this, bean.getData(), 11, false));
                         timer = new Timer();
                         timer2 = new Timer();
-                        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET
-                                + AppContext.Parameter.GET_FIRM_TYPE
-                                + AppContext.Parameter.ALL).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
+                        HttpHelper.getInstance().service.get(WPConfig.URL_API_INTRANET + AppContext.Parameter.GET_FIRM_TYPE + AppContext.Parameter.ALL)
+                                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<String>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 

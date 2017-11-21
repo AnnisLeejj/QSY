@@ -77,23 +77,26 @@ public class FirmAdapter extends BaseAdapter {
 			layout.mPF.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.c));
 			break;
 		default:
-			layout.mPF.setVisibility(View.GONE);
+//			layout.mPF.setVisibility(View.GONE);
 			break;
 		}if (list.get(proenat).getFirmReviewAverage() == 0) {
 			layout.tv_dianpin.setText("");
-			layout.tv_dianpin.setVisibility(View.GONE);
+//			layout.tv_dianpin.setVisibility(View.GONE);
 		} else if (list.get(proenat).getFirmReviewAverage() < 5) {
 			layout.tv_dianpin.setVisibility(View.VISIBLE);
-			layout.tv_dianpin.setText("不满意");
-			layout.tv_dianpin.setTextColor(Color.parseColor("#e96c9e"));
+			layout.tv_dianpin.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bad));
+//			layout.tv_dianpin.setText("不满意");
+//			layout.tv_dianpin.setTextColor(Color.parseColor("#e96c9e"));
 		} else if (list.get(proenat).getFirmReviewAverage() > 6) {
 			layout.tv_dianpin.setVisibility(View.VISIBLE);
-			layout.tv_dianpin.setText("满意");
-			layout.tv_dianpin.setTextColor(Color.parseColor("#5ab7fa"));
+			layout.tv_dianpin.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.good));
+//			layout.tv_dianpin.setText("满意");
+//			layout.tv_dianpin.setTextColor(Color.parseColor("#5ab7fa"));
 		} else {
 			layout.tv_dianpin.setVisibility(View.VISIBLE);
-			layout.tv_dianpin.setText("一般");
-			layout.tv_dianpin.setTextColor(Color.parseColor("#93c348"));
+			layout.tv_dianpin.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ok));
+//			layout.tv_dianpin.setText("一般");
+//			layout.tv_dianpin.setTextColor(Color.parseColor("#93c348"));
 		}
 		if (AppContext.LoginUserMessage.messageUse) {
 			if (AppContext.LoginUserMessage.bean != null) {
@@ -108,7 +111,7 @@ public class FirmAdapter extends BaseAdapter {
 								layout.mSP.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.easy_1));
 							}
 						}else {
-							layout.mSP.setVisibility(View.GONE);
+							//layout.mSP.setVisibility(View.GONE);
 						}
 						break;
 					}

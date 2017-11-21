@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,15 +18,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:layout_weight="3"
         android:gravity="center">
 
-        <com.heking.qsy.util.CycleViewPager
-            android:id="@+id/show_view_pager"
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center" />
+            android:layout_below="@+id/text"
+            android:background="#aaa"
+            android:gravity="center"
+            app:indicator_drawable_selected="@drawable/point"
+            app:indicator_height="8dp"
+            app:indicator_margin="5dp"
+            app:indicator_width="8dp"
+            app:title_background="#0000"
+            app:title_height="35dp"
+            app:title_textcolor="@android:color/white"
+            app:title_textsize="16sp" />
 
         <LinearLayout
             android:id="@+id/show_linear_layout"
@@ -40,9 +51,9 @@
         android:id="@+id/sousuo_text_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:background="#5ab7fa"
         android:gravity="center">
@@ -66,7 +77,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="5"
         android:orientation="vertical">
 
@@ -79,8 +90,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -97,7 +108,7 @@
                     <TextView
                         android:layout_width="34dp"
                         android:layout_height="34dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/home_medicinal" />
 
                     <TextView
@@ -112,7 +123,7 @@
                     android:id="@+id/mComplaintReporting"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="2"
                     android:background="#64cbc7"
                     android:gravity="center"
@@ -121,7 +132,7 @@
                     <TextView
                         android:layout_width="34dp"
                         android:layout_height="27.5dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/home_report" />
 
                     <TextView
@@ -136,7 +147,7 @@
                     android:id="@+id/mLighthouse"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:background="#e8c347"
                     android:gravity="center"
@@ -169,7 +180,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -186,7 +197,7 @@
                     <TextView
                         android:layout_width="34dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/home_food" />
 
                     <TextView
@@ -201,7 +212,7 @@
                     android:id="@+id/mOpenGovernment"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:background="#fcae65"
                     android:gravity="center"
@@ -231,7 +242,7 @@
                     android:id="@+id/mIWantToReview"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="2"
                     android:background="#e96c9e"
                     android:gravity="center"

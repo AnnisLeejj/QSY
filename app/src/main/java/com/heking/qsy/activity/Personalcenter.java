@@ -333,7 +333,6 @@ public class Personalcenter extends BaseFragment implements OnClickListener, JSO
                         huc.setText(huancun);
                     }
                 });
-
                 builder.setPositiveButton("取消", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

@@ -25,7 +25,6 @@ import com.heking.snoa.WPConfig;
 import com.hikvision.vmsnetsdk.CameraInfo;
 import com.hikvision.vmsnetsdk.ServInfo;
 import com.hikvision.vmsnetsdk.VMSNetSDK;
-import com.hikvision.vmsnetsdk.netLayer.msp.cameraList.Camera;
 import com.lidroid.xutils.BitmapUtils;
 
 import android.content.Context;
@@ -250,12 +249,14 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
             List<Integer> recordP = new ArrayList<>();
             capability.add(2);
             LogUtils.w("shipin_adpter", AppContext.cameraInfos_hk);
-            for (Data.Monitors item : data.getMonitors()) {//获取的企业信息  只要这里有就要添加进列表
-                for (CameraInfo item2 : AppContext.cameraInfos_hk) {//之前获取的所有摄像头
-                    if (item.getModel().equals(item2.getId())) {
-                        if (item2.getId().equals(item.getModel())) {
-                            toAdd = item2;
-                            toAdd.setName(item.getName());
+            for (Data.Monitors item_dx : data.getMonitors()) {//获取的企业信息  只要这里有就要添加进列表
+                for (CameraInfo item_hk : AppContext.cameraInfos_hk) {//之前获取的所有摄像头
+                    if (item_dx.getModel().equals(item_hk.getId())) {
+                        if (item_hk.getId().equals(item_dx.getModel())) {
+                            toAdd = item_hk;
+                            toAdd.setName(item_dx.getName());
+                            cameraInfos.add(toAdd);
+                            toAdd = null;
                         }
                     }
                 }
@@ -270,8 +271,8 @@ public class BaiDuFirmTypeActivity extends BaseActivity implements ImageBitmap, 
 //                cameraInfo.setPTZControl(true);
 //                cameraInfo.setRecordPos(recordP);
 ////                LogUtils.w("shipin_add", cameraInfo);
-                cameraInfos.add(toAdd);
-                toAdd = null;
+
+
             }
             cameraInfo = null;
             AppContext.shipins_toshow = cameraInfos;

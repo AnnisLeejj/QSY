@@ -353,7 +353,7 @@ public class LiveActivity extends BaseActivity implements OnClickListener, OnChe
 
                 @Override
                 public void onPageSelected(int index) {
-showWaitDialog();
+                    showWaitDialog();
                     mLiveControl.stop();
                     mSurfaceView = (SurfaceView) surfaceViewList.get(index);
                     mSurfaceView.getHolder().addCallback(LiveActivity.this);
@@ -362,7 +362,7 @@ showWaitDialog();
                     mCameraID = cameraInfo.getId();
                     title.setText(cameraInfo.getName());
                     TempData.getIns().setCameraInfo(cameraInfo);
-                    LogUtils.w("shipin_huadong", "定位:" + index, cameraInfo);
+                    LogUtils.w("shipin_huadong", "onPageSelected:" + index, cameraInfo);
 
                     initData();
                     startBtnOnClick();
@@ -370,11 +370,12 @@ showWaitDialog();
 
                 @Override
                 public void onPageScrolled(int arg0, float arg1, int arg2) {
-
+                    //    LogUtils.w("shipin_huadong", "onPageSelected:" + arg0 +"  "+arg1+"   "+arg2);
                 }
 
                 @Override
                 public void onPageScrollStateChanged(int arg0) {
+                    LogUtils.w("shipin_huadong", "onPageScrollStateChanged:" + arg0);
                     boolean flag = false;
                     switch (arg0) {
                         case ViewPager.SCROLL_STATE_DRAGGING:
@@ -384,10 +385,14 @@ showWaitDialog();
                             flag = true;
                             break;
                         case ViewPager.SCROLL_STATE_IDLE:
-                            if (vp.getCurrentItem() == vp.getAdapter().getCount() - 1 && !flag) {
-                                showToast("已经是最后一页");
-                            } else if (vp.getCurrentItem() == 0 && !flag) {
-                                showToast("已经是第一页");
+                            if (mList.size() == 1) {
+                                showToast("只有一个摄像头可查看");
+                            } else {
+                                if (vp.getCurrentItem() == vp.getAdapter().getCount() - 1 && !flag) {
+                                    showToast("已经是最后一页");
+                                } else if (vp.getCurrentItem() == 0 && !flag) {
+                                    showToast("已经是第一页");
+                                }
                             }
                             flag = true;
                             break;
@@ -399,7 +404,7 @@ showWaitDialog();
         // int height=AppContext.ScrnParameter.screenHenight;
         // LayoutParams params=new LayoutParams(((width-130)/3)*4, width-130);
         // mSurfaceView.setLayoutParams(params);
-         cloudCtrlArea = (RelativeLayout) findViewById(R.id.cloud_area);
+        cloudCtrlArea = (RelativeLayout) findViewById(R.id.cloud_area);
         // 云台控制需要根据权限来显示
         mUserCap = new ArrayList<Integer>();
         mUserCap = cameraInfo.getUserCapability();
@@ -798,11 +803,9 @@ showWaitDialog();
                 case ConstantLive.RTSP_SUCCESS:
                     // UIUtil.showToast(LiveActivity.this, "启动取流成功");
                     break;
-
                 case ConstantLive.STOP_SUCCESS:
                     UIUtil.showToast(LiveActivity.this, "停止成功");
                     break;
-
                 case ConstantLive.START_OPEN_FAILED:
                     Log.i(Constants.LOG_TAG, "开启播放库失败");
                     // UIUtil.showToast(LiveActivity.this, "开启播放库失败");
@@ -819,7 +822,11 @@ showWaitDialog();
                     vp.setNoScroll(false);
                     if (null != mLiveControl) {
                         mLiveControl.stop();
-                        UIUtil.showToast(LiveActivity.this, "当前设备未开启！");
+                        if (cameraInfo.isOnline()) {
+                            UIUtil.showToast(LiveActivity.this, "网络状态不好，请重新加载！");
+                        } else {
+                            UIUtil.showToast(LiveActivity.this, "当前设备未开启！");
+                        }
                     }
                     break;
                 case ConstantLive.GET_OSD_TIME_FAIL:

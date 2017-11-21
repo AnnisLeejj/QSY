@@ -45,16 +45,17 @@
                 android:src="@drawable/xunjian2" />
 
             <ImageView
-                android:id="@+id/ivSixiao"
+                android:id="@+id/ivBaBayan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/view_center"
+                android:layout_below="@+id/view_center"
                 android:layout_margin="5dp"
-                android:layout_toRightOf="@+id/view_center"
+                android:layout_toLeftOf="@+id/view_center"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:src="@drawable/sixiao"
-                android:text="四小管理" />
+                android:src="@drawable/ic_bby"
+                android:text="坝坝宴" />
+
         </LinearLayout>
 
 
@@ -73,16 +74,17 @@
             android:paddingRight="10dp">
 
             <ImageView
-                android:id="@+id/ivBaBayan"
+                android:id="@+id/ivSixiao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/view_center"
+                android:layout_above="@+id/view_center"
                 android:layout_margin="5dp"
-                android:layout_toLeftOf="@+id/view_center"
+                android:layout_toRightOf="@+id/view_center"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ic_bby"
-                android:text="坝坝宴" />
+                android:src="@drawable/sixiao"
+                android:text="四小管理" />
+
 
             <ImageView
                 android:id="@+id/ivTz"

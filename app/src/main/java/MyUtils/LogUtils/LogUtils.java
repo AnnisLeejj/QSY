@@ -187,8 +187,11 @@ public class LogUtils {
             messageStr = message + "";
         } else if (message instanceof Short) {
             messageStr = message + "";
-        } else {
-            messageStr = new Gson().toJson(message);
+        } else {//Object
+            if (message == null)
+                messageStr = "null";
+            else
+                messageStr = new Gson().toJson(message);
         }
         return messageStr;
     }

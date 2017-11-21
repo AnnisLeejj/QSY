@@ -45,6 +45,7 @@ public class NavigationHandler {
             contextToStartActivity.startActivity(mIntent);
         }
     }
+
     /**
      * 启动高德App进行实时导航
      * <h3>Version</h3> 1.0
@@ -284,7 +285,7 @@ public class NavigationHandler {
 
     /**
      * 保留小数点后六位
-     *
+
      * @param num
      * @return
      */

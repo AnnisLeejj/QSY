@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/tv_dianpin"
-            android:layout_width="50dp"
+            android:layout_width="19dp"
             android:layout_height="19dp"
             android:layout_marginRight="10dp"
             android:textSize="15sp" />
@@ -34,9 +34,7 @@
             android:id="@+id/img_pingji"
             android:layout_width="19dp"
             android:layout_height="19dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/camera_unline"
-            android:visibility="gone" />
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/img_sp"

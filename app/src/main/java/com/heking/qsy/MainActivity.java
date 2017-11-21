@@ -290,7 +290,6 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
     }
 
     public void downNewApk(String url) {
-
         DownloadManager dManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
@@ -360,7 +359,6 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
         Log.d(TAG, "onAttachFragment：" + fragment.toString() + "还没有销毁掉");
-
         if (homeFragment == null && fragment instanceof HomeFragment) {
             homeFragment = (HomeFragment) fragment;
         } else if (convenienceOfService == null && fragment instanceof ForTheConvenienceOfService) {

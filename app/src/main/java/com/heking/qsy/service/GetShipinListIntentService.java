@@ -62,6 +62,10 @@ public class GetShipinListIntentService extends IntentService {
     private String servAddr = "117.173.43.121:4443";
     private String userName = "admin";
     private String password = "heking03*12";
+
+//    String servAddr = "112.35.27.91:81";
+//    String userName = "admin";
+//    String password = "Hikcmcc78++";
     private String macAddress = "";
     private ServInfo servInfo = new ServInfo();//HK的登录信息
 
@@ -74,8 +78,6 @@ public class GetShipinListIntentService extends IntentService {
             AppContext.all_camer_daxian = new Gson().fromJson(myCamer, AllCameraInfo.class);
         }
         //有没有都继续获取
-
-
         //大仙的后台数据
         getAllCamerInfo();
         //海康数据
@@ -151,7 +153,7 @@ public class GetShipinListIntentService extends IntentService {
                 // 登录请求
                 boolean ret = VMSNetSDK.getInstance().login(servAddr, userName, password, macAddress, servInfo);//保存过来的数据
                 SPUtils.init(getApplication()).put("shipinInfo", servInfo);
-                // LogUtils.w("shipin_add", "视频保存的信息:" + ret + "   " + SPUtils.init(getApplication()).getString("shipinInfo"));/// new Gson().toJson(servInfo)
+               LogUtils.w("shipin_add", "视频保存的信息:" + ret + "   " + SPUtils.init(getApplication()).getString("shipinInfo"));/// new Gson().toJson(servInfo)
                 if (servInfo != null) {
                     SPUtils.init(getApplication()).put("quanxian", servInfo);
                 }

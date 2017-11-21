@@ -76,11 +76,12 @@ public class MonitorsAdapter extends BaseAdapter {
             layout.textView.setText("-");
         } else {
             layout.textView.setText(list.get(proenat).getName());
+            if (openStatus) {//需要才显示
+                layout.mStatu.setVisibility(View.VISIBLE);
+                layout.mStatu.setBackgroundResource(list.get(proenat).isOnline() ? R.drawable.easy : R.drawable.easy_unline);
+            }
         }
-        if (openStatus) {//需要才显示
-            layout.mStatu.setVisibility(View.VISIBLE);
-            layout.mStatu.setBackgroundResource(list.get(proenat).isOnline() ? R.drawable.camera_online : R.drawable.camera_unline);
-        }
+
 //        layout.mLayout.setOnClickListener(new OnClickListener() {
 //
 //            public void onClick(View arg0) {

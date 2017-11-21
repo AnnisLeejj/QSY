@@ -45,6 +45,7 @@ public class FirmType extends Activity implements OnViewData {
     //	private AMapLocationClient mlocationClient;
 //	private AMapLocationClientOption mLocationOption = null;
     private static TextView mFiryTypes;
+    private static TextView firm_xunjian_message;
     private int intS;
     private static WaitDialog dialog;
 
@@ -70,9 +71,8 @@ public class FirmType extends Activity implements OnViewData {
         dialog.setContent("正在加载...");
         iniView();
         iniData();
-        LocationSearch();
         Log.i("FirmType", "---------sssss---------------------------");
-     //   new LogInHk(this, savedInstanceState, data);
+        //   new LogInHk(this, savedInstanceState, data);
     }
 
     public static void enddialog() {
@@ -81,78 +81,6 @@ public class FirmType extends Activity implements OnViewData {
         }
     }
 
-    private void LocationSearch() {
-//		mlocationClient = new AMapLocationClient(this);
-//		// 初始化定位参数
-//		mLocationOption = new AMapLocationClientOption();
-//		// 设置定位监听
-//		mlocationClient.setLocationListener(this);
-//		// 设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-//		mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
-//		// 设置定位间隔,单位毫秒,默认为2000ms
-//		mLocationOption.setInterval(2000);
-//		// 设置定位参数
-//		mlocationClient.setLocationOption(mLocationOption);
-//		// 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-//		// 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
-//		// 在定位结束后，在合适的生命周期调用onDestroy()方法
-//		// 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
-//		// 启动定位
-//		mlocationClient.startLocation();
-//		// PoiSearch.Query query = new PoiSearch.Query(data.getAddress(),
-//		// "地名地址信息", "犍为县");
-//		// String addstr = data.getAddress() != null ? data.getAddress()
-//		// .equals("") ? "" : data.getAddress() : "";
-//		PoiSearch.Query query = new PoiSearch.Query(data.getFirmName().trim(), "", "乐山市");
-//
-//		// keyWord表示搜索字符串，
-//		// 第二个参数表示POI搜索类型，二者选填其一，
-//		// POI搜索类型共分为以下20种：汽车服务|汽车销售|
-//		// 汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|
-//		// 住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|
-//		// 金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施
-//		// cityCode表示POI搜索区域的编码，是必须设置参数
-//
-//		query.setPageSize(100);// 设置每页最多返回多少条poiitem
-//		poiSearch = new PoiSearch(this, query);// 初始化poiSearch对象
-//		poiSearch.setOnPoiSearchListener(this);// 设置回调数据的监听器
-//		poiSearch.searchPOIAsyn();// 开始搜索
-//
-//		TextNavigation.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View arg0) {
-//				if (TextAddress.getText().toString().trim() == null
-//						|| TextAddress.getText().toString().trim().equals("")) {
-//					Toast.makeText(FirmType.this, "该企业尚未提供地址，尚不能提供导航", Toast.LENGTH_SHORT).show();
-//				} else {
-//					Intent intent = new Intent(FirmType.this, DHPoriMap.class);
-//					startActivity(intent);
-//				}
-//
-//			}
-//		});
-    }
-//
-//	@Override
-//	public void onPoiItemSearched(PoiItem arg0, int arg1) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//
-//	@Override
-//	public void onPoiSearched(PoiResult result, int arg1) {
-//
-//		ArrayList<PoiItem> list = result.getPois();
-//		if (list.size() > 0) {
-//			AppContext.BundelPoiMess.poiItem = list.get(0);
-//			TextNavigation.setVisibility(TextView.VISIBLE);
-//		}
-//	}
-//
-//	@Override
-//	public void onLocationChanged(AMapLocation aLocation) {
-//		AppContext.BundelPoiMess.toLatlng = new NaviLatLng(aLocation.getLatitude(), aLocation.getLongitude());
-//	}
 
     private void iniView() {
 
@@ -179,6 +107,7 @@ public class FirmType extends Activity implements OnViewData {
         TextMonitors = (TextView) findViewById(R.id.monitoring_name);
 
         mFiryTypes = (TextView) findViewById(R.id.firm_data_message);
+        firm_xunjian_message = (TextView) findViewById(R.id.firm_xunjian_message);
 
         TextFirmName.setText(data.getFirmName());
         TextAddress.setText(data.getAddress());
@@ -223,6 +152,7 @@ public class FirmType extends Activity implements OnViewData {
             for (int i = 0; i < AppContext.LoginUserMessage.bean.getSystemMenus().size(); i++) {
                 if (AppContext.LoginUserMessage.bean.getSystemMenus().get(i).getCode().equals("1")) {
                     mFiryTypes.setVisibility(View.VISIBLE);
+                    firm_xunjian_message.setVisibility(View.VISIBLE);
                 }
             }
         }
@@ -265,7 +195,7 @@ public class FirmType extends Activity implements OnViewData {
                 dialog.show();
             } else {
                 Monitors.setVisibility(LinearLayout.GONE);
-                enddialog();
+
             }
         }
         if (data.getFirmLicenseData() != null) {
@@ -277,6 +207,7 @@ public class FirmType extends Activity implements OnViewData {
             // License.setVisibility(LinearLayout.GONE);
             // }
         }
+        enddialog();
     }
 
     @Override

@@ -34,7 +34,6 @@ public class ViewPageAdapters extends PagerAdapter {
 //        View view=list.get(position);
         item.setBackground(context.getResources().getDrawable(list.get(position%list.size())));
         container.addView( item);
-        Log.d("测试数据:", position+"");
         return item;
     }
 

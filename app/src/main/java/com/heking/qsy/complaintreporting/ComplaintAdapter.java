@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.heking.qsy.AppContext;
 import com.heking.qsy.R;
 import com.heking.qsy.Dialog.CustomDialog;
+import com.heking.qsy.activity.FirmShow.BaiDuFirmTypeActivity;
 import com.heking.qsy.activity.FirmShow.FirmType;
 import com.heking.qsy.util.FirmTypeBean;
 import com.heking.qsy.util.Tool;
@@ -97,17 +98,17 @@ public class ComplaintAdapter extends BaseAdapter {
                 break;
             case 11:
                 layou.mTitle.setVisibility(TextView.GONE);
-                layou.mContext.setText("XXX用户的投诉/举报被药监局核实采纳,奖励XXXXXX");
+//                layou.mContext.setText("匿名用户的投诉/举报被药监局核实采纳,奖励" + list.get(porINt % list.size()).getTheComplainantReward());
+//                layou.mContext.setTextColor(Color.parseColor("#666666"));
+                if (list.get(porINt % list.size()).getComplainant() == null) {
+                    layou.mContext.setText("匿名的投诉或者举报被核实或者是采纳" + (TextUtils.isEmpty(list.get(porINt % list.size())
+                            .getTheComplainantReward()) ? "" : "," + list.get(porINt % list.size()).getTheComplainantReward()));
+                } else {
+                    layou.mContext.setText(//list.get(porINt % list.size()).getComplainant()
+                            "匿名的投诉或者举报被核实或者是采纳" + (TextUtils.isEmpty(list.get(porINt % list.size())
+                                    .getTheComplainantReward()) ? "" : "," + list.get(porINt % list.size()).getTheComplainantReward()));
                     layou.mContext.setTextColor(Color.parseColor("#666666"));
-//                if (list.get(porINt % list.size()).getComplainant() == null) {
-//                    layou.mContext.setText("匿名的投诉或者举报被核实或者是采纳" + (TextUtils.isEmpty(list.get(porINt % list.size())
-//                            .getTheComplainantReward()) ? "" : "," + list.get(porINt % list.size()).getTheComplainantReward()));
-//                } else {
-//                    layou.mContext.setText(list.get(porINt % list.size()).getComplainant()
-//                            + "的投诉或者举报被核实或者是采纳" + (TextUtils.isEmpty(list.get(porINt % list.size())
-//                            .getTheComplainantReward()) ? "" : "," + list.get(porINt % list.size()).getTheComplainantReward()));
-//                    layou.mContext.setTextColor(Color.parseColor("#666666"));
-//                }
+                }
                 layou.mManage.setVisibility(TextView.GONE);
                 layou.mState.setVisibility(TextView.GONE);
                 break;
@@ -145,14 +146,13 @@ public class ComplaintAdapter extends BaseAdapter {
 
 
                 String FirmName = list.get(porINt % list.size()).getDefendant();
-                ArrayList<FirmTypeBean.Data> firmlist = Tool.getData(firmbean
-                        .getData());
+                ArrayList<FirmTypeBean.Data> firmlist = Tool.getData(firmbean.getData());
                 FirmTypeBean.Data firmdatas = null;
                 for (FirmTypeBean.Data firmdata : firmlist) {
                     if (firmdata.getFirmName().trim().equals(FirmName)) {
-                        Intent intent = new Intent();
-                        intent.setClass(context, FirmType.class);
                         firmdatas = firmdata;
+                        Intent intent = new Intent();
+                        intent.setClass(context, BaiDuFirmTypeActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("FIRMTYPE", firmdata);
                         int State = 3333;
@@ -161,19 +161,14 @@ public class ComplaintAdapter extends BaseAdapter {
                                 .contains("餐饮经营")
                                 || firmdata.getFirmTypeName().trim()
                                 .contains("食品生产")) {
-
                             State = 2222;
-
                         }
                         bundle.putInt("State", State);
                         intent.putExtras(bundle);
                         context.startActivity(intent);
-
                     }
-
                 }
                 if (firmdatas == null) {
-
                     CustomDialog.Builder builder = new CustomDialog.Builder(context);
                     builder.setMessage("\t\t当前企业无数据。");
                     builder.setTitle("温馨提示");
@@ -196,9 +191,7 @@ public class ComplaintAdapter extends BaseAdapter {
                         }
                     });
                     dailog.show();
-
                 }
-
             }
 
 
